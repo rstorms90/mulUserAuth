@@ -29,17 +29,13 @@ class LoginResponse {
 @Resolver()
 export class UserResolver {
   @Query(() => String)
-  hello() {
-    return 'hi!';
-  }
-
-  @Query(() => String)
   @UseMiddleware(isAuth)
   protectedRoute(@Ctx() { payload }: MyContext) {
     console.log(payload);
     return `Your user id is: ${payload!.userId}`;
   }
 
+  // Query for all users
   @Query(() => [User])
   users() {
     return User.find();
@@ -63,6 +59,7 @@ export class UserResolver {
     }
   }
 
+  // Logout User
   @Mutation(() => Boolean)
   async logout(@Ctx() { res }: MyContext) {
     sendRefreshToken(res, '');
@@ -79,6 +76,7 @@ export class UserResolver {
     return true;
   }
 
+  // Login User
   @Mutation(() => LoginResponse)
   async login(
     @Arg('email') email: string,
@@ -97,8 +95,7 @@ export class UserResolver {
       throw new Error('bad password');
     }
 
-    // login successful
-
+    // Login successful
     sendRefreshToken(res, createRefreshToken(user));
 
     return {
@@ -107,6 +104,7 @@ export class UserResolver {
     };
   }
 
+  // Register User
   @Mutation(() => Boolean)
   async register(
     @Arg('email') email: string,
@@ -124,6 +122,23 @@ export class UserResolver {
       return false;
     }
 
+    return true;
+  }
+
+  // Super Admin — Remove User
+  @Mutation(() => Boolean)
+  @UseMiddleware(isAuth)
+  async removeUser(@Arg('id') id: number) {
+    try {
+      await User.delete({
+        id,
+      });
+    } catch (err) {
+      console.log(err);
+      return false;
+    }
+
+    console.log(`Admin — Removed User ID:${id}`);
     return true;
   }
 }

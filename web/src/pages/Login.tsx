@@ -9,57 +9,60 @@ export const Login: React.FC<RouteComponentProps> = ({ history }) => {
   const [login] = useLoginMutation();
 
   return (
-    <form
-      onSubmit={async (e) => {
-        e.preventDefault();
-        console.log('form submitted');
-        const response = await login({
-          variables: {
-            email,
-            password,
-          },
-          update: (store, { data }) => {
-            if (!data) {
-              return null;
-            }
-            store.writeQuery<MeQuery>({
-              query: MeDocument,
-              data: {
-                me: data.login.user,
-              },
-            });
-          },
-        });
+    <div>
+      <h1>Login</h1>
+      <form
+        onSubmit={async (e) => {
+          e.preventDefault();
+          console.log('Logged In User');
+          const response = await login({
+            variables: {
+              email,
+              password,
+            },
+            update: (store, { data }) => {
+              if (!data) {
+                return null;
+              }
+              store.writeQuery<MeQuery>({
+                query: MeDocument,
+                data: {
+                  me: data.login.user,
+                },
+              });
+            },
+          });
 
-        console.log(response);
+          console.log(response);
 
-        if (response && response.data) {
-          setAccessToken(response.data.login.accessToken);
-        }
+          if (response && response.data) {
+            setAccessToken(response.data.login.accessToken);
+          }
 
-        history.push('/');
-      }}
-    >
-      <div>
-        <input
-          value={email}
-          placeholder="email"
-          onChange={(e) => {
-            setEmail(e.target.value);
-          }}
-        />
-      </div>
-      <div>
-        <input
-          type="password"
-          value={password}
-          placeholder="password"
-          onChange={(e) => {
-            setPassword(e.target.value);
-          }}
-        />
-      </div>
-      <button type="submit">Login</button>
-    </form>
+          history.push('/');
+        }}
+      >
+        <div>
+          <input
+            value={email}
+            placeholder="email"
+            onChange={(e) => {
+              setEmail(e.target.value);
+            }}
+          />
+        </div>
+        <div>
+          <input
+            type="password"
+            value={password}
+            placeholder="password"
+            onChange={(e) => {
+              setPassword(e.target.value);
+            }}
+          />
+        </div>
+        <button type="submit">Login</button>
+      </form>
+    </div>
   );
 };

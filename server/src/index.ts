@@ -36,7 +36,7 @@ import { createAccessToken, createRefreshToken } from './auth';
       return res.send({ ok: false, accessToken: '' });
     }
 
-    // token is valid and
+    // Token is valid and
     // we can send back an access token
     const user = await User.findOne({ where: { id: payload.userId } });
 
@@ -65,6 +65,6 @@ import { createAccessToken, createRefreshToken } from './auth';
   apolloServer.applyMiddleware({ app, cors: false });
 
   app.listen(4000, () => {
-    console.log('express server started');
+    console.log('Express server started!');
   });
 })();

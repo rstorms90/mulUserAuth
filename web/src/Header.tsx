@@ -14,7 +14,7 @@ export const Header: React.FC<Props> = () => {
   if (loading) {
     body = null;
   } else if (data && data.me) {
-    body = <div>You are logged in as: {data.me.email} </div>;
+    body = <div>Logged in as: {data.me.email} </div>;
   } else {
     body = <div>Not logged in.</div>;
   }
@@ -33,6 +33,9 @@ export const Header: React.FC<Props> = () => {
         </div>
         <div>
           <Link to="/protectedroute">Protected Route</Link>
+        </div>
+        <div>
+          <Link to="/admin">Admin</Link>
         </div>
         {!loading && data && data.me && (
           <button

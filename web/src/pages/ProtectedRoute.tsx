@@ -18,12 +18,16 @@ export const ProtectedRoute: React.FC<Props> = () => {
   }
 
   if (!data) {
-    return <div>no data</div>;
+    return <div>No data</div>;
   }
 
   return (
     <div>
       <h1>Protected Page</h1>
+      <h4>For Users Only</h4>
+      <h5>I'm warning you!</h5>
+      <h6>I'm warning you...again!</h6>
+      <p>...</p>
     </div>
   );
 };

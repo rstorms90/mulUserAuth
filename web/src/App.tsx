@@ -20,7 +20,7 @@ export const App: React.FC<Props> = () => {
   }, []);
 
   if (loading) {
-    return <div>loading...</div>;
+    return <div>Loading...</div>;
   }
 
   return <Routes />;

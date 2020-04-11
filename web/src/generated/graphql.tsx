@@ -13,7 +13,6 @@ export type Scalars = {
 
 export type Query = {
    __typename?: 'Query';
-  hello: Scalars['String'];
   protectedRoute: Scalars['String'];
   users: Array<User>;
   me?: Maybe<User>;
@@ -31,6 +30,7 @@ export type Mutation = {
   revokeRefreshTokensForUser: Scalars['Boolean'];
   login: LoginResponse;
   register: Scalars['Boolean'];
+  removeUser: Scalars['Boolean'];
 };
 
 
@@ -50,19 +50,16 @@ export type MutationRegisterArgs = {
   email: Scalars['String'];
 };
 
+
+export type MutationRemoveUserArgs = {
+  id: Scalars['Float'];
+};
+
 export type LoginResponse = {
    __typename?: 'LoginResponse';
   accessToken: Scalars['String'];
   user: User;
 };
-
-export type HelloQueryVariables = {};
-
-
-export type HelloQuery = (
-  { __typename?: 'Query' }
-  & Pick<Query, 'hello'>
-);
 
 export type LoginMutationVariables = {
   email: Scalars['String'];
@@ -120,6 +117,16 @@ export type RegisterMutation = (
   & Pick<Mutation, 'register'>
 );
 
+export type RemoveUserMutationVariables = {
+  id: Scalars['Float'];
+};
+
+
+export type RemoveUserMutation = (
+  { __typename?: 'Mutation' }
+  & Pick<Mutation, 'removeUser'>
+);
+
 export type UsersQueryVariables = {};
 
 
@@ -132,36 +139,6 @@ export type UsersQuery = (
 );
 
 
-export const HelloDocument = gql`
-    query Hello {
-  hello
-}
-    `;
-
-/**
- * __useHelloQuery__
- *
- * To run a query within a React component, call `useHelloQuery` and pass it any options that fit your needs.
- * When your component renders, `useHelloQuery` returns an object from Apollo Client that contains loading, error, and data properties
- * you can use to render your UI.
- *
- * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
- *
- * @example
- * const { data, loading, error } = useHelloQuery({
- *   variables: {
- *   },
- * });
- */
-export function useHelloQuery(baseOptions?: ApolloReactHooks.QueryHookOptions<HelloQuery, HelloQueryVariables>) {
-        return ApolloReactHooks.useQuery<HelloQuery, HelloQueryVariables>(HelloDocument, baseOptions);
-      }
-export function useHelloLazyQuery(baseOptions?: ApolloReactHooks.LazyQueryHookOptions<HelloQuery, HelloQueryVariables>) {
-          return ApolloReactHooks.useLazyQuery<HelloQuery, HelloQueryVariables>(HelloDocument, baseOptions);
-        }
-export type HelloQueryHookResult = ReturnType<typeof useHelloQuery>;
-export type HelloLazyQueryHookResult = ReturnType<typeof useHelloLazyQuery>;
-export type HelloQueryResult = ApolloReactCommon.QueryResult<HelloQuery, HelloQueryVariables>;
 export const LoginDocument = gql`
     mutation Login($email: String!, $password: String!) {
   login(email: $email, password: $password) {
@@ -322,6 +299,36 @@ export function useRegisterMutation(baseOptions?: ApolloReactHooks.MutationHookO
 export type RegisterMutationHookResult = ReturnType<typeof useRegisterMutation>;
 export type RegisterMutationResult = ApolloReactCommon.MutationResult<RegisterMutation>;
 export type RegisterMutationOptions = ApolloReactCommon.BaseMutationOptions<RegisterMutation, RegisterMutationVariables>;
+export const RemoveUserDocument = gql`
+    mutation RemoveUser($id: Float!) {
+  removeUser(id: $id)
+}
+    `;
+export type RemoveUserMutationFn = ApolloReactCommon.MutationFunction<RemoveUserMutation, RemoveUserMutationVariables>;
+
+/**
+ * __useRemoveUserMutation__
+ *
+ * To run a mutation, you first call `useRemoveUserMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useRemoveUserMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [removeUserMutation, { data, loading, error }] = useRemoveUserMutation({
+ *   variables: {
+ *      id: // value for 'id'
+ *   },
+ * });
+ */
+export function useRemoveUserMutation(baseOptions?: ApolloReactHooks.MutationHookOptions<RemoveUserMutation, RemoveUserMutationVariables>) {
+        return ApolloReactHooks.useMutation<RemoveUserMutation, RemoveUserMutationVariables>(RemoveUserDocument, baseOptions);
+      }
+export type RemoveUserMutationHookResult = ReturnType<typeof useRemoveUserMutation>;
+export type RemoveUserMutationResult = ApolloReactCommon.MutationResult<RemoveUserMutation>;
+export type RemoveUserMutationOptions = ApolloReactCommon.BaseMutationOptions<RemoveUserMutation, RemoveUserMutationVariables>;
 export const UsersDocument = gql`
     query Users {
   users {

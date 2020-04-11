@@ -8,41 +8,44 @@ export const Register: React.FC<RouteComponentProps> = ({ history }) => {
   const [register] = useRegisterMutation();
 
   return (
-    <form
-      onSubmit={async (e) => {
-        e.preventDefault();
-        console.log('form submitted');
-        const response = await register({
-          variables: {
-            email,
-            password,
-          },
-        });
+    <div>
+      <h1>Register</h1>
+      <form
+        onSubmit={async (e) => {
+          e.preventDefault();
+          console.log('Registered User');
+          const response = await register({
+            variables: {
+              email,
+              password,
+            },
+          });
 
-        console.log(response);
-        history.push('/');
-      }}
-    >
-      <div>
-        <input
-          value={email}
-          placeholder="email"
-          onChange={(e) => {
-            setEmail(e.target.value);
-          }}
-        />
-      </div>
-      <div>
-        <input
-          type="password"
-          value={password}
-          placeholder="password"
-          onChange={(e) => {
-            setPassword(e.target.value);
-          }}
-        />
-      </div>
-      <button type="submit">Register</button>
-    </form>
+          console.log(response);
+          history.push('/');
+        }}
+      >
+        <div>
+          <input
+            value={email}
+            placeholder="email"
+            onChange={(e) => {
+              setEmail(e.target.value);
+            }}
+          />
+        </div>
+        <div>
+          <input
+            type="password"
+            value={password}
+            placeholder="password"
+            onChange={(e) => {
+              setPassword(e.target.value);
+            }}
+          />
+        </div>
+        <button type="submit">Register</button>
+      </form>
+    </div>
   );
 };
