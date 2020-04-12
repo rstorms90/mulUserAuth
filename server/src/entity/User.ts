@@ -1,4 +1,11 @@
-import { Entity, PrimaryGeneratedColumn, Column, BaseEntity } from 'typeorm';
+import {
+  Entity,
+  PrimaryGeneratedColumn,
+  Column,
+  CreateDateColumn,
+  UpdateDateColumn,
+  BaseEntity,
+} from 'typeorm';
 import { ObjectType, Field, Int } from 'type-graphql';
 
 @ObjectType()
@@ -25,4 +32,10 @@ export class User extends BaseEntity {
 
   @Column('int', { default: 0 })
   tokenVersion: number;
+
+  @CreateDateColumn()
+  createdAt: string;
+
+  @UpdateDateColumn({ type: 'timestamp' })
+  updatedAt: number;
 }
