@@ -22,6 +22,7 @@ export type User = {
    __typename?: 'User';
   id: Scalars['Int'];
   email: Scalars['String'];
+  username: Scalars['String'];
 };
 
 export type Mutation = {
@@ -48,6 +49,7 @@ export type MutationLoginArgs = {
 export type MutationRegisterArgs = {
   password: Scalars['String'];
   email: Scalars['String'];
+  username: Scalars['String'];
 };
 
 
@@ -107,6 +109,7 @@ export type ProtectedRouteQuery = (
 );
 
 export type RegisterMutationVariables = {
+  username: Scalars['String'];
   email: Scalars['String'];
   password: Scalars['String'];
 };
@@ -269,8 +272,8 @@ export type ProtectedRouteQueryHookResult = ReturnType<typeof useProtectedRouteQ
 export type ProtectedRouteLazyQueryHookResult = ReturnType<typeof useProtectedRouteLazyQuery>;
 export type ProtectedRouteQueryResult = ApolloReactCommon.QueryResult<ProtectedRouteQuery, ProtectedRouteQueryVariables>;
 export const RegisterDocument = gql`
-    mutation Register($email: String!, $password: String!) {
-  register(email: $email, password: $password)
+    mutation Register($username: String!, $email: String!, $password: String!) {
+  register(username: $username, email: $email, password: $password)
 }
     `;
 export type RegisterMutationFn = ApolloReactCommon.MutationFunction<RegisterMutation, RegisterMutationVariables>;
@@ -288,6 +291,7 @@ export type RegisterMutationFn = ApolloReactCommon.MutationFunction<RegisterMuta
  * @example
  * const [registerMutation, { data, loading, error }] = useRegisterMutation({
  *   variables: {
+ *      username: // value for 'username'
  *      email: // value for 'email'
  *      password: // value for 'password'
  *   },

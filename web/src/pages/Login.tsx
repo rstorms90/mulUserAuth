@@ -14,7 +14,7 @@ export const Login: React.FC<RouteComponentProps> = ({ history }) => {
       <form
         onSubmit={async (e) => {
           e.preventDefault();
-          console.log('Logged In User');
+          console.log(`Logged in as ${email}`);
           const response = await login({
             variables: {
               email,

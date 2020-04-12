@@ -4,7 +4,7 @@
   "port": 5432,
   "username": "Russ",
   "password": "postgres",
-  "database": "jwt-auth",
+  "database": "multiAuth",
   "synchronize": true,
   "logging": false,
   "entities": ["src/entity/**/*.ts"],

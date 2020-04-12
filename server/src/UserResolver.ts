@@ -31,12 +31,12 @@ export class UserResolver {
   @Query(() => String)
   @UseMiddleware(isAuth)
   protectedRoute(@Ctx() { payload }: MyContext) {
-    console.log(payload);
     return `Your user id is: ${payload!.userId}`;
   }
 
   // Query for all users
   @Query(() => [User])
+  // @UseMiddleware(isAuth)
   users() {
     return User.find();
   }
@@ -107,6 +107,7 @@ export class UserResolver {
   // Register User
   @Mutation(() => Boolean)
   async register(
+    @Arg('username') username: string,
     @Arg('email') email: string,
     @Arg('password') password: string
   ) {
@@ -114,6 +115,7 @@ export class UserResolver {
 
     try {
       await User.insert({
+        username,
         email,
         password: hashedPassword,
       });
@@ -127,7 +129,6 @@ export class UserResolver {
 
   // Super Admin — Remove User
   @Mutation(() => Boolean)
-  @UseMiddleware(isAuth)
   async removeUser(@Arg('id') id: number) {
     try {
       await User.delete({

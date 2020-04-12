@@ -3,11 +3,22 @@ import { useUsersQuery, useRemoveUserMutation } from '../generated/graphql';
 import { RouteComponentProps } from 'react-router-dom';
 
 export const Admin: React.FC<RouteComponentProps> = ({ history }) => {
-  const { data } = useUsersQuery({ fetchPolicy: 'network-only' });
+  const { data, loading, error } = useUsersQuery({
+    fetchPolicy: 'network-only',
+  });
   const [removeUser] = useRemoveUserMutation();
 
-  if (!data) {
+  if (loading) {
     return <div>Loading...</div>;
+  }
+
+  if (error) {
+    console.log(error);
+    return <div>You are not the admin — unauthenticated.</div>;
+  }
+
+  if (!data) {
+    return <div>No data</div>;
   }
 
   return (
@@ -30,7 +41,7 @@ export const Admin: React.FC<RouteComponentProps> = ({ history }) => {
 
                 if (response) {
                   history.push('/');
-                  console.log(`Removed User ID:${user.id}`);
+                  console.log(`Removed User:${user.email} ID:${user.id}`);
                 }
               }}
             >
