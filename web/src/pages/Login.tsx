@@ -4,7 +4,7 @@ import { useLoginMutation, MeDocument, MeQuery } from '../generated/graphql';
 import { setAccessToken } from '../accessToken';
 
 export const Login: React.FC<RouteComponentProps> = ({ history }) => {
-  const [email, setEmail] = useState('');
+  const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [login] = useLoginMutation();
 
@@ -14,10 +14,10 @@ export const Login: React.FC<RouteComponentProps> = ({ history }) => {
       <form
         onSubmit={async (e) => {
           e.preventDefault();
-          console.log(`Logged in as ${email}`);
+          console.log(`Logged in as ${username}`);
           const response = await login({
             variables: {
-              email,
+              username,
               password,
             },
             update: (store, { data }) => {
@@ -44,10 +44,10 @@ export const Login: React.FC<RouteComponentProps> = ({ history }) => {
       >
         <div>
           <input
-            value={email}
-            placeholder="email"
+            value={username}
+            placeholder="username"
             onChange={(e) => {
-              setEmail(e.target.value);
+              setUsername(e.target.value);
             }}
           />
         </div>

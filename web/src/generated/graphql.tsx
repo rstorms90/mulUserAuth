@@ -18,11 +18,17 @@ export type Query = {
   me?: Maybe<User>;
 };
 
+
+export type QueryUsersArgs = {
+  role: Scalars['String'];
+};
+
 export type User = {
    __typename?: 'User';
   id: Scalars['Int'];
   email: Scalars['String'];
   username: Scalars['String'];
+  role: Scalars['String'];
 };
 
 export type Mutation = {
@@ -42,7 +48,7 @@ export type MutationRevokeRefreshTokensForUserArgs = {
 
 export type MutationLoginArgs = {
   password: Scalars['String'];
-  email: Scalars['String'];
+  username: Scalars['String'];
 };
 
 
@@ -64,7 +70,7 @@ export type LoginResponse = {
 };
 
 export type LoginMutationVariables = {
-  email: Scalars['String'];
+  username: Scalars['String'];
   password: Scalars['String'];
 };
 
@@ -76,7 +82,7 @@ export type LoginMutation = (
     & Pick<LoginResponse, 'accessToken'>
     & { user: (
       { __typename?: 'User' }
-      & Pick<User, 'id' | 'email'>
+      & Pick<User, 'id' | 'username' | 'role'>
     ) }
   ) }
 );
@@ -96,7 +102,7 @@ export type MeQuery = (
   { __typename?: 'Query' }
   & { me?: Maybe<(
     { __typename?: 'User' }
-    & Pick<User, 'id' | 'email'>
+    & Pick<User, 'id' | 'username' | 'role'>
   )> }
 );
 
@@ -130,25 +136,28 @@ export type RemoveUserMutation = (
   & Pick<Mutation, 'removeUser'>
 );
 
-export type UsersQueryVariables = {};
+export type UsersQueryVariables = {
+  role: Scalars['String'];
+};
 
 
 export type UsersQuery = (
   { __typename?: 'Query' }
   & { users: Array<(
     { __typename?: 'User' }
-    & Pick<User, 'id' | 'email'>
+    & Pick<User, 'id' | 'username' | 'email' | 'role'>
   )> }
 );
 
 
 export const LoginDocument = gql`
-    mutation Login($email: String!, $password: String!) {
-  login(email: $email, password: $password) {
+    mutation Login($username: String!, $password: String!) {
+  login(username: $username, password: $password) {
     accessToken
     user {
       id
-      email
+      username
+      role
     }
   }
 }
@@ -168,7 +177,7 @@ export type LoginMutationFn = ApolloReactCommon.MutationFunction<LoginMutation, 
  * @example
  * const [loginMutation, { data, loading, error }] = useLoginMutation({
  *   variables: {
- *      email: // value for 'email'
+ *      username: // value for 'username'
  *      password: // value for 'password'
  *   },
  * });
@@ -212,7 +221,8 @@ export const MeDocument = gql`
     query Me {
   me {
     id
-    email
+    username
+    role
   }
 }
     `;
@@ -334,10 +344,12 @@ export type RemoveUserMutationHookResult = ReturnType<typeof useRemoveUserMutati
 export type RemoveUserMutationResult = ApolloReactCommon.MutationResult<RemoveUserMutation>;
 export type RemoveUserMutationOptions = ApolloReactCommon.BaseMutationOptions<RemoveUserMutation, RemoveUserMutationVariables>;
 export const UsersDocument = gql`
-    query Users {
-  users {
+    query Users($role: String!) {
+  users(role: $role) {
     id
+    username
     email
+    role
   }
 }
     `;
@@ -354,6 +366,7 @@ export const UsersDocument = gql`
  * @example
  * const { data, loading, error } = useUsersQuery({
  *   variables: {
+ *      role: // value for 'role'
  *   },
  * });
  */

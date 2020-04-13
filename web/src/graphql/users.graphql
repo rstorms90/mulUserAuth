@@ -1,6 +1,8 @@
-query Users {
-  users {
+query Users($role: String!) {
+  users(role: $role) {
     id
+    username
     email
+    role
   }
 }

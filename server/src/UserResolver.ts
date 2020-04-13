@@ -37,8 +37,12 @@ export class UserResolver {
   // Query for all users
   @Query(() => [User])
   // @UseMiddleware(isAuth)
-  users() {
-    return User.find();
+  async users(@Arg('role') role: string) {
+    if (role !== 'admin') {
+      throw new Error('Unauthenticated');
+    } else {
+      return User.find();
+    }
   }
 
   @Query(() => User, { nullable: true })
@@ -79,11 +83,11 @@ export class UserResolver {
   // Login User
   @Mutation(() => LoginResponse)
   async login(
-    @Arg('email') email: string,
+    @Arg('username') username: string,
     @Arg('password') password: string,
     @Ctx() { res }: MyContext
   ): Promise<LoginResponse> {
-    const user = await User.findOne({ where: { email } });
+    const user = await User.findOne({ where: { username } });
 
     if (!user) {
       throw new Error('could not find user');
