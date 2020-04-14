@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
 import { RouteComponentProps } from 'react-router-dom';
-import { useLoginMutation, MeDocument, MeQuery } from '../generated/graphql';
-import { setAccessToken } from '../accessToken';
+import { useLoginMutation, MeDocument, MeQuery } from '../../generated/graphql';
+import { setAccessToken } from '../../accessToken';
+
+import './Login.css';
 
 export const Login: React.FC<RouteComponentProps> = ({ history }) => {
   const [username, setUsername] = useState('');
@@ -9,9 +11,10 @@ export const Login: React.FC<RouteComponentProps> = ({ history }) => {
   const [login] = useLoginMutation();
 
   return (
-    <div>
+    <div className="Login">
       <h1>Login</h1>
       <form
+        className="login-form"
         onSubmit={async (e) => {
           e.preventDefault();
           console.log(`Logged in as ${username}`);
@@ -42,26 +45,26 @@ export const Login: React.FC<RouteComponentProps> = ({ history }) => {
           history.push('/');
         }}
       >
-        <div>
+        <div className="login-inputs-container">
           <input
             value={username}
-            placeholder="username"
+            placeholder="Username"
             onChange={(e) => {
               setUsername(e.target.value);
             }}
           />
-        </div>
-        <div>
           <input
             type="password"
             value={password}
-            placeholder="password"
+            placeholder="Password"
             onChange={(e) => {
               setPassword(e.target.value);
             }}
           />
         </div>
-        <button type="submit">Login</button>
+        <button className="commonBtn" type="submit">
+          Login
+        </button>
       </form>
     </div>
   );

@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { useProtectedRouteQuery } from '../generated/graphql';
 
 interface Props {}
@@ -8,26 +9,33 @@ export const ProtectedRoute: React.FC<Props> = () => {
     fetchPolicy: 'network-only',
   });
 
+  let body: any = null;
+
   if (loading) {
-    return <div>Loading...</div>;
+    body = <div>Loading...</div>;
   }
 
   if (error) {
     console.log(error);
-    return <div>Must login to view page.</div>;
+    body = <div>{error}</div>;
   }
 
   if (!data) {
-    return <div>No data</div>;
+    body = (
+      <div>
+        Must{' '}
+        <Link className="link" to="/login">
+          Login
+        </Link>{' '}
+        to view page.
+      </div>
+    );
   }
 
   return (
     <div className="page">
       <h1 className="page-title">Forum</h1>
-      <h4>For Users Only</h4>
-      <h5>I'm warning you!</h5>
-      <h6>I'm warning you...again!</h6>
-      <p>...</p>
+      {body}
     </div>
   );
 };

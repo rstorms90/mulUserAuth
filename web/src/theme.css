@@ -1,3 +1,8 @@
+.link {
+  text-decoration: none;
+  color: #00db1d;
+}
+
 .commonBtn {
   color: #ffffff;
   font-size: 1em;
@@ -14,7 +19,7 @@
   display: block;
   width: 100%;
   height: 100%;
-  background: #00570c;
+  background: #2fb3ff;
   position: absolute;
   top: 0;
   left: 0;
@@ -47,9 +52,109 @@
   background-color: transparent;
 }
 
+.secondaryBtn {
+  color: #ffffff;
+  font-size: 1em;
+  border: none;
+  position: relative;
+  overflow: hidden;
+  z-index: 1;
+  padding: 5px 10px;
+  margin: 0 15px;
+  cursor: pointer;
+}
+
+.secondaryBtn:before {
+  content: '';
+  display: block;
+  width: 100%;
+  height: 100%;
+  background: #ff0000;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: -1;
+  padding: 5px 10px;
+  cursor: pointer;
+}
+
+.secondaryBtn:after {
+  content: '';
+  display: block;
+  width: 120px;
+  height: 35px;
+  background: rgba(46, 131, 156, 0.15);
+  position: absolute;
+  right: -6px;
+  top: 29px;
+  transition: top 0.5s;
+  z-index: -1;
+  cursor: pointer;
+}
+
+.secondaryBtn:hover:after {
+  cursor: pointer;
+  top: -5px;
+  cursor: pointer;
+}
+
+.secondaryBtn:focus {
+  background-color: transparent;
+}
+
+.tirtiaryBtn {
+  color: #ffffff;
+  font-size: 1em;
+  border: none;
+  position: relative;
+  overflow: hidden;
+  z-index: 1;
+  padding: 5px 10px;
+  margin: 0 15px;
+  cursor: pointer;
+}
+
+.tirtiaryBtn:before {
+  content: '';
+  display: block;
+  width: 100%;
+  height: 100%;
+  background: goldenrod;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: -1;
+  padding: 5px 10px;
+  cursor: pointer;
+}
+
+.tirtiaryBtn:after {
+  content: '';
+  display: block;
+  width: 120px;
+  height: 35px;
+  background: rgba(46, 131, 156, 0.15);
+  position: absolute;
+  right: -6px;
+  top: 29px;
+  transition: top 0.5s;
+  z-index: -1;
+  cursor: pointer;
+}
+
+.tirtiaryBtn:hover:after {
+  cursor: pointer;
+  top: -5px;
+  cursor: pointer;
+}
+
+.tirtiaryBtn:focus {
+  background-color: transparent;
+}
+
 .page {
   padding: 50px 10vw;
 }
 .page-title {
-  color: orange;
+  color: #2fb3ff;
 }

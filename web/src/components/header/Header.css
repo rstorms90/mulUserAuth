@@ -18,7 +18,7 @@
   transition: color 0.5s ease;
 }
 .nav-link-container a:hover {
-  color: #00db1d;
+  color: #2fb3ff;
 }
 .nav-link {
   padding: 5px 0;
@@ -33,7 +33,7 @@
   align-items: center;
 }
 .loggedInUsername {
-  color: #00db1d;
+  color: #2fb3ff;
   font-size: 1.3em;
   padding: 0 10px;
 }

@@ -1,0 +1,27 @@
+ul li {
+  list-style: none;
+  border: 1px solid #ffffff;
+  padding: 0 5px;
+  margin: 5px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.user-info {
+}
+.user-id {
+  color: gold;
+}
+.user-username {
+  color: #2fb3ff;
+  font-size: 1.3em;
+}
+.user-role {
+  text-transform: uppercase;
+}
+
+.admin-btns-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

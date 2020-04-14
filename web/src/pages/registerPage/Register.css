@@ -1,0 +1,16 @@
+.Register {
+  text-align: center;
+}
+
+.register-form {
+  width: 350px;
+  margin: 0 auto;
+}
+.register-form .commonBtn {
+  margin: 20px;
+}
+
+.register-inputs-container {
+  display: flex;
+  flex-direction: column;
+}

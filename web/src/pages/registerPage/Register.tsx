@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
-import { useRegisterMutation } from '../generated/graphql';
+import { useRegisterMutation } from '../../generated/graphql';
 import { RouteComponentProps } from 'react-router-dom';
+
+import './Register.css';
 
 export const Register: React.FC<RouteComponentProps> = ({ history }) => {
   const [username, setUsername] = useState('');
@@ -9,9 +11,10 @@ export const Register: React.FC<RouteComponentProps> = ({ history }) => {
   const [register] = useRegisterMutation();
 
   return (
-    <div>
+    <div className="Register">
       <h1>Sign Up</h1>
       <form
+        className="register-form"
         onSubmit={async (e) => {
           e.preventDefault();
           console.log('Registered User');
@@ -27,33 +30,33 @@ export const Register: React.FC<RouteComponentProps> = ({ history }) => {
           history.push('/');
         }}
       >
-        <div>
+        <div className="register-inputs-container">
           <input
             value={username}
-            placeholder="username"
+            placeholder="Username"
             onChange={(e) => {
               setUsername(e.target.value);
             }}
           />
           <input
             value={email}
-            placeholder="email"
+            placeholder="Email"
             onChange={(e) => {
               setEmail(e.target.value);
             }}
           />
-        </div>
-        <div>
           <input
             type="password"
             value={password}
-            placeholder="password"
+            placeholder="Password"
             onChange={(e) => {
               setPassword(e.target.value);
             }}
           />
         </div>
-        <button type="submit">Register</button>
+        <button className="commonBtn" type="submit">
+          Register
+        </button>
       </form>
     </div>
   );

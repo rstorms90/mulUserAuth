@@ -1,6 +1,6 @@
 import React from 'react';
 import { useMeQuery } from '../generated/graphql';
-import { UserList } from '../components/UserList';
+import { UserList } from '../components/userList/UserList';
 
 interface Props {}
 

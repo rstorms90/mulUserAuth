@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { ApolloProvider } from '@apollo/react-hooks';
 import { getAccessToken, setAccessToken } from './accessToken';
-import { App } from './components/App';
+import { App } from './components/app/App';
 import { ApolloClient } from 'apollo-client';
 import { InMemoryCache } from 'apollo-cache-inmemory';
 import { HttpLink } from 'apollo-link-http';

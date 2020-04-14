@@ -52,9 +52,12 @@ export const Header: React.FC<Props> = () => {
         <div className="nav-link">
           <Link to="/protectedroute">Forum</Link>
         </div>
-        <div className="nav-link">
-          <Link to="/admin">Admin</Link>
-        </div>
+        {user && user.role === 'admin' && (
+          <div className="nav-link">
+            <Link to="/admin">Admin</Link>
+          </div>
+        )}
+
         {user ? null : (
           <div className="register-login-container">
             <div className="nav-link">

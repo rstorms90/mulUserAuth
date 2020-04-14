@@ -5,11 +5,13 @@ import {
   CreateDateColumn,
   UpdateDateColumn,
   BaseEntity,
+  Unique,
 } from 'typeorm';
 import { ObjectType, Field, Int } from 'type-graphql';
 
 @ObjectType()
 @Entity('users')
+@Unique(['email', 'username'])
 export class User extends BaseEntity {
   @Field(() => Int)
   @PrimaryGeneratedColumn()

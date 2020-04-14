@@ -1,0 +1,16 @@
+.Login {
+  text-align: center;
+}
+
+.login-form {
+  width: 350px;
+  margin: 0 auto;
+}
+.login-form .commonBtn {
+  margin: 20px;
+}
+
+.login-inputs-container {
+  display: flex;
+  flex-direction: column;
+}
