@@ -1,13 +1,15 @@
 import React from 'react';
 import { useUsersQuery, useRemoveUserMutation } from './generated/graphql';
 
-interface Props {}
+interface Props {
+  myRole: string;
+}
 
-export const UserList: React.FC<Props> = () => {
+export const UserList: React.FC<Props> = ({ myRole }) => {
   const { data, loading, error } = useUsersQuery({
     fetchPolicy: 'network-only',
     variables: {
-      role: 'admin',
+      role: myRole,
     },
   });
 
@@ -58,4 +60,8 @@ export const UserList: React.FC<Props> = () => {
       </ul>
     </div>
   );
+};
+
+UserList.defaultProps = {
+  myRole: '',
 };

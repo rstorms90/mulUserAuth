@@ -22,7 +22,7 @@ export const Admin: React.FC<Props> = () => {
   }
 
   if (data && data.me?.role === 'admin') {
-    adminData = <UserList />;
+    adminData = <UserList myRole={data.me?.role} />;
   }
 
   return <div>{adminData}</div>;
