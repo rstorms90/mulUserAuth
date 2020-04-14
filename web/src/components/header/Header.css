@@ -1,0 +1,44 @@
+.header {
+  background-color: rgb(66, 66, 66);
+  padding: 15px;
+  color: #ffffff;
+}
+
+.nav-link-container {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  padding: 20px;
+}
+.nav-link-container a {
+  text-decoration: none;
+  text-transform: uppercase;
+  color: white;
+  font-size: 1.1em;
+  transition: color 0.5s ease;
+}
+.nav-link-container a:hover {
+  color: #00db1d;
+}
+.nav-link {
+  padding: 5px 0;
+}
+
+.register-login-container {
+}
+
+.loggedInInfo {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+.loggedInUsername {
+  color: #00db1d;
+  font-size: 1.3em;
+  padding: 0 10px;
+}
+
+.logout-btn-container {
+  justify-content: flex-end;
+  display: flex;
+}

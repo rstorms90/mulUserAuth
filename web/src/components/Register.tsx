@@ -10,7 +10,7 @@ export const Register: React.FC<RouteComponentProps> = ({ history }) => {
 
   return (
     <div>
-      <h1>Register</h1>
+      <h1>Sign Up</h1>
       <form
         onSubmit={async (e) => {
           e.preventDefault();

@@ -4,8 +4,8 @@ interface Props {}
 
 export const Home: React.FC<Props> = () => {
   return (
-    <div>
-      <h1>Homepage — Welcome!</h1>
+    <div className="page">
+      <h1 className="page-title">Homepage — Welcome!</h1>
     </div>
   );
 };

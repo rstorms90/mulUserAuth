@@ -1,0 +1,55 @@
+.commonBtn {
+  color: #ffffff;
+  font-size: 1em;
+  border: none;
+  position: relative;
+  overflow: hidden;
+  z-index: 1;
+  padding: 5px 10px;
+  cursor: pointer;
+}
+
+.commonBtn:before {
+  content: '';
+  display: block;
+  width: 100%;
+  height: 100%;
+  background: #00570c;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: -1;
+  padding: 5px 10px;
+  cursor: pointer;
+}
+
+.commonBtn:after {
+  content: '';
+  display: block;
+  width: 100px;
+  height: 50px;
+  background: rgba(46, 131, 156, 0.15);
+  position: absolute;
+  right: -12px;
+  top: 28px;
+  transition: top 0.5s;
+  z-index: -1;
+  cursor: pointer;
+}
+
+.commonBtn:hover:after {
+  cursor: pointer;
+  top: -5px;
+  cursor: pointer;
+}
+
+.commonBtn:focus {
+  background-color: transparent;
+}
+
+.page {
+  padding: 50px 10vw;
+}
+.page-title {
+  color: orange;
+}

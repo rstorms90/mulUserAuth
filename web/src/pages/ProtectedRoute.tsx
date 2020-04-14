@@ -22,8 +22,8 @@ export const ProtectedRoute: React.FC<Props> = () => {
   }
 
   return (
-    <div>
-      <h1>Protected Page</h1>
+    <div className="page">
+      <h1 className="page-title">Forum</h1>
       <h4>For Users Only</h4>
       <h5>I'm warning you!</h5>
       <h6>I'm warning you...again!</h6>

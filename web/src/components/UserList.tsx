@@ -1,5 +1,5 @@
 import React from 'react';
-import { useUsersQuery, useRemoveUserMutation } from './generated/graphql';
+import { useUsersQuery, useRemoveUserMutation } from '../generated/graphql';
 
 interface Props {
   myRole: string;
@@ -30,7 +30,6 @@ export const UserList: React.FC<Props> = ({ myRole }) => {
 
   return (
     <div>
-      <h1>Admin Page</h1>
       <div>Users:</div>
 
       <ul>

@@ -1,11 +1,11 @@
 import React from 'react';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import { Home } from './pages/Home';
-import { Register } from './pages/Register';
+import { Register } from './components/Register';
 import { Login } from './pages/Login';
 import { Admin } from './pages/Admin';
 import { ProtectedRoute } from './pages/ProtectedRoute';
-import { Header } from './Header';
+import { Header } from './components/header/Header';
 
 export const Routes: React.FC = () => {
   return (
