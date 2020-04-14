@@ -11,7 +11,8 @@ import { ObjectType, Field, Int } from 'type-graphql';
 
 @ObjectType()
 @Entity('users')
-@Unique(['email', 'username'])
+@Unique(['username'])
+@Unique(['email'])
 export class User extends BaseEntity {
   @Field(() => Int)
   @PrimaryGeneratedColumn()

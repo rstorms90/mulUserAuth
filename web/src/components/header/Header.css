@@ -1,5 +1,5 @@
 .header {
-  background-color: rgb(66, 66, 66);
+  background-color: #181818;
   padding: 15px;
   color: #ffffff;
 }
@@ -22,9 +22,6 @@
 }
 .nav-link {
   padding: 5px 0;
-}
-
-.register-login-container {
 }
 
 .loggedInInfo {

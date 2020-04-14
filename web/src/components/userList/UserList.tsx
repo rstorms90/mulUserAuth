@@ -65,9 +65,7 @@ export const UserList: React.FC<Props> = ({ myRole }) => {
                     });
 
                     if (response) {
-                      console.log(
-                        `Removed User:${user.username} ID:${user.id}`
-                      );
+                      alert(`Removed User:${user.username} ID:${user.id}`);
                     }
                   }}
                 >

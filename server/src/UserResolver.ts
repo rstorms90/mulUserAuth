@@ -36,7 +36,7 @@ export class UserResolver {
 
   // Query for all users
   @Query(() => [User])
-  // @UseMiddleware(isAuth)
+  @UseMiddleware(isAuth)
   async users(@Arg('role') role: string) {
     if (role !== 'admin') {
       throw new Error('Unauthenticated');

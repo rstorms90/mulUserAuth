@@ -26,8 +26,10 @@ export const Register: React.FC<RouteComponentProps> = ({ history }) => {
             },
           });
 
-          console.log(response);
-          history.push('/');
+          if (response.data?.register === false) {
+            alert('E-mail or username being used. Choose another.');
+          }
+          history.push('/login');
         }}
       >
         <div className="register-inputs-container">
