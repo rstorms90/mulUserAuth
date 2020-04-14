@@ -50,7 +50,7 @@ export const Header: React.FC<Props> = () => {
           <Link to="/">Home</Link>
         </div>
         <div className="nav-link">
-          <Link to="/protectedroute">Forum</Link>
+          <Link to="/forum">Forum</Link>
         </div>
         {user && user.role === 'admin' && (
           <div className="nav-link">

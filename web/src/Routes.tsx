@@ -4,7 +4,7 @@ import { Home } from './pages/Home';
 import { Register } from './pages/registerPage/Register';
 import { Login } from './pages/loginPage/Login';
 import { Admin } from './pages/Admin';
-import { ProtectedRoute } from './pages/ProtectedRoute';
+import { Forum } from './pages/Forum';
 import { Header } from './components/header/Header';
 
 export const Routes: React.FC = () => {
@@ -16,7 +16,7 @@ export const Routes: React.FC = () => {
           <Route exact path="/" component={Home} />
           <Route exact path="/register" component={Register} />
           <Route exact path="/login" component={Login} />
-          <Route exact path="/protectedRoute" component={ProtectedRoute} />
+          <Route exact path="/forum" component={Forum} />
           <Route exact path="/admin" component={Admin} />
         </Switch>
       </div>

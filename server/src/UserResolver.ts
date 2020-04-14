@@ -30,7 +30,7 @@ class LoginResponse {
 export class UserResolver {
   @Query(() => String)
   @UseMiddleware(isAuth)
-  protectedRoute(@Ctx() { payload }: MyContext) {
+  forum(@Ctx() { payload }: MyContext) {
     return `Your user id is: ${payload!.userId}`;
   }
 

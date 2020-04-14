@@ -13,7 +13,7 @@ export type Scalars = {
 
 export type Query = {
    __typename?: 'Query';
-  protectedRoute: Scalars['String'];
+  forum: Scalars['String'];
   users: Array<User>;
   me?: Maybe<User>;
 };
@@ -69,6 +69,14 @@ export type LoginResponse = {
   user: User;
 };
 
+export type ForumQueryVariables = {};
+
+
+export type ForumQuery = (
+  { __typename?: 'Query' }
+  & Pick<Query, 'forum'>
+);
+
 export type LoginMutationVariables = {
   username: Scalars['String'];
   password: Scalars['String'];
@@ -104,14 +112,6 @@ export type MeQuery = (
     { __typename?: 'User' }
     & Pick<User, 'id' | 'username' | 'role'>
   )> }
-);
-
-export type ProtectedRouteQueryVariables = {};
-
-
-export type ProtectedRouteQuery = (
-  { __typename?: 'Query' }
-  & Pick<Query, 'protectedRoute'>
 );
 
 export type RegisterMutationVariables = {
@@ -150,6 +150,36 @@ export type UsersQuery = (
 );
 
 
+export const ForumDocument = gql`
+    query Forum {
+  forum
+}
+    `;
+
+/**
+ * __useForumQuery__
+ *
+ * To run a query within a React component, call `useForumQuery` and pass it any options that fit your needs.
+ * When your component renders, `useForumQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useForumQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useForumQuery(baseOptions?: ApolloReactHooks.QueryHookOptions<ForumQuery, ForumQueryVariables>) {
+        return ApolloReactHooks.useQuery<ForumQuery, ForumQueryVariables>(ForumDocument, baseOptions);
+      }
+export function useForumLazyQuery(baseOptions?: ApolloReactHooks.LazyQueryHookOptions<ForumQuery, ForumQueryVariables>) {
+          return ApolloReactHooks.useLazyQuery<ForumQuery, ForumQueryVariables>(ForumDocument, baseOptions);
+        }
+export type ForumQueryHookResult = ReturnType<typeof useForumQuery>;
+export type ForumLazyQueryHookResult = ReturnType<typeof useForumLazyQuery>;
+export type ForumQueryResult = ApolloReactCommon.QueryResult<ForumQuery, ForumQueryVariables>;
 export const LoginDocument = gql`
     mutation Login($username: String!, $password: String!) {
   login(username: $username, password: $password) {
@@ -251,36 +281,6 @@ export function useMeLazyQuery(baseOptions?: ApolloReactHooks.LazyQueryHookOptio
 export type MeQueryHookResult = ReturnType<typeof useMeQuery>;
 export type MeLazyQueryHookResult = ReturnType<typeof useMeLazyQuery>;
 export type MeQueryResult = ApolloReactCommon.QueryResult<MeQuery, MeQueryVariables>;
-export const ProtectedRouteDocument = gql`
-    query ProtectedRoute {
-  protectedRoute
-}
-    `;
-
-/**
- * __useProtectedRouteQuery__
- *
- * To run a query within a React component, call `useProtectedRouteQuery` and pass it any options that fit your needs.
- * When your component renders, `useProtectedRouteQuery` returns an object from Apollo Client that contains loading, error, and data properties
- * you can use to render your UI.
- *
- * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
- *
- * @example
- * const { data, loading, error } = useProtectedRouteQuery({
- *   variables: {
- *   },
- * });
- */
-export function useProtectedRouteQuery(baseOptions?: ApolloReactHooks.QueryHookOptions<ProtectedRouteQuery, ProtectedRouteQueryVariables>) {
-        return ApolloReactHooks.useQuery<ProtectedRouteQuery, ProtectedRouteQueryVariables>(ProtectedRouteDocument, baseOptions);
-      }
-export function useProtectedRouteLazyQuery(baseOptions?: ApolloReactHooks.LazyQueryHookOptions<ProtectedRouteQuery, ProtectedRouteQueryVariables>) {
-          return ApolloReactHooks.useLazyQuery<ProtectedRouteQuery, ProtectedRouteQueryVariables>(ProtectedRouteDocument, baseOptions);
-        }
-export type ProtectedRouteQueryHookResult = ReturnType<typeof useProtectedRouteQuery>;
-export type ProtectedRouteLazyQueryHookResult = ReturnType<typeof useProtectedRouteLazyQuery>;
-export type ProtectedRouteQueryResult = ApolloReactCommon.QueryResult<ProtectedRouteQuery, ProtectedRouteQueryVariables>;
 export const RegisterDocument = gql`
     mutation Register($username: String!, $email: String!, $password: String!) {
   register(username: $username, email: $email, password: $password)

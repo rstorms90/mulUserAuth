@@ -17,7 +17,7 @@ export const Login: React.FC<RouteComponentProps> = ({ history }) => {
         className="login-form"
         onSubmit={async (e) => {
           e.preventDefault();
-          console.log(`Logged in as ${username}`);
+
           const response = await login({
             variables: {
               username,
@@ -35,8 +35,6 @@ export const Login: React.FC<RouteComponentProps> = ({ history }) => {
               });
             },
           });
-
-          console.log(response);
 
           if (response && response.data) {
             setAccessToken(response.data.login.accessToken);

@@ -1,11 +1,11 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { useProtectedRouteQuery } from '../generated/graphql';
+import { useForumQuery } from '../generated/graphql';
 
 interface Props {}
 
-export const ProtectedRoute: React.FC<Props> = () => {
-  const { data, loading, error } = useProtectedRouteQuery({
+export const Forum: React.FC<Props> = () => {
+  const { data, loading, error } = useForumQuery({
     fetchPolicy: 'network-only',
   });
 
@@ -30,6 +30,10 @@ export const ProtectedRoute: React.FC<Props> = () => {
         to view page.
       </div>
     );
+  }
+
+  if (data) {
+    body = <div>Forum content</div>;
   }
 
   return (
