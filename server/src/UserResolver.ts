@@ -96,13 +96,13 @@ export class UserResolver {
     const user = await User.findOne({ where: { username } });
 
     if (!user) {
-      throw new Error('Could not find user.');
+      throw new Error('User: User not found.');
     }
 
     const valid = await compare(password, user.password);
 
     if (!valid) {
-      throw new Error('Bad password.');
+      throw new Error('User: Wrong password.');
     }
 
     // Login successful

@@ -91,8 +91,14 @@ const client = new ApolloClient({
             `[GraphQL error]: Message: ${message}, Location: ${locations}, Path: ${path}`
           );
 
-          if (message) {
-            console.log(message);
+          if (message.includes('User:')) {
+            const clientErr = message.slice(6);
+            if (clientErr.includes('Wrong password.')) {
+              window.location.replace(`http://localhost:3000/nopass/`);
+            }
+            if (clientErr.includes('User not found.')) {
+              window.location.replace(`http://localhost:3000/nouser/`);
+            }
           }
         });
 

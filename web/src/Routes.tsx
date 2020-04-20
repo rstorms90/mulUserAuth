@@ -5,7 +5,12 @@ import { Register } from './pages/registerPage/Register';
 import { Login } from './pages/loginPage/Login';
 import { Admin } from './pages/Admin';
 import { Forum } from './pages/Forum';
-import { Unauthenticated } from './pages/Unauthenticated';
+
+// Error pages
+import { NoUser } from './pages/errorPages/NoUser';
+import { NoPass } from './pages/errorPages/NoPass';
+
+// Components
 import Header from './components/header/Header';
 
 export const Routes: React.FC = () => {
@@ -18,7 +23,8 @@ export const Routes: React.FC = () => {
         <Route exact path="/login" component={Login} />
         <Route exact path="/forum" component={Forum} />
         <Route exact path="/admin" component={Admin} />
-        <Route exact path="/unauthenticated" component={Unauthenticated} />
+        <Route exact path="/nouser" component={NoUser} />
+        <Route exact path="/nopass" component={NoPass} />
       </Switch>
     </div>
   );
