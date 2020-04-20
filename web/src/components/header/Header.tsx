@@ -1,14 +1,12 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, RouteComponentProps, withRouter } from 'react-router-dom';
 import { useMeQuery, useLogoutMutation } from '../../generated/graphql';
 import { setAccessToken } from '../../accessToken';
 
 import './Header.css';
 import '../../theme.css';
 
-interface Props {}
-
-export const Header: React.FC<Props> = () => {
+const Header: React.FC<RouteComponentProps> = ({ history }) => {
   const { data, loading } = useMeQuery();
   const [logout, { client }] = useLogoutMutation();
 
@@ -36,6 +34,7 @@ export const Header: React.FC<Props> = () => {
             className="commonBtn"
             onClick={async () => {
               await logout();
+              history.push('/');
               setAccessToken('');
               await client!.resetStore();
             }}
@@ -72,3 +71,5 @@ export const Header: React.FC<Props> = () => {
     </header>
   );
 };
+
+export default withRouter(Header);

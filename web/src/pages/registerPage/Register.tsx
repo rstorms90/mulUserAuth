@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useRegisterMutation } from '../../generated/graphql';
 import { RouteComponentProps } from 'react-router-dom';
+import { FormGroup, TextField } from '@material-ui/core';
 
 import './Register.css';
 
@@ -33,28 +34,37 @@ export const Register: React.FC<RouteComponentProps> = ({ history }) => {
         }}
       >
         <div className="register-inputs-container">
-          <input
-            value={username}
-            placeholder="Username"
-            onChange={(e) => {
-              setUsername(e.target.value);
-            }}
-          />
-          <input
-            value={email}
-            placeholder="Email"
-            onChange={(e) => {
-              setEmail(e.target.value);
-            }}
-          />
-          <input
-            type="password"
-            value={password}
-            placeholder="Password"
-            onChange={(e) => {
-              setPassword(e.target.value);
-            }}
-          />
+          <FormGroup>
+            <TextField
+              label="Username"
+              variant="filled"
+              value={username}
+              onChange={(e) => {
+                setUsername(e.target.value);
+              }}
+              required
+            />
+            <TextField
+              label="Email"
+              type="email"
+              variant="filled"
+              value={email}
+              onChange={(e) => {
+                setEmail(e.target.value);
+              }}
+              required
+            />
+            <TextField
+              label="Password"
+              type="password"
+              variant="filled"
+              value={password}
+              onChange={(e) => {
+                setPassword(e.target.value);
+              }}
+              required
+            />
+          </FormGroup>
         </div>
         <button className="commonBtn" type="submit">
           Register

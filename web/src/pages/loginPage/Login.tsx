@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { RouteComponentProps } from 'react-router-dom';
 import { useLoginMutation, MeDocument, MeQuery } from '../../generated/graphql';
 import { setAccessToken } from '../../accessToken';
+import { FormGroup, TextField } from '@material-ui/core';
 
 import './Login.css';
 
@@ -44,21 +45,27 @@ export const Login: React.FC<RouteComponentProps> = ({ history }) => {
         }}
       >
         <div className="login-inputs-container">
-          <input
-            value={username}
-            placeholder="Username"
-            onChange={(e) => {
-              setUsername(e.target.value);
-            }}
-          />
-          <input
-            type="password"
-            value={password}
-            placeholder="Password"
-            onChange={(e) => {
-              setPassword(e.target.value);
-            }}
-          />
+          <FormGroup>
+            <TextField
+              label="Username"
+              variant="filled"
+              value={username}
+              onChange={(e) => {
+                setUsername(e.target.value);
+              }}
+              required
+            />
+            <TextField
+              label="Password"
+              type="password"
+              variant="filled"
+              value={password}
+              onChange={(e) => {
+                setPassword(e.target.value);
+              }}
+              required
+            />
+          </FormGroup>
         </div>
         <button className="commonBtn" type="submit">
           Login

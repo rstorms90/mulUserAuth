@@ -3,6 +3,10 @@
   color: #00db1d;
 }
 
+.MuiFormGroup-root {
+  background-color: #ffffff;
+}
+
 .commonBtn {
   color: #ffffff;
   font-size: 1em;
