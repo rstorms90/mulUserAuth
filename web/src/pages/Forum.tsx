@@ -23,10 +23,10 @@ export const Forum: React.FC<Props> = () => {
   if (!data) {
     body = (
       <div>
-        Must{' '}
+        Must
         <Link className="link" to="/login">
           Login
-        </Link>{' '}
+        </Link>
         to view page.
       </div>
     );

@@ -63,51 +63,6 @@ export class UserResolver {
     }
   }
 
-  // Logout User
-  @Mutation(() => Boolean)
-  async logout(@Ctx() { res }: MyContext) {
-    sendRefreshToken(res, '');
-
-    return true;
-  }
-
-  @Mutation(() => Boolean)
-  async revokeRefreshTokensForUser(@Arg('userId', () => Int) userId: number) {
-    await getConnection()
-      .getRepository(User)
-      .increment({ id: userId }, 'tokenVersion', 1);
-
-    return true;
-  }
-
-  // Login User
-  @Mutation(() => LoginResponse)
-  async login(
-    @Arg('username') username: string,
-    @Arg('password') password: string,
-    @Ctx() { res }: MyContext
-  ): Promise<LoginResponse> {
-    const user = await User.findOne({ where: { username } });
-
-    if (!user) {
-      throw new Error('could not find user');
-    }
-
-    const valid = await compare(password, user.password);
-
-    if (!valid) {
-      throw new Error('bad password');
-    }
-
-    // Login successful
-    sendRefreshToken(res, createRefreshToken(user));
-
-    return {
-      accessToken: createAccessToken(user),
-      user,
-    };
-  }
-
   // Register User
   @Mutation(() => Boolean)
   async register(
@@ -127,6 +82,51 @@ export class UserResolver {
       console.log(err);
       return false;
     }
+
+    return true;
+  }
+
+  // Login User
+  @Mutation(() => LoginResponse)
+  async login(
+    @Arg('username') username: string,
+    @Arg('password') password: string,
+    @Ctx() { res }: MyContext
+  ): Promise<LoginResponse> {
+    const user = await User.findOne({ where: { username } });
+
+    if (!user) {
+      throw new Error('Could not find user.');
+    }
+
+    const valid = await compare(password, user.password);
+
+    if (!valid) {
+      throw new Error('Bad password.');
+    }
+
+    // Login successful
+    sendRefreshToken(res, createRefreshToken(user));
+
+    return {
+      accessToken: createAccessToken(user),
+      user,
+    };
+  }
+
+  // Logout User
+  @Mutation(() => Boolean)
+  async logout(@Ctx() { res }: MyContext) {
+    sendRefreshToken(res, '');
+
+    return true;
+  }
+
+  @Mutation(() => Boolean)
+  async revokeRefreshTokensForUser(@Arg('userId', () => Int) userId: number) {
+    await getConnection()
+      .getRepository(User)
+      .increment({ id: userId }, 'tokenVersion', 1);
 
     return true;
   }

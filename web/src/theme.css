@@ -161,4 +161,6 @@
 }
 .page-title {
   color: #2fb3ff;
+  display: flex;
+  justify-content: center;
 }

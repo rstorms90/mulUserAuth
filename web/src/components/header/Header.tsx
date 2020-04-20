@@ -1,14 +1,17 @@
 import React from 'react';
-import { Link, RouteComponentProps, withRouter } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import { useMeQuery, useLogoutMutation } from '../../generated/graphql';
 import { setAccessToken } from '../../accessToken';
 
 import './Header.css';
 import '../../theme.css';
 
-const Header: React.FC<RouteComponentProps> = ({ history }) => {
+interface Props {}
+
+const Header: React.FC<Props> = () => {
   const { data, loading } = useMeQuery();
   const [logout, { client }] = useLogoutMutation();
+  let history = useHistory();
 
   let body: any = null;
   let user = data?.me;
@@ -72,4 +75,4 @@ const Header: React.FC<RouteComponentProps> = ({ history }) => {
   );
 };
 
-export default withRouter(Header);
+export default Header;
