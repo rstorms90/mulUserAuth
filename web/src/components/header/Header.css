@@ -26,6 +26,10 @@
   margin: 0 5px;
 }
 
+.nav-link.commonBtn a:hover {
+  color: #04ffd5;
+}
+
 .loggedInInfo {
   display: flex;
   justify-content: flex-end;

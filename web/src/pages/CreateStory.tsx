@@ -12,7 +12,7 @@ export const CreateStory: React.FC<Props> = () => {
   let body: any = null;
 
   if (loading) {
-    body = <div>Loading...</div>;
+    body = null;
   }
 
   if (error) {
@@ -39,7 +39,7 @@ export const CreateStory: React.FC<Props> = () => {
 
   return (
     <div className="page">
-      <h1 className="page-title">Create Your Story!</h1>
+      <h1 className="page-title">Create Your Story</h1>
       {body}
     </div>
   );

@@ -13,7 +13,7 @@ export const About: React.FC<Props> = () => {
 
   return (
     <div className="page">
-      <h1 className="page-title">About Project Feather</h1>
+      <h1 className="page-title">About Quill & Bishop</h1>
       <h4>
         My name is Russ and I created this site in hopes that writers would be
         able to create, organize, and store their creations in a way that is
