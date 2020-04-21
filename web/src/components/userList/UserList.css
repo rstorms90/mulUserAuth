@@ -1,10 +1,15 @@
-ul li {
+.site-users-list {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.site-users-list li {
   list-style: none;
   border: 1px solid #ffffff;
   padding: 0 5px;
   margin: 5px;
-  display: flex;
   justify-content: space-between;
+  flex: 0 0 30%;
 }
 
 .user-id {

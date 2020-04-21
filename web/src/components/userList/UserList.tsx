@@ -32,9 +32,9 @@ export const UserList: React.FC<Props> = ({ myRole }) => {
 
   return (
     <div>
-      <div>Site Users:</div>
+      <div className="page-sub-title">Site Users:</div>
 
-      <ul>
+      <ul className="site-users-list">
         {data.users.map((user) => {
           return (
             <li key={user.id}>

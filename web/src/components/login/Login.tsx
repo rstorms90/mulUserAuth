@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import { useLoginMutation, MeDocument, MeQuery } from '../generated/graphql';
-import { setAccessToken } from '../accessToken';
+import { useLoginMutation, MeDocument, MeQuery } from '../../generated/graphql';
+import { setAccessToken } from '../../accessToken';
 import { FormGroup, TextField } from '@material-ui/core';
 
 import { useHistory } from 'react-router-dom';
