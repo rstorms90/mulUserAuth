@@ -2,7 +2,7 @@ import React from 'react';
 import { Switch, Route } from 'react-router-dom';
 import { Home } from './pages/Home';
 import { Register } from './pages/registerPage/Register';
-import { Login } from './pages/loginPage/Login';
+import { LoginPage } from './pages/loginPage/Login';
 import { Admin } from './pages/Admin';
 import { Forum } from './pages/Forum';
 
@@ -20,7 +20,7 @@ export const Routes: React.FC = () => {
       <Switch>
         <Route exact path="/" component={Home} />
         <Route exact path="/register" component={Register} />
-        <Route exact path="/login" component={Login} />
+        <Route exact path="/login" component={LoginPage} />
         <Route exact path="/forum" component={Forum} />
         <Route exact path="/admin" component={Admin} />
         <Route exact path="/nouser" component={NoUser} />

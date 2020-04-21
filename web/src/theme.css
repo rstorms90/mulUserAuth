@@ -1,6 +1,7 @@
 .link {
   text-decoration: none;
-  color: #00db1d;
+  color: #2fb3ff;
+  padding: 5px;
 }
 
 .MuiFormGroup-root {
@@ -163,4 +164,31 @@
   color: #2fb3ff;
   display: flex;
   justify-content: center;
+}
+.page-sub-title {
+  display: flex;
+  justify-content: center;
+}
+
+.error-page {
+  padding: 50px 10vw;
+}
+.error-page-content {
+  display: flex;
+  align-items: center;
+}
+.not-found-img {
+  min-width: 40ch;
+  min-height: 40ch;
+  width: 50vw;
+  height: 50vh;
+  max-width: 100ch;
+  max-height: 100ch;
+  background-image: url(./images/page-not-found.svg);
+  background-repeat: no-repeat;
+}
+
+.sign-up-link {
+  text-decoration: none;
+  color: #2fb3ff;
 }

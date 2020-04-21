@@ -23,11 +23,12 @@ export const Forum: React.FC<Props> = () => {
   if (!data) {
     body = (
       <div>
-        Must
-        <Link className="link" to="/login">
-          Login
-        </Link>
-        to view page.
+        <h3>
+          <Link className="link" to="/login">
+            Login
+          </Link>
+          to view page.
+        </h3>
       </div>
     );
   }
