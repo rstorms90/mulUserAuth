@@ -2,3 +2,15 @@
   min-height: 65vh;
   max-height: 65vh;
 }
+
+.home-leaf {
+  min-width: 30ch;
+  min-height: 30ch;
+  width: 23vw;
+  height: 30vw;
+  max-width: 100ch;
+  max-height: 100ch;
+  margin: 0 auto;
+  background-image: url(../../images/eco_leaf.svg);
+  background-repeat: no-repeat;
+}
