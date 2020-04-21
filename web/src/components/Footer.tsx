@@ -3,11 +3,9 @@ import { Link } from 'react-router-dom';
 
 interface Props {}
 
-export const Home: React.FC<Props> = () => {
+const Footer: React.FC<Props> = () => {
   return (
-    <div className="page">
-      <h1 className="page-title">Project Feather</h1>
-      <h4 className="page-sub-title">Construct your story!</h4>
+    <footer className="Footer">
       <div className="no-account">
         <h4>Don't have an account?</h4>
         <button className="commonBtn">
@@ -16,6 +14,8 @@ export const Home: React.FC<Props> = () => {
           </Link>
         </button>
       </div>
-    </div>
+    </footer>
   );
 };
+
+export default Footer;

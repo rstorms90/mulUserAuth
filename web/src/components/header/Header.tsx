@@ -30,7 +30,7 @@ const Header: React.FC<Props> = () => {
   }
 
   return (
-    <header className="header">
+    <header className="Header">
       <div className="logout-btn-container">
         {!loading && data && data.me && (
           <button
