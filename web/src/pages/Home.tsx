@@ -8,7 +8,7 @@ export const Home: React.FC<Props> = () => {
     <div className="page">
       <h1 className="page-title">Project Feather</h1>
       <h4 className="page-sub-title">Construct your story!</h4>
-      <div>
+      <div className="no-account">
         <h4>Don't have an account?</h4>
         <button className="commonBtn">
           <Link to="/register" className="white-link">

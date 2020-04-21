@@ -16,4 +16,10 @@
 }
 
 .no-account {
+  display: flex;
+  flex-direction: column;
+}
+.no-account * {
+  justify-content: flex-end;
+  margin-left: auto;
 }

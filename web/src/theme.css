@@ -42,11 +42,11 @@
 .commonBtn:after {
   content: '';
   display: block;
-  width: 100px;
+  width: 130px;
   height: 50px;
   background: rgba(46, 131, 156, 0.15);
   position: absolute;
-  right: -12px;
+  right: -6px;
   top: 28px;
   transition: top 0.5s;
   z-index: -1;
@@ -192,4 +192,9 @@
   max-height: 100ch;
   background-image: url(./images/page-not-found.svg);
   background-repeat: no-repeat;
+}
+
+.right-content {
+  display: flex;
+  justify-content: flex-end;
 }

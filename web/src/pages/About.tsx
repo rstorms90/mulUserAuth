@@ -23,19 +23,21 @@ export const About: React.FC<Props> = () => {
         is still in Alpha, eventually we will get writers together to make this
         community something cohesive, helpful, and sensical.
       </h4>
-      {user ? (
-        <button className="commonBtn">
-          <Link to="/createstory" className="white-link">
-            Get Started
-          </Link>
-        </button>
-      ) : (
-        <button className="commonBtn">
-          <Link to="/login" className="white-link">
-            Get Started
-          </Link>
-        </button>
-      )}
+      <div className="right-content">
+        {user ? (
+          <button className="commonBtn">
+            <Link to="/createstory" className="white-link">
+              Get Started
+            </Link>
+          </button>
+        ) : (
+          <button className="commonBtn">
+            <Link to="/login" className="white-link">
+              Get Started
+            </Link>
+          </button>
+        )}
+      </div>
     </div>
   );
 };
