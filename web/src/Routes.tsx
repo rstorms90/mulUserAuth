@@ -5,7 +5,7 @@ import { About } from './pages/About';
 import { Register } from './pages/registerPage/Register';
 import { LoginPage } from './pages/loginPage/Login';
 import { Admin } from './pages/Admin';
-import { GetStarted } from './pages/GetStarted';
+import { CreateStory } from './pages/CreateStory';
 
 // Error pages
 import { NoUser } from './pages/errorPages/NoUser';
@@ -23,7 +23,7 @@ export const Routes: React.FC = () => {
         <Route exact path="/about" component={About} />
         <Route exact path="/register" component={Register} />
         <Route exact path="/login" component={LoginPage} />
-        <Route exact path="/getstarted" component={GetStarted} />
+        <Route exact path="/createstory" component={CreateStory} />
         <Route exact path="/admin" component={Admin} />
         <Route exact path="/nouser" component={NoUser} />
         <Route exact path="/nopass" component={NoPass} />

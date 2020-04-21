@@ -4,6 +4,12 @@
   padding: 5px;
 }
 
+.white-link {
+  text-decoration: none;
+  color: #ffffff;
+  padding: 5px;
+}
+
 .MuiFormGroup-root {
   background-color: #ffffff;
 }
@@ -186,9 +192,4 @@
   max-height: 100ch;
   background-image: url(./images/page-not-found.svg);
   background-repeat: no-repeat;
-}
-
-.sign-up-link {
-  text-decoration: none;
-  color: #2fb3ff;
 }

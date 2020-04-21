@@ -12,8 +12,8 @@ export const Register: React.FC<RouteComponentProps> = ({ history }) => {
   const [register] = useRegisterMutation();
 
   return (
-    <div className="Register">
-      <h1>Sign Up</h1>
+    <div className="Register page">
+      <h1 className="page-title">Sign Up</h1>
       <form
         className="register-form"
         onSubmit={async (e) => {

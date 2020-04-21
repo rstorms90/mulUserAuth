@@ -1,11 +1,11 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { useGetStartedQuery } from '../generated/graphql';
+import { useCreateStoryQuery } from '../generated/graphql';
 
 interface Props {}
 
-export const GetStarted: React.FC<Props> = () => {
-  const { data, loading, error } = useGetStartedQuery({
+export const CreateStory: React.FC<Props> = () => {
+  const { data, loading, error } = useCreateStoryQuery({
     fetchPolicy: 'network-only',
   });
 
@@ -27,19 +27,19 @@ export const GetStarted: React.FC<Props> = () => {
           <Link className="link" to="/login">
             Login
           </Link>
-          to view page.
+          to create your story.
         </h3>
       </div>
     );
   }
 
   if (data) {
-    body = <div className="page-sub-title">Get started content</div>;
+    body = <div className="page-sub-title">Create story content</div>;
   }
 
   return (
     <div className="page">
-      <h1 className="page-title">Get Started!</h1>
+      <h1 className="page-title">Create Your Story!</h1>
       {body}
     </div>
   );

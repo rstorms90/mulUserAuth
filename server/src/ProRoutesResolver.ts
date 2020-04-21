@@ -6,7 +6,7 @@ import { isAuth } from './isAuth';
 export class ProRoutesResolver {
   @Query(() => String)
   @UseMiddleware(isAuth)
-  getStarted(@Ctx() { payload }: MyContext) {
+  createStory(@Ctx() { payload }: MyContext) {
     return `Your user id is: ${payload!.userId}`;
   }
 }

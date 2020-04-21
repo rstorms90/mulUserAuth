@@ -10,9 +10,11 @@ export const Home: React.FC<Props> = () => {
       <h4 className="page-sub-title">Construct your story!</h4>
       <div>
         <h4>Don't have an account?</h4>
-        <Link to="/register" className="sign-up-link">
-          Sign Up
-        </Link>
+        <button className="commonBtn">
+          <Link to="/register" className="white-link">
+            Sign Up
+          </Link>
+        </button>
       </div>
     </div>
   );

@@ -15,7 +15,7 @@ export type Query = {
    __typename?: 'Query';
   users: Array<User>;
   me?: Maybe<User>;
-  getStarted: Scalars['String'];
+  createStory: Scalars['String'];
 };
 
 
@@ -69,12 +69,12 @@ export type LoginResponse = {
   user: User;
 };
 
-export type GetStartedQueryVariables = {};
+export type CreateStoryQueryVariables = {};
 
 
-export type GetStartedQuery = (
+export type CreateStoryQuery = (
   { __typename?: 'Query' }
-  & Pick<Query, 'getStarted'>
+  & Pick<Query, 'createStory'>
 );
 
 export type LoginMutationVariables = {
@@ -150,36 +150,36 @@ export type UsersQuery = (
 );
 
 
-export const GetStartedDocument = gql`
-    query GetStarted {
-  getStarted
+export const CreateStoryDocument = gql`
+    query CreateStory {
+  createStory
 }
     `;
 
 /**
- * __useGetStartedQuery__
+ * __useCreateStoryQuery__
  *
- * To run a query within a React component, call `useGetStartedQuery` and pass it any options that fit your needs.
- * When your component renders, `useGetStartedQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * To run a query within a React component, call `useCreateStoryQuery` and pass it any options that fit your needs.
+ * When your component renders, `useCreateStoryQuery` returns an object from Apollo Client that contains loading, error, and data properties
  * you can use to render your UI.
  *
  * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
  *
  * @example
- * const { data, loading, error } = useGetStartedQuery({
+ * const { data, loading, error } = useCreateStoryQuery({
  *   variables: {
  *   },
  * });
  */
-export function useGetStartedQuery(baseOptions?: ApolloReactHooks.QueryHookOptions<GetStartedQuery, GetStartedQueryVariables>) {
-        return ApolloReactHooks.useQuery<GetStartedQuery, GetStartedQueryVariables>(GetStartedDocument, baseOptions);
+export function useCreateStoryQuery(baseOptions?: ApolloReactHooks.QueryHookOptions<CreateStoryQuery, CreateStoryQueryVariables>) {
+        return ApolloReactHooks.useQuery<CreateStoryQuery, CreateStoryQueryVariables>(CreateStoryDocument, baseOptions);
       }
-export function useGetStartedLazyQuery(baseOptions?: ApolloReactHooks.LazyQueryHookOptions<GetStartedQuery, GetStartedQueryVariables>) {
-          return ApolloReactHooks.useLazyQuery<GetStartedQuery, GetStartedQueryVariables>(GetStartedDocument, baseOptions);
+export function useCreateStoryLazyQuery(baseOptions?: ApolloReactHooks.LazyQueryHookOptions<CreateStoryQuery, CreateStoryQueryVariables>) {
+          return ApolloReactHooks.useLazyQuery<CreateStoryQuery, CreateStoryQueryVariables>(CreateStoryDocument, baseOptions);
         }
-export type GetStartedQueryHookResult = ReturnType<typeof useGetStartedQuery>;
-export type GetStartedLazyQueryHookResult = ReturnType<typeof useGetStartedLazyQuery>;
-export type GetStartedQueryResult = ApolloReactCommon.QueryResult<GetStartedQuery, GetStartedQueryVariables>;
+export type CreateStoryQueryHookResult = ReturnType<typeof useCreateStoryQuery>;
+export type CreateStoryLazyQueryHookResult = ReturnType<typeof useCreateStoryLazyQuery>;
+export type CreateStoryQueryResult = ApolloReactCommon.QueryResult<CreateStoryQuery, CreateStoryQueryVariables>;
 export const LoginDocument = gql`
     mutation Login($username: String!, $password: String!) {
   login(username: $username, password: $password) {

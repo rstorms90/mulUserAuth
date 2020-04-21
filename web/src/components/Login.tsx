@@ -5,8 +5,6 @@ import { FormGroup, TextField } from '@material-ui/core';
 
 import { useHistory } from 'react-router-dom';
 
-// import './Login.css';
-
 interface Props {}
 
 const Login: React.FC<Props> = () => {
