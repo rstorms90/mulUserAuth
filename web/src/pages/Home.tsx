@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 interface Props {}
 
@@ -7,6 +8,12 @@ export const Home: React.FC<Props> = () => {
     <div className="page">
       <h1 className="page-title">Project Feather</h1>
       <h4 className="page-sub-title">Construct your story!</h4>
+      <div>
+        <h4>Don't have an account?</h4>
+        <Link to="/register" className="sign-up-link">
+          Sign Up
+        </Link>
+      </div>
     </div>
   );
 };

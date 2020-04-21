@@ -28,12 +28,6 @@ class LoginResponse {
 
 @Resolver()
 export class UserResolver {
-  @Query(() => String)
-  @UseMiddleware(isAuth)
-  forum(@Ctx() { payload }: MyContext) {
-    return `Your user id is: ${payload!.userId}`;
-  }
-
   // Query for all users
   @Query(() => [User])
   @UseMiddleware(isAuth)

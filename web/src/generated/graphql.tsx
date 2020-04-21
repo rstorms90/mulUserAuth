@@ -13,9 +13,9 @@ export type Scalars = {
 
 export type Query = {
    __typename?: 'Query';
-  forum: Scalars['String'];
   users: Array<User>;
   me?: Maybe<User>;
+  getStarted: Scalars['String'];
 };
 
 
@@ -33,16 +33,18 @@ export type User = {
 
 export type Mutation = {
    __typename?: 'Mutation';
+  register: Scalars['Boolean'];
+  login: LoginResponse;
   logout: Scalars['Boolean'];
   revokeRefreshTokensForUser: Scalars['Boolean'];
-  login: LoginResponse;
-  register: Scalars['Boolean'];
   removeUser: Scalars['Boolean'];
 };
 
 
-export type MutationRevokeRefreshTokensForUserArgs = {
-  userId: Scalars['Int'];
+export type MutationRegisterArgs = {
+  password: Scalars['String'];
+  email: Scalars['String'];
+  username: Scalars['String'];
 };
 
 
@@ -52,10 +54,8 @@ export type MutationLoginArgs = {
 };
 
 
-export type MutationRegisterArgs = {
-  password: Scalars['String'];
-  email: Scalars['String'];
-  username: Scalars['String'];
+export type MutationRevokeRefreshTokensForUserArgs = {
+  userId: Scalars['Int'];
 };
 
 
@@ -69,12 +69,12 @@ export type LoginResponse = {
   user: User;
 };
 
-export type ForumQueryVariables = {};
+export type GetStartedQueryVariables = {};
 
 
-export type ForumQuery = (
+export type GetStartedQuery = (
   { __typename?: 'Query' }
-  & Pick<Query, 'forum'>
+  & Pick<Query, 'getStarted'>
 );
 
 export type LoginMutationVariables = {
@@ -150,36 +150,36 @@ export type UsersQuery = (
 );
 
 
-export const ForumDocument = gql`
-    query Forum {
-  forum
+export const GetStartedDocument = gql`
+    query GetStarted {
+  getStarted
 }
     `;
 
 /**
- * __useForumQuery__
+ * __useGetStartedQuery__
  *
- * To run a query within a React component, call `useForumQuery` and pass it any options that fit your needs.
- * When your component renders, `useForumQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * To run a query within a React component, call `useGetStartedQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetStartedQuery` returns an object from Apollo Client that contains loading, error, and data properties
  * you can use to render your UI.
  *
  * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
  *
  * @example
- * const { data, loading, error } = useForumQuery({
+ * const { data, loading, error } = useGetStartedQuery({
  *   variables: {
  *   },
  * });
  */
-export function useForumQuery(baseOptions?: ApolloReactHooks.QueryHookOptions<ForumQuery, ForumQueryVariables>) {
-        return ApolloReactHooks.useQuery<ForumQuery, ForumQueryVariables>(ForumDocument, baseOptions);
+export function useGetStartedQuery(baseOptions?: ApolloReactHooks.QueryHookOptions<GetStartedQuery, GetStartedQueryVariables>) {
+        return ApolloReactHooks.useQuery<GetStartedQuery, GetStartedQueryVariables>(GetStartedDocument, baseOptions);
       }
-export function useForumLazyQuery(baseOptions?: ApolloReactHooks.LazyQueryHookOptions<ForumQuery, ForumQueryVariables>) {
-          return ApolloReactHooks.useLazyQuery<ForumQuery, ForumQueryVariables>(ForumDocument, baseOptions);
+export function useGetStartedLazyQuery(baseOptions?: ApolloReactHooks.LazyQueryHookOptions<GetStartedQuery, GetStartedQueryVariables>) {
+          return ApolloReactHooks.useLazyQuery<GetStartedQuery, GetStartedQueryVariables>(GetStartedDocument, baseOptions);
         }
-export type ForumQueryHookResult = ReturnType<typeof useForumQuery>;
-export type ForumLazyQueryHookResult = ReturnType<typeof useForumLazyQuery>;
-export type ForumQueryResult = ApolloReactCommon.QueryResult<ForumQuery, ForumQueryVariables>;
+export type GetStartedQueryHookResult = ReturnType<typeof useGetStartedQuery>;
+export type GetStartedLazyQueryHookResult = ReturnType<typeof useGetStartedLazyQuery>;
+export type GetStartedQueryResult = ApolloReactCommon.QueryResult<GetStartedQuery, GetStartedQueryVariables>;
 export const LoginDocument = gql`
     mutation Login($username: String!, $password: String!) {
   login(username: $username, password: $password) {

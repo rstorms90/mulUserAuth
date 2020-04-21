@@ -1,10 +1,11 @@
 import React from 'react';
 import { Switch, Route } from 'react-router-dom';
 import { Home } from './pages/Home';
+import { About } from './pages/About';
 import { Register } from './pages/registerPage/Register';
 import { LoginPage } from './pages/loginPage/Login';
 import { Admin } from './pages/Admin';
-import { Forum } from './pages/Forum';
+import { GetStarted } from './pages/GetStarted';
 
 // Error pages
 import { NoUser } from './pages/errorPages/NoUser';
@@ -19,9 +20,10 @@ export const Routes: React.FC = () => {
       <Header />
       <Switch>
         <Route exact path="/" component={Home} />
+        <Route exact path="/about" component={About} />
         <Route exact path="/register" component={Register} />
         <Route exact path="/login" component={LoginPage} />
-        <Route exact path="/forum" component={Forum} />
+        <Route exact path="/getstarted" component={GetStarted} />
         <Route exact path="/admin" component={Admin} />
         <Route exact path="/nouser" component={NoUser} />
         <Route exact path="/nopass" component={NoPass} />

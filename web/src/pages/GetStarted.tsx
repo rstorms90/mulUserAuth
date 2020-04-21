@@ -1,11 +1,11 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { useForumQuery } from '../generated/graphql';
+import { useGetStartedQuery } from '../generated/graphql';
 
 interface Props {}
 
-export const Forum: React.FC<Props> = () => {
-  const { data, loading, error } = useForumQuery({
+export const GetStarted: React.FC<Props> = () => {
+  const { data, loading, error } = useGetStartedQuery({
     fetchPolicy: 'network-only',
   });
 
@@ -34,12 +34,12 @@ export const Forum: React.FC<Props> = () => {
   }
 
   if (data) {
-    body = <div>Forum content</div>;
+    body = <div className="page-sub-title">Get started content</div>;
   }
 
   return (
     <div className="page">
-      <h1 className="page-title">Forum</h1>
+      <h1 className="page-title">Get Started!</h1>
       {body}
     </div>
   );
