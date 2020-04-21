@@ -34,7 +34,7 @@ export const CreateStory: React.FC<Props> = () => {
   }
 
   if (data) {
-    body = <div className="page-sub-title">Create story content</div>;
+    body = <div className="page-sub-title">Choose a genre...</div>;
   }
 
   return (
