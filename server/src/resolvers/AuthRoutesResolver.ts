@@ -1,9 +1,9 @@
 import { Resolver, Query, Ctx, UseMiddleware } from 'type-graphql';
-import { MyContext } from './MyContext';
-import { isAuth } from './isAuth';
+import { MyContext } from '../MyContext';
+import { isAuth } from '../isAuth';
 
 @Resolver()
-export class ProRoutesResolver {
+export class AuthRoutesResolver {
   @Query(() => String)
   @UseMiddleware(isAuth)
   createStory(@Ctx() { payload }: MyContext) {

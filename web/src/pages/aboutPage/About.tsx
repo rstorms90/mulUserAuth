@@ -15,13 +15,14 @@ export const About: React.FC<Props> = () => {
     <div className="page">
       <h1 className="page-title">About Quill & Bishop</h1>
       <h4>
-        My name is Russ and I created this site in hopes that writers would be
-        able to create, organize, and store their creations in a way that is
-        easy to navigate. I found that when I started to organize stories, I
-        would be between taking notes in a certain app, switching back and forth
-        between windows, losing track, etc. I have hopes that albeit this site
-        is still in Alpha, eventually we will get writers together to make this
-        community something cohesive, helpful, and sensical.
+        Hey, welcome to Quill & Bishop! My name is Russ and I created this site
+        in hopes that writers would be able to create, organize, and store their
+        creations in a way that is easy to navigate. I found that when I started
+        to organize stories, I would be between taking notes in a certain app,
+        switching back and forth between windows, losing track, etc. I have
+        hopes that albeit this site is still in Alpha, eventually we will get
+        writers together to make this community something cohesive, helpful, and
+        sensical.
       </h4>
       <div className="right-content">
         {user ? (

@@ -51,9 +51,6 @@ export const UserList: React.FC<Props> = ({ myRole }) => {
               </div>
 
               <div className="admin-btns-container">
-                {/* <button className="tirtiaryBtn" onClick={async (e) => {}}>
-                  Edit User
-                </button> */}
                 <button
                   className="secondaryBtn"
                   onClick={async (e) => {

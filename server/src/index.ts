@@ -3,8 +3,8 @@ import 'reflect-metadata';
 import express from 'express';
 import { ApolloServer } from 'apollo-server-express';
 import { buildSchema } from 'type-graphql';
-import { UserResolver } from './UserResolver';
-import { ProRoutesResolver } from './ProRoutesResolver';
+import { UserResolver } from './resolvers/UserResolver';
+import { AuthRoutesResolver } from './resolvers/AuthRoutesResolver';
 import { createConnection } from 'typeorm';
 import cookieParser from 'cookie-parser';
 import { verify } from 'jsonwebtoken';
@@ -58,7 +58,7 @@ import { createAccessToken, createRefreshToken } from './auth';
 
   const apolloServer = new ApolloServer({
     schema: await buildSchema({
-      resolvers: [UserResolver, ProRoutesResolver],
+      resolvers: [UserResolver, AuthRoutesResolver],
     }),
     context: ({ req, res }) => ({ req, res }),
   });

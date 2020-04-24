@@ -10,11 +10,11 @@ import {
   Int,
 } from 'type-graphql';
 import { hash, compare } from 'bcryptjs';
-import { User } from './entity/User';
-import { MyContext } from './MyContext';
-import { createRefreshToken, createAccessToken } from './auth';
-import { isAuth } from './isAuth';
-import { sendRefreshToken } from './sendRefreshToken';
+import { User } from '../entity/User';
+import { MyContext } from '../MyContext';
+import { createRefreshToken, createAccessToken } from '../auth';
+import { isAuth } from '../isAuth';
+import { sendRefreshToken } from '../sendRefreshToken';
 import { getConnection } from 'typeorm';
 import { verify } from 'jsonwebtoken';
 
@@ -26,6 +26,7 @@ class LoginResponse {
   user: User;
 }
 
+// User Resolver
 @Resolver()
 export class UserResolver {
   // Query for all users
@@ -39,6 +40,7 @@ export class UserResolver {
     }
   }
 
+  // Identify logged-in user
   @Query(() => User, { nullable: true })
   me(@Ctx() context: MyContext) {
     const authorization = context.req.headers['authorization'];
