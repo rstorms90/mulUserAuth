@@ -1,8 +1,9 @@
-query Users($role: String!) {
-  users(role: $role) {
+query Users($role: String!, $first: Int!) {
+  users(role: $role, first: $first) {
     id
     username
     email
     role
   }
+  cursor
 }

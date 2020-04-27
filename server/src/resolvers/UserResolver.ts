@@ -8,7 +8,10 @@ import {
   Ctx,
   UseMiddleware,
   Int,
+  ArgsType,
+  Args,
 } from 'type-graphql';
+import { Min, Max } from 'class-validator';
 import { hash, compare } from 'bcryptjs';
 import { User } from '../entity/User';
 import { MyContext } from '../MyContext';
@@ -26,18 +29,44 @@ class LoginResponse {
   user: User;
 }
 
+// User query arguments for pagination
+@ArgsType()
+class GetUsersArgs {
+  @Field()
+  role?: string;
+
+  @Field(() => Int, { defaultValue: 0 })
+  @Min(0)
+  skip: number;
+
+  @Field(() => Int)
+  @Min(1)
+  @Max(12)
+  take = 12;
+
+  // helpers - index calculations
+  get startIndex(): number {
+    return this.skip;
+  }
+  get endIndex(): number {
+    return this.skip + this.take;
+  }
+}
+
 // User Resolver
 @Resolver()
 export class UserResolver {
   // Query for all users
   @Query(() => [User])
   @UseMiddleware(isAuth)
-  async users(@Arg('role') role: string, @Arg('first') first: number) {
-    console.log(first);
+  async users(@Args() { role, startIndex, endIndex }: GetUsersArgs) {
+    // Grab all users
+    let users = await User.find();
+
     if (role !== 'admin') {
       throw new Error('Unauthenticated');
     } else {
-      return User.find();
+      return users.slice(startIndex, endIndex);
     }
   }
 
