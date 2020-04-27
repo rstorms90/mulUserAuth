@@ -21,6 +21,8 @@ export type Query = {
 
 export type QueryUsersArgs = {
   role: Scalars['String'];
+  skip?: Maybe<Scalars['Int']>;
+  take?: Maybe<Scalars['Int']>;
 };
 
 export type User = {
@@ -138,6 +140,8 @@ export type RemoveUserMutation = (
 
 export type UsersQueryVariables = {
   role: Scalars['String'];
+  skip: Scalars['Int'];
+  take: Scalars['Int'];
 };
 
 
@@ -344,8 +348,8 @@ export type RemoveUserMutationHookResult = ReturnType<typeof useRemoveUserMutati
 export type RemoveUserMutationResult = ApolloReactCommon.MutationResult<RemoveUserMutation>;
 export type RemoveUserMutationOptions = ApolloReactCommon.BaseMutationOptions<RemoveUserMutation, RemoveUserMutationVariables>;
 export const UsersDocument = gql`
-    query Users($role: String!) {
-  users(role: $role) {
+    query Users($role: String!, $skip: Int!, $take: Int!) {
+  users(role: $role, skip: $skip, take: $take) {
     id
     username
     email
@@ -367,6 +371,8 @@ export const UsersDocument = gql`
  * const { data, loading, error } = useUsersQuery({
  *   variables: {
  *      role: // value for 'role'
+ *      skip: // value for 'skip'
+ *      take: // value for 'take'
  *   },
  * });
  */

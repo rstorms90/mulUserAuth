@@ -12,6 +12,8 @@ export const UserList: React.FC<Props> = ({ myRole }) => {
     fetchPolicy: 'network-only',
     variables: {
       role: myRole,
+      skip: 0,
+      take: 12,
     },
   });
 

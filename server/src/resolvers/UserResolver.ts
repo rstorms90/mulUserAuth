@@ -33,7 +33,7 @@ class LoginResponse {
 @ArgsType()
 class GetUsersArgs {
   @Field()
-  role?: string;
+  role: string;
 
   @Field(() => Int, { defaultValue: 0 })
   @Min(0)
