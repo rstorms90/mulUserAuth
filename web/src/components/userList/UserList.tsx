@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { useUsersQuery, useRemoveUserMutation } from '../../generated/graphql';
 
 import './UserList.css';
@@ -8,7 +8,7 @@ interface Props {
 }
 
 export const UserList: React.FC<Props> = ({ myRole }) => {
-  const { data, loading, error } = useUsersQuery({
+  const { data, loading, error, refetch } = useUsersQuery({
     fetchPolicy: 'network-only',
     variables: {
       role: myRole,
@@ -31,6 +31,20 @@ export const UserList: React.FC<Props> = ({ myRole }) => {
   if (!data) {
     return <div>No data</div>;
   }
+
+  const prevClick = (role: string, skip: number, take: number) => {
+    console.log('prevClick');
+    console.log('skip>>', skip);
+    console.log('take>>', take);
+    refetch({ role, skip, take });
+  };
+
+  const nextClick = (role: string, skip: number, take: number) => {
+    console.log('nextClick');
+    console.log('skip>>', skip);
+    console.log('take>>', take);
+    refetch({ role, skip, take });
+  };
 
   return (
     <div>
@@ -75,6 +89,8 @@ export const UserList: React.FC<Props> = ({ myRole }) => {
           );
         })}
       </ul>
+      <button onClick={() => prevClick('admin', 0, 12)}>Prev</button>
+      <button onClick={() => nextClick('admin', 12, 12)}>Next</button>
     </div>
   );
 };
