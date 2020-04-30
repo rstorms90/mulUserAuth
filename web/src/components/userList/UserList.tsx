@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useUsersQuery, useRemoveUserMutation } from '../../generated/graphql';
 
 import './UserList.css';
