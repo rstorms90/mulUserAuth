@@ -88,12 +88,28 @@ export const UserList: React.FC<Props> = ({ myRole }) => {
           );
         })}
       </ul>
-      {skipUsers !== 0 && (
-        <button onClick={() => prevClick('admin', 0, 12)}>Prev</button>
-      )}
-      {data.users.length === 12 ? (
-        <button onClick={() => nextClick('admin', 12, 12)}>Next</button>
-      ) : null}
+      <div className="userlist-btn-container">
+        {skipUsers !== 0 ? (
+          <button
+            className="commonBtn"
+            onClick={() => prevClick('admin', 0, 12)}
+          >
+            Prev
+          </button>
+        ) : (
+          <div />
+        )}
+        {data.users.length === 12 ? (
+          <button
+            className="commonBtn"
+            onClick={() => nextClick('admin', 12, 12)}
+          >
+            Next
+          </button>
+        ) : (
+          <div />
+        )}
+      </div>
     </div>
   );
 };

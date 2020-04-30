@@ -29,3 +29,8 @@
   align-items: center;
   padding: 15px;
 }
+
+.userlist-btn-container {
+  display: flex;
+  justify-content: space-evenly;
+}
