@@ -33,22 +33,20 @@ export const UserList: React.FC<Props> = ({ myRole }) => {
     return <div>No data</div>;
   }
 
-  const prevClick = (role: string, skip: number, take: number) => {
-    console.log('prevClick');
-    setSkipUsers(skipUsers - 12);
+  const handleClick = (role: string, skip: number, take: number) => {
+    if (skip === 0) {
+      setSkipUsers(skipUsers - take);
+    } else {
+      setSkipUsers(skipUsers + take);
+    }
     refetch({ role, skip, take });
   };
 
-  const nextClick = (role: string, skip: number, take: number) => {
-    console.log('nextClick');
-    setSkipUsers(skipUsers + 12);
-    refetch({ role, skip, take });
-  };
+  const pageNumber = skipUsers / 12 + 1;
 
   return (
     <div>
-      <div className="page-sub-title">Site Users:</div>
-
+      <div className="page-sub-title">Site Users: Page {pageNumber}</div>
       <ul className="site-users-list">
         {data.users.map((user) => {
           return (
@@ -66,6 +64,7 @@ export const UserList: React.FC<Props> = ({ myRole }) => {
               </div>
 
               <div className="admin-btns-container">
+                <button disabled>User's Profile</button>
                 <button
                   className="secondaryBtn"
                   onClick={async (e) => {
@@ -92,7 +91,7 @@ export const UserList: React.FC<Props> = ({ myRole }) => {
         {skipUsers !== 0 ? (
           <button
             className="commonBtn"
-            onClick={() => prevClick('admin', 0, 12)}
+            onClick={() => handleClick('admin', 0, 12)}
           >
             Prev
           </button>
@@ -102,7 +101,7 @@ export const UserList: React.FC<Props> = ({ myRole }) => {
         {data.users.length === 12 ? (
           <button
             className="commonBtn"
-            onClick={() => nextClick('admin', 12, 12)}
+            onClick={() => handleClick('admin', 12, 12)}
           >
             Next
           </button>
