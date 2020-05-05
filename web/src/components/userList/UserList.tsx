@@ -33,6 +33,7 @@ export const UserList: React.FC<Props> = ({ myRole }) => {
     return <div>No data</div>;
   }
 
+  // Pagination click
   const handleClick = (role: string, skip: number, take: number) => {
     if (skip === 0) {
       setSkipUsers(skipUsers - take);
