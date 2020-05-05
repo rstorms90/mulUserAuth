@@ -2,7 +2,7 @@
 
 ## What is it?
 
-Current project in alpha with custom user authentication and administrators. Looking forward, I intend to have a series of collected work per user, stored in another table of the database. Ability to organize in different lists, save, edit, and delete each collected piece of work. I was inspired by forums for this specific project and wanted to know exactly what it took to build from the ground level.
+Current project in alpha (not hosted) with custom user authentication and administrators. Looking forward, I intend to have a series of collected work per user, stored in another table of the database. Ability to organize in different lists, save, edit, and delete each collected piece of work. I was inspired by forums for this specific project and wanted to know exactly what it took to build from the ground level.
 
 ### Currently
 
