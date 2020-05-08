@@ -9,6 +9,7 @@ interface Props {}
 export const App: React.FC<Props> = () => {
   const [loading, setLoading] = useState(true);
 
+  // Retrieve refresh token
   useEffect(() => {
     fetch('http://localhost:4000/refresh_token', {
       method: 'POST',

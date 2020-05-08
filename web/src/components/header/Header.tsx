@@ -16,6 +16,7 @@ const Header: React.FC<Props> = () => {
   let body: any = null;
   let user = data?.me;
 
+  // Check current user
   if (loading) {
     body = null;
   } else if (data && user) {

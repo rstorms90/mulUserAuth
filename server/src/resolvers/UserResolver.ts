@@ -66,6 +66,7 @@ export class UserResolver {
     if (role !== 'admin') {
       throw new Error('Unauthenticated');
     } else {
+      // Paginate
       return users.slice(startIndex, endIndex);
     }
   }
