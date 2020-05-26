@@ -71,14 +71,6 @@ export type LoginResponse = {
   user: User;
 };
 
-export type CreateStoryQueryVariables = {};
-
-
-export type CreateStoryQuery = (
-  { __typename?: 'Query' }
-  & Pick<Query, 'createStory'>
-);
-
 export type LoginMutationVariables = {
   username: Scalars['String'];
   password: Scalars['String'];
@@ -154,36 +146,6 @@ export type UsersQuery = (
 );
 
 
-export const CreateStoryDocument = gql`
-    query CreateStory {
-  createStory
-}
-    `;
-
-/**
- * __useCreateStoryQuery__
- *
- * To run a query within a React component, call `useCreateStoryQuery` and pass it any options that fit your needs.
- * When your component renders, `useCreateStoryQuery` returns an object from Apollo Client that contains loading, error, and data properties
- * you can use to render your UI.
- *
- * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
- *
- * @example
- * const { data, loading, error } = useCreateStoryQuery({
- *   variables: {
- *   },
- * });
- */
-export function useCreateStoryQuery(baseOptions?: ApolloReactHooks.QueryHookOptions<CreateStoryQuery, CreateStoryQueryVariables>) {
-        return ApolloReactHooks.useQuery<CreateStoryQuery, CreateStoryQueryVariables>(CreateStoryDocument, baseOptions);
-      }
-export function useCreateStoryLazyQuery(baseOptions?: ApolloReactHooks.LazyQueryHookOptions<CreateStoryQuery, CreateStoryQueryVariables>) {
-          return ApolloReactHooks.useLazyQuery<CreateStoryQuery, CreateStoryQueryVariables>(CreateStoryDocument, baseOptions);
-        }
-export type CreateStoryQueryHookResult = ReturnType<typeof useCreateStoryQuery>;
-export type CreateStoryLazyQueryHookResult = ReturnType<typeof useCreateStoryLazyQuery>;
-export type CreateStoryQueryResult = ApolloReactCommon.QueryResult<CreateStoryQuery, CreateStoryQueryVariables>;
 export const LoginDocument = gql`
     mutation Login($username: String!, $password: String!) {
   login(username: $username, password: $password) {
