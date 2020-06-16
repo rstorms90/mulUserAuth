@@ -18,19 +18,26 @@ export const Register: React.FC<RouteComponentProps> = ({ history }) => {
         className="register-form"
         onSubmit={async (e) => {
           e.preventDefault();
-          console.log('Registered User');
-          const response = await register({
-            variables: {
-              username,
-              email,
-              password,
-            },
-          });
 
-          if (response.data?.register === false) {
-            alert('E-mail or username being used. Choose another.');
+          let re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+
+          if (re.test(email)) {
+            const response = await register({
+              variables: {
+                username,
+                email,
+                password,
+              },
+            });
+
+            if (response.data?.register === false) {
+              alert('E-mail or username being used. Choose another.');
+            }
+
+            history.push('/login');
+          } else {
+            alert('Choose a valid e-mail.');
           }
-          history.push('/login');
         }}
       >
         <div className="register-inputs-container">

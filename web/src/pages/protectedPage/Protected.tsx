@@ -17,11 +17,11 @@ export const Protected: React.FC<Props> = () => {
     userData = <div>Error</div>;
   }
 
-  if (data && data.me?.role !== 'user') {
+  if (data && !data.me?.role) {
     userData = <div>Unauthenticated — Must be user.</div>;
   }
 
-  if (data && data.me?.role === 'user') {
+  if (data && data.me?.role) {
     userData = <div>Welcome {data.me.username} to the users page!</div>;
   }
 
