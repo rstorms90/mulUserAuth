@@ -6,7 +6,7 @@ import { isAuth } from '../isAuth';
 export class AuthRoutesResolver {
   @Query(() => String)
   @UseMiddleware(isAuth)
-  createStory(@Ctx() { payload }: MyContext) {
+  protectedRoute(@Ctx() { payload }: MyContext) {
     return `Your user id is: ${payload!.userId}`;
   }
 }

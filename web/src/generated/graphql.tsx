@@ -15,7 +15,7 @@ export type Query = {
    __typename?: 'Query';
   users: Array<User>;
   me?: Maybe<User>;
-  createStory: Scalars['String'];
+  protectedRoute: Scalars['String'];
 };
 
 

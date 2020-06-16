@@ -55,7 +55,7 @@ const Header: React.FC<Props> = () => {
 
         {user && (
           <div className="nav-link">
-            <Link to="/createstory">Create Story</Link>
+            <Link to="/protected">Protected Route</Link>
           </div>
         )}
         <div>
