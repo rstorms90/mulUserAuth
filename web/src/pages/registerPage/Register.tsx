@@ -1,15 +1,22 @@
 import React, { useState } from 'react';
-import { useRegisterMutation } from '../../generated/graphql';
+import {
+  useRegisterMutation,
+  useLoginMutation,
+  MeQuery,
+  MeDocument,
+} from '../../generated/graphql';
 import { RouteComponentProps } from 'react-router-dom';
 import { FormGroup, TextField } from '@material-ui/core';
 
 import './Register.css';
+import { setAccessToken } from '../../accessToken';
 
 export const Register: React.FC<RouteComponentProps> = ({ history }) => {
   const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [register] = useRegisterMutation();
+  const [login] = useLoginMutation();
 
   return (
     <div className="Register page">
@@ -34,7 +41,28 @@ export const Register: React.FC<RouteComponentProps> = ({ history }) => {
               alert('E-mail or username being used. Choose another.');
             }
 
-            history.push('/login');
+            const loginResponse = await login({
+              variables: {
+                username,
+                password,
+              },
+              update: (store, { data }) => {
+                if (!data) {
+                  return null;
+                }
+                store.writeQuery<MeQuery>({
+                  query: MeDocument,
+                  data: {
+                    me: data.login.user,
+                  },
+                });
+              },
+            });
+
+            if (loginResponse && loginResponse.data) {
+              setAccessToken(loginResponse.data.login.accessToken);
+              history.push('/');
+            }
           } else {
             alert('Choose a valid e-mail.');
           }
