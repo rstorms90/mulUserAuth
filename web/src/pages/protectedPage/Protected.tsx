@@ -21,7 +21,12 @@ export const Protected: React.FC<Props> = () => {
   }
 
   if (data && data.me?.role) {
-    userData = <div>Welcome {data.me.username} to the users page!</div>;
+    userData = (
+      <div>
+        Welcome <span className="current-user">{data.me.username}</span> to the
+        users page!
+      </div>
+    );
   }
 
   return (

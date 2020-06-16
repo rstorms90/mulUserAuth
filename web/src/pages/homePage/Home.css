@@ -2,3 +2,7 @@
   min-height: 65vh;
   max-height: 65vh;
 }
+
+.current-user {
+  color: #2fb3ff;
+}

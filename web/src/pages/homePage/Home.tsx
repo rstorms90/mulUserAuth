@@ -24,7 +24,12 @@ export const Home: React.FC<Props> = () => {
   }
 
   if (data && data.me?.role) {
-    userData = <div>Welcome {data.me.username} to this cool project!</div>;
+    userData = (
+      <div>
+        Welcome <span className="current-user">{data.me.username}</span> to this
+        cool project!
+      </div>
+    );
   }
 
   return (
