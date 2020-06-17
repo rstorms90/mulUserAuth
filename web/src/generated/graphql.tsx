@@ -15,7 +15,6 @@ export type Query = {
    __typename?: 'Query';
   users: Array<User>;
   me?: Maybe<User>;
-  protectedRoute: Scalars['String'];
 };
 
 
@@ -69,6 +68,12 @@ export type LoginResponse = {
    __typename?: 'LoginResponse';
   accessToken: Scalars['String'];
   user: User;
+};
+
+export type Post = {
+   __typename?: 'Post';
+  id: Scalars['Int'];
+  post: Scalars['String'];
 };
 
 export type LoginMutationVariables = {

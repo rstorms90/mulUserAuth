@@ -6,8 +6,10 @@ import {
   UpdateDateColumn,
   BaseEntity,
   Unique,
+  OneToMany,
 } from 'typeorm';
 import { ObjectType, Field, Int } from 'type-graphql';
+import { Post } from './Post';
 
 @ObjectType()
 @Entity('users')
@@ -41,4 +43,9 @@ export class User extends BaseEntity {
 
   @UpdateDateColumn({ type: 'timestamp' })
   updatedAt: number;
+
+  @Column('int', { nullable: true })
+  @Field(() => [Post])
+  @OneToMany(() => Post, (post) => post.user)
+  posts: Post[];
 }

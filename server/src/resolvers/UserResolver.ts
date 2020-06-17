@@ -61,7 +61,7 @@ export class UserResolver {
   @UseMiddleware(isAuth)
   async users(@Args() { role, startIndex, endIndex }: GetUsersArgs) {
     // Grab all users
-    let users = await User.find();
+    let users = await User.find({ relations: ['posts'] });
 
     if (role !== 'admin') {
       throw new Error('Unauthenticated');

@@ -4,6 +4,7 @@ import express from 'express';
 import { ApolloServer } from 'apollo-server-express';
 import { buildSchema } from 'type-graphql';
 import { UserResolver } from './resolvers/UserResolver';
+import { PostResolver } from './resolvers/PostResolver';
 import { AuthRoutesResolver } from './resolvers/AuthRoutesResolver';
 import { createConnection } from 'typeorm';
 import cookieParser from 'cookie-parser';
@@ -58,7 +59,7 @@ import { createAccessToken, createRefreshToken } from './auth';
 
   const apolloServer = new ApolloServer({
     schema: await buildSchema({
-      resolvers: [UserResolver, AuthRoutesResolver],
+      resolvers: [UserResolver, PostResolver, AuthRoutesResolver],
     }),
     context: ({ req, res }) => ({ req, res }),
   });
