@@ -6,6 +6,7 @@ import { Register } from './pages/registerPage/Register';
 import { LoginPage } from './pages/loginPage/Login';
 import { Admin } from './pages/adminPage/Admin';
 import { Protected } from './pages/protectedPage/Protected';
+import { User } from './pages/userPage/User';
 
 // Error pages
 import { NoUser } from './pages/errorPages/NoUser';
@@ -21,6 +22,7 @@ export const Routes: React.FC = () => {
       <Switch>
         <Route exact path="/" component={Home} />
         <Route exact path="/about" component={About} />
+        <Route exact path="/user/:id" render={(props) => <User {...props} />} />
         <Route exact path="/register" component={Register} />
         <Route exact path="/login" component={LoginPage} />
         <Route exact path="/admin" component={Admin} />
