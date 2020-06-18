@@ -23,7 +23,8 @@ export class Post extends BaseEntity {
   @Column('text')
   description: string;
 
-  @Column({ nullable: true })
+  @Field()
+  @Column('int', { nullable: true })
   userId: number;
 
   @Field(() => [User])
