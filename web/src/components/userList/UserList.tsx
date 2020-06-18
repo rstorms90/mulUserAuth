@@ -48,46 +48,67 @@ export const UserList: React.FC<Props> = ({ myRole }) => {
   return (
     <div>
       <div className="page-sub-title">Site Users: Page {pageNumber}</div>
-      <ul className="site-users-list">
-        {data.users.map((user) => {
-          return (
-            <li key={user.id}>
-              <div className="user-info">
-                <p>
-                  ID: <span className="user-id">{user.id}</span>
-                </p>
-                <p>
-                  <span className="user-username">{user.username}</span>
-                </p>
-                <p>
+      <div className="userlist-btn-container">
+        {skipUsers !== 0 ? (
+          <button
+            className="commonBtn"
+            onClick={() => handleClick('admin', 0, 12)}
+          >
+            Prev
+          </button>
+        ) : (
+          <div />
+        )}
+        {data.users.length === 12 ? (
+          <button
+            className="commonBtn"
+            onClick={() => handleClick('admin', 12, 12)}
+          >
+            Next
+          </button>
+        ) : (
+          <div />
+        )}
+      </div>
+      <div className="site-users-list-container">
+        <ul className="site-users-list">
+          {data.users.map((user) => {
+            return (
+              <li key={user.id}>
+                <div className="user-info">
+                  <span>
+                    ID: <span className="user-id">{user.id}</span>
+                  </span>
+                  <div className="user-username">{user.username}</div>
                   <span className="user-role">{user.role}</span>
-                </p>
-              </div>
+                </div>
 
-              <div className="admin-btns-container">
-                <button disabled>User's Profile</button>
-                <button
-                  className="secondaryBtn"
-                  onClick={async (e) => {
-                    e.preventDefault();
-                    const response = await removeUser({
-                      variables: {
-                        id: user.id,
-                      },
-                    });
+                <div className="admin-btns-container">
+                  <button disabled>User's Profile</button>
+                  <button
+                    className="secondaryBtn"
+                    onClick={async (e) => {
+                      e.preventDefault();
+                      const response = await removeUser({
+                        variables: {
+                          id: user.id,
+                        },
+                      });
 
-                    if (response) {
-                      alert(`Removed User:${user.username} ID:${user.id}`);
-                    }
-                  }}
-                >
-                  Delete User
-                </button>
-              </div>
-            </li>
-          );
-        })}
-      </ul>
+                      if (response) {
+                        alert(`Removed User:${user.username} ID:${user.id}`);
+                      }
+                    }}
+                  >
+                    Delete User
+                  </button>
+                </div>
+              </li>
+            );
+          })}
+        </ul>
+      </div>
+
       <div className="userlist-btn-container">
         {skipUsers !== 0 ? (
           <button
