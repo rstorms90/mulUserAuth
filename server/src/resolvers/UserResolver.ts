@@ -71,6 +71,24 @@ export class UserResolver {
     }
   }
 
+  // Query for single user
+  @Query(() => [User])
+  @UseMiddleware(isAuth)
+  async getUser(@Arg('id') id: number) {
+    // Grab user by id
+    let user = await User.find({
+      where: {
+        id,
+      },
+    });
+
+    if (!user.length) {
+      throw new Error('User not found.');
+    } else {
+      return user;
+    }
+  }
+
   // Identify logged-in user
   @Query(() => User, { nullable: true })
   me(@Ctx() context: MyContext) {
