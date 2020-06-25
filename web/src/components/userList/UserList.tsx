@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import { useUsersQuery, useRemoveUserMutation } from '../../generated/graphql';
 
 import './UserList.css';
@@ -43,33 +44,37 @@ export const UserList: React.FC<Props> = ({ myRole }) => {
     refetch({ role, skip, take });
   };
 
+  const userButtons = (
+    <div className="userlist-btn-container">
+      {skipUsers !== 0 ? (
+        <button
+          className="commonBtn"
+          onClick={() => handleClick('admin', 0, 12)}
+        >
+          Prev
+        </button>
+      ) : (
+        <div />
+      )}
+      {data.users.length === 12 ? (
+        <button
+          className="commonBtn"
+          onClick={() => handleClick('admin', 12, 12)}
+        >
+          Next
+        </button>
+      ) : (
+        <div />
+      )}
+    </div>
+  );
+
   const pageNumber = skipUsers / 12 + 1;
 
   return (
     <div>
       <div className="page-sub-title">Site Users: Page {pageNumber}</div>
-      <div className="userlist-btn-container">
-        {skipUsers !== 0 ? (
-          <button
-            className="commonBtn"
-            onClick={() => handleClick('admin', 0, 12)}
-          >
-            Prev
-          </button>
-        ) : (
-          <div />
-        )}
-        {data.users.length === 12 ? (
-          <button
-            className="commonBtn"
-            onClick={() => handleClick('admin', 12, 12)}
-          >
-            Next
-          </button>
-        ) : (
-          <div />
-        )}
-      </div>
+      {userButtons}
       <div className="site-users-list-container">
         <ul className="site-users-list">
           {data.users.map((user) => {
@@ -79,12 +84,18 @@ export const UserList: React.FC<Props> = ({ myRole }) => {
                   <span>
                     ID: <span className="user-id">{user.id}</span>
                   </span>
-                  <div className="user-username">{user.username}</div>
+                  <div>
+                    <Link
+                      to={{ pathname: `/user/${user.id}` }}
+                      className="user-username"
+                    >
+                      {user.username}
+                    </Link>
+                  </div>
                   <span className="user-role">{user.role}</span>
                 </div>
 
                 <div className="admin-btns-container">
-                  <button disabled>User's Profile</button>
                   <button
                     className="secondaryBtn"
                     onClick={async (e) => {
@@ -108,29 +119,7 @@ export const UserList: React.FC<Props> = ({ myRole }) => {
           })}
         </ul>
       </div>
-
-      <div className="userlist-btn-container">
-        {skipUsers !== 0 ? (
-          <button
-            className="commonBtn"
-            onClick={() => handleClick('admin', 0, 12)}
-          >
-            Prev
-          </button>
-        ) : (
-          <div />
-        )}
-        {data.users.length === 12 ? (
-          <button
-            className="commonBtn"
-            onClick={() => handleClick('admin', 12, 12)}
-          >
-            Next
-          </button>
-        ) : (
-          <div />
-        )}
-      </div>
+      {userButtons}
     </div>
   );
 };
