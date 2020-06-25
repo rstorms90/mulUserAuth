@@ -14,7 +14,10 @@ export type Scalars = {
 export type Query = {
    __typename?: 'Query';
   users: Array<User>;
+  getUser: Array<User>;
   me?: Maybe<User>;
+  posts: Array<Post>;
+  protectedRoute: Scalars['String'];
 };
 
 
@@ -24,12 +27,32 @@ export type QueryUsersArgs = {
   take?: Maybe<Scalars['Int']>;
 };
 
+
+export type QueryGetUserArgs = {
+  id: Scalars['Float'];
+};
+
+
+export type QueryPostsArgs = {
+  userId: Scalars['Float'];
+};
+
 export type User = {
    __typename?: 'User';
   id: Scalars['Int'];
   email: Scalars['String'];
   username: Scalars['String'];
   role: Scalars['String'];
+  posts: Array<Post>;
+};
+
+export type Post = {
+   __typename?: 'Post';
+  id: Scalars['Int'];
+  title: Scalars['String'];
+  description: Scalars['String'];
+  userId: Scalars['Float'];
+  user: Array<User>;
 };
 
 export type Mutation = {
@@ -39,6 +62,8 @@ export type Mutation = {
   logout: Scalars['Boolean'];
   revokeRefreshTokensForUser: Scalars['Boolean'];
   removeUser: Scalars['Boolean'];
+  addPost: Scalars['Boolean'];
+  deletePost: Scalars['Boolean'];
 };
 
 
@@ -64,16 +89,21 @@ export type MutationRemoveUserArgs = {
   id: Scalars['Float'];
 };
 
+
+export type MutationAddPostArgs = {
+  description: Scalars['String'];
+  title: Scalars['String'];
+};
+
+
+export type MutationDeletePostArgs = {
+  id: Scalars['Float'];
+};
+
 export type LoginResponse = {
    __typename?: 'LoginResponse';
   accessToken: Scalars['String'];
   user: User;
-};
-
-export type Post = {
-   __typename?: 'Post';
-  id: Scalars['Int'];
-  post: Scalars['String'];
 };
 
 export type LoginMutationVariables = {
@@ -133,6 +163,19 @@ export type RemoveUserMutationVariables = {
 export type RemoveUserMutation = (
   { __typename?: 'Mutation' }
   & Pick<Mutation, 'removeUser'>
+);
+
+export type GetUserQueryVariables = {
+  id: Scalars['Float'];
+};
+
+
+export type GetUserQuery = (
+  { __typename?: 'Query' }
+  & { getUser: Array<(
+    { __typename?: 'User' }
+    & Pick<User, 'id' | 'username' | 'role'>
+  )> }
 );
 
 export type UsersQueryVariables = {
@@ -314,6 +357,41 @@ export function useRemoveUserMutation(baseOptions?: ApolloReactHooks.MutationHoo
 export type RemoveUserMutationHookResult = ReturnType<typeof useRemoveUserMutation>;
 export type RemoveUserMutationResult = ApolloReactCommon.MutationResult<RemoveUserMutation>;
 export type RemoveUserMutationOptions = ApolloReactCommon.BaseMutationOptions<RemoveUserMutation, RemoveUserMutationVariables>;
+export const GetUserDocument = gql`
+    query GetUser($id: Float!) {
+  getUser(id: $id) {
+    id
+    username
+    role
+  }
+}
+    `;
+
+/**
+ * __useGetUserQuery__
+ *
+ * To run a query within a React component, call `useGetUserQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetUserQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetUserQuery({
+ *   variables: {
+ *      id: // value for 'id'
+ *   },
+ * });
+ */
+export function useGetUserQuery(baseOptions?: ApolloReactHooks.QueryHookOptions<GetUserQuery, GetUserQueryVariables>) {
+        return ApolloReactHooks.useQuery<GetUserQuery, GetUserQueryVariables>(GetUserDocument, baseOptions);
+      }
+export function useGetUserLazyQuery(baseOptions?: ApolloReactHooks.LazyQueryHookOptions<GetUserQuery, GetUserQueryVariables>) {
+          return ApolloReactHooks.useLazyQuery<GetUserQuery, GetUserQueryVariables>(GetUserDocument, baseOptions);
+        }
+export type GetUserQueryHookResult = ReturnType<typeof useGetUserQuery>;
+export type GetUserLazyQueryHookResult = ReturnType<typeof useGetUserLazyQuery>;
+export type GetUserQueryResult = ApolloReactCommon.QueryResult<GetUserQuery, GetUserQueryVariables>;
 export const UsersDocument = gql`
     query Users($role: String!, $skip: Int!, $take: Int!) {
   users(role: $role, skip: $skip, take: $take) {
