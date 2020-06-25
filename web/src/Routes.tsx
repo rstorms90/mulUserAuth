@@ -7,6 +7,7 @@ import { LoginPage } from './pages/loginPage/Login';
 import { Admin } from './pages/adminPage/Admin';
 import { Protected } from './pages/protectedPage/Protected';
 import { User } from './pages/userPage/User';
+import { Posts } from './pages/postsPage/Posts';
 import { PageNotFound } from './pages/errorPages/PageNotFound';
 
 // Error pages
@@ -24,6 +25,7 @@ export const Routes: React.FC = () => {
         <Route exact path="/" component={Home} />
         <Route exact path="/about" component={About} />
         <Route exact path="/user/:id" render={(props) => <User {...props} />} />
+        <Route exact path="/user/:id/posts" component={Posts} />
         <Route exact path="/register" component={Register} />
         <Route exact path="/login" component={LoginPage} />
         <Route exact path="/admin" component={Admin} />

@@ -1,5 +1,5 @@
 import React from 'react';
-import { RouteComponentProps, Redirect, Link } from 'react-router-dom';
+import { RouteComponentProps, Redirect } from 'react-router-dom';
 import { useGetUserQuery } from '../../generated/graphql';
 
 interface Props {
@@ -30,6 +30,7 @@ export const User = ({ match }: RouteComponentProps<Props>) => {
     const role: string = searchedUser.role;
     const capitalizedRole: string =
       role.charAt(0).toUpperCase() + role.slice(1);
+
     const usersPosts: any = searchedUser.posts.length ? (
       searchedUser.posts.map((post, idx) => {
         return (
