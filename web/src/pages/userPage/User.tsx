@@ -30,19 +30,26 @@ export const User = ({ match }: RouteComponentProps<Props>) => {
     const role: string = searchedUser.role;
     const capitalizedRole: string =
       role.charAt(0).toUpperCase() + role.slice(1);
-    const usersPosts: any = searchedUser.posts.map((post, idx) => {
-      return (
-        <div key={idx}>
-          <h4>Title: {post.title}</h4>
-          <h6>{post.description}</h6>
-        </div>
-      );
-    });
+    const usersPosts: any = searchedUser.posts.length ? (
+      searchedUser.posts.map((post, idx) => {
+        return (
+          <div key={idx}>
+            <h4>Title: {post.title}</h4>
+            <h6>{post.description}</h6>
+          </div>
+        );
+      })
+    ) : (
+      <div>User has 0 posts.</div>
+    );
 
     userData = (
       <div>
         <h1>{username}</h1>
         <h3>Role: {capitalizedRole}</h3>
+        <h3>
+          {username} has {usersPosts.length} posts.
+        </h3>
         {usersPosts}
       </div>
     );
