@@ -3,7 +3,7 @@ import { useMeQuery } from '../../generated/graphql';
 
 interface Props {}
 
-export const Protected: React.FC<Props> = () => {
+export const Users: React.FC<Props> = () => {
   const { data, loading } = useMeQuery();
 
   let userData: any = null;
