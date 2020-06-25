@@ -5,7 +5,7 @@ import { useUsersQuery, useRemoveUserMutation } from '../../generated/graphql';
 import './UserList.css';
 
 interface Props {
-  myRole: string;
+  myRole: any;
 }
 
 export const UserList: React.FC<Props> = ({ myRole }) => {
@@ -13,7 +13,6 @@ export const UserList: React.FC<Props> = ({ myRole }) => {
   const { data, loading, error, refetch } = useUsersQuery({
     fetchPolicy: 'network-only',
     variables: {
-      role: myRole,
       skip: skipUsers,
       take: 12,
     },
@@ -35,32 +34,26 @@ export const UserList: React.FC<Props> = ({ myRole }) => {
   }
 
   // Pagination click
-  const handleClick = (role: string, skip: number, take: number) => {
+  const handleClick = (skip: number, take: number) => {
     if (skip === 0) {
       setSkipUsers(skipUsers - take);
     } else {
       setSkipUsers(skipUsers + take);
     }
-    refetch({ role, skip, take });
+    refetch({ skip, take });
   };
 
   const userButtons = (
     <div className="userlist-btn-container">
       {skipUsers !== 0 ? (
-        <button
-          className="commonBtn"
-          onClick={() => handleClick('admin', 0, 12)}
-        >
+        <button className="commonBtn" onClick={() => handleClick(0, 12)}>
           Prev
         </button>
       ) : (
         <div />
       )}
       {data.users.length === 12 ? (
-        <button
-          className="commonBtn"
-          onClick={() => handleClick('admin', 12, 12)}
-        >
+        <button className="commonBtn" onClick={() => handleClick(12, 12)}>
           Next
         </button>
       ) : (
@@ -95,25 +88,30 @@ export const UserList: React.FC<Props> = ({ myRole }) => {
                   <span className="user-role">{user.role}</span>
                 </div>
 
-                <div className="admin-btns-container">
-                  <button
-                    className="secondaryBtn"
-                    onClick={async (e) => {
-                      e.preventDefault();
-                      const response = await removeUser({
-                        variables: {
-                          id: user.id,
-                        },
-                      });
+                {myRole === 'admin' && (
+                  <div className="admin-btns-container">
+                    <button
+                      className="secondaryBtn"
+                      onClick={async (e) => {
+                        e.preventDefault();
+                        const response = await removeUser({
+                          variables: {
+                            role: myRole,
+                            id: user.id,
+                          },
+                        });
 
-                      if (response) {
-                        alert(`Removed User:${user.username} ID:${user.id}`);
-                      }
-                    }}
-                  >
-                    Delete User
-                  </button>
-                </div>
+                        if (response) {
+                          alert(`Removed User:${user.username} ID:${user.id}`);
+                        } else {
+                          alert(`Unauthenticated — Not admin.`);
+                        }
+                      }}
+                    >
+                      Delete User
+                    </button>
+                  </div>
+                )}
               </li>
             );
           })}

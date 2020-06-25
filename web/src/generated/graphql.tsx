@@ -22,7 +22,6 @@ export type Query = {
 
 
 export type QueryUsersArgs = {
-  role: Scalars['String'];
   skip?: Maybe<Scalars['Int']>;
   take?: Maybe<Scalars['Int']>;
 };
@@ -87,6 +86,7 @@ export type MutationRevokeRefreshTokensForUserArgs = {
 
 export type MutationRemoveUserArgs = {
   id: Scalars['Float'];
+  role: Scalars['String'];
 };
 
 
@@ -169,6 +169,7 @@ export type RegisterMutation = (
 );
 
 export type RemoveUserMutationVariables = {
+  role: Scalars['String'];
   id: Scalars['Float'];
 };
 
@@ -192,7 +193,6 @@ export type GetUserQuery = (
 );
 
 export type UsersQueryVariables = {
-  role: Scalars['String'];
   skip: Scalars['Int'];
   take: Scalars['Int'];
 };
@@ -376,8 +376,8 @@ export type RegisterMutationHookResult = ReturnType<typeof useRegisterMutation>;
 export type RegisterMutationResult = ApolloReactCommon.MutationResult<RegisterMutation>;
 export type RegisterMutationOptions = ApolloReactCommon.BaseMutationOptions<RegisterMutation, RegisterMutationVariables>;
 export const RemoveUserDocument = gql`
-    mutation RemoveUser($id: Float!) {
-  removeUser(id: $id)
+    mutation RemoveUser($role: String!, $id: Float!) {
+  removeUser(role: $role, id: $id)
 }
     `;
 export type RemoveUserMutationFn = ApolloReactCommon.MutationFunction<RemoveUserMutation, RemoveUserMutationVariables>;
@@ -395,6 +395,7 @@ export type RemoveUserMutationFn = ApolloReactCommon.MutationFunction<RemoveUser
  * @example
  * const [removeUserMutation, { data, loading, error }] = useRemoveUserMutation({
  *   variables: {
+ *      role: // value for 'role'
  *      id: // value for 'id'
  *   },
  * });
@@ -441,8 +442,8 @@ export type GetUserQueryHookResult = ReturnType<typeof useGetUserQuery>;
 export type GetUserLazyQueryHookResult = ReturnType<typeof useGetUserLazyQuery>;
 export type GetUserQueryResult = ApolloReactCommon.QueryResult<GetUserQuery, GetUserQueryVariables>;
 export const UsersDocument = gql`
-    query Users($role: String!, $skip: Int!, $take: Int!) {
-  users(role: $role, skip: $skip, take: $take) {
+    query Users($skip: Int!, $take: Int!) {
+  users(skip: $skip, take: $take) {
     id
     username
     email
@@ -463,7 +464,6 @@ export const UsersDocument = gql`
  * @example
  * const { data, loading, error } = useUsersQuery({
  *   variables: {
- *      role: // value for 'role'
  *      skip: // value for 'skip'
  *      take: // value for 'take'
  *   },

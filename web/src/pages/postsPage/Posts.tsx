@@ -2,6 +2,8 @@ import React from 'react';
 import { RouteComponentProps } from 'react-router-dom';
 import { usePostsQuery } from '../../generated/graphql';
 
+import './Posts.css';
+
 interface Props {
   id: string;
 }
@@ -29,10 +31,14 @@ export const Posts = ({ match }: RouteComponentProps<Props>) => {
 
     const usersPosts = posts.length ? (
       posts.map((post: any, idx: any) => {
+        const truncate = (post: any) =>
+          post.length > 55 ? `${post.substring(0, 55)}...` : post;
         return (
           <div key={idx}>
-            <h4>Title: {post.title}</h4>
-            <h6>{post.description}</h6>
+            <h4>
+              <span className="post-title">Post Title:</span> {post.title}
+            </h4>
+            <h6>{truncate(post.description)}</h6>
           </div>
         );
       })
@@ -45,7 +51,7 @@ export const Posts = ({ match }: RouteComponentProps<Props>) => {
 
   return (
     <div className="Posts page">
-      <h1>Posts</h1>
+      <h1>User id: {match.params.id}'s Posts</h1>
       {postData}
     </div>
   );

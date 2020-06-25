@@ -32,9 +32,6 @@ class LoginResponse {
 // User query arguments for pagination
 @ArgsType()
 class GetUsersArgs {
-  @Field()
-  role: string;
-
   @Field(() => Int, { defaultValue: 0 })
   @Min(0)
   skip: number;
@@ -59,16 +56,11 @@ export class UserResolver {
   // Query for all users
   @Query(() => [User])
   @UseMiddleware(isAuth)
-  async users(@Args() { role, startIndex, endIndex }: GetUsersArgs) {
+  async users(@Args() { startIndex, endIndex }: GetUsersArgs) {
     // Grab all users
     let users = await User.find({ relations: ['posts'] });
-
-    if (role !== 'admin') {
-      throw new Error('Unauthenticated');
-    } else {
-      // Paginate
-      return users.slice(startIndex, endIndex);
-    }
+    // Paginate
+    return users.slice(startIndex, endIndex);
   }
 
   // Query for single user
@@ -178,17 +170,22 @@ export class UserResolver {
 
   // Super Admin — Remove User
   @Mutation(() => Boolean)
-  async removeUser(@Arg('id') id: number) {
+  async removeUser(@Arg('role') role: string, @Arg('id') id: number) {
     try {
-      await User.delete({
-        id,
-      });
+      if (role === 'user' && id) {
+        throw new Error('Unauthenticated');
+      }
+
+      if (role === 'admin') {
+        await User.delete({
+          id,
+        });
+        console.log(`Admin — Removed User ID:${id}`);
+      }
     } catch (err) {
       console.log(err);
-      return false;
     }
 
-    console.log(`Admin — Removed User ID:${id}`);
     return true;
   }
 }
