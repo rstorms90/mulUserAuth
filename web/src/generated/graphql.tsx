@@ -175,6 +175,10 @@ export type GetUserQuery = (
   & { getUser: Array<(
     { __typename?: 'User' }
     & Pick<User, 'id' | 'username' | 'role'>
+    & { posts: Array<(
+      { __typename?: 'Post' }
+      & Pick<Post, 'title' | 'description'>
+    )> }
   )> }
 );
 
@@ -363,6 +367,10 @@ export const GetUserDocument = gql`
     id
     username
     role
+    posts {
+      title
+      description
+    }
   }
 }
     `;

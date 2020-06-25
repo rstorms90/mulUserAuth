@@ -3,5 +3,9 @@ query GetUser($id: Float!) {
     id
     username
     role
+    posts {
+      title
+      description
+    }
   }
 }

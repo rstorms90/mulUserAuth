@@ -7,7 +7,7 @@ import { LoginPage } from './pages/loginPage/Login';
 import { Admin } from './pages/adminPage/Admin';
 import { Protected } from './pages/protectedPage/Protected';
 import { User } from './pages/userPage/User';
-import PageNotFound from './pages/PageNotFound';
+import { PageNotFound } from './pages/errorPages/PageNotFound';
 
 // Error pages
 import { NoUser } from './pages/errorPages/NoUser';
