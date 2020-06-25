@@ -25,7 +25,11 @@ export const Routes: React.FC = () => {
         <Route exact path="/" component={Home} />
         <Route exact path="/about" component={About} />
         <Route exact path="/user/:id" render={(props) => <User {...props} />} />
-        <Route exact path="/user/:id/posts" component={Posts} />
+        <Route
+          exact
+          path="/user/:id/posts"
+          render={(props) => <Posts {...props} />}
+        />
         <Route exact path="/register" component={Register} />
         <Route exact path="/login" component={LoginPage} />
         <Route exact path="/admin" component={Admin} />

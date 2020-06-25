@@ -1,5 +1,5 @@
 import React from 'react';
-import { RouteComponentProps, Redirect } from 'react-router-dom';
+import { RouteComponentProps, Redirect, Link } from 'react-router-dom';
 import { useGetUserQuery } from '../../generated/graphql';
 
 interface Props {
@@ -14,6 +14,7 @@ export const User = ({ match }: RouteComponentProps<Props>) => {
   });
 
   let userData: any = null;
+  const id = parseInt(match.params.id);
 
   if (loading) {
     userData = <div>Loading...</div>;
@@ -31,32 +32,17 @@ export const User = ({ match }: RouteComponentProps<Props>) => {
     const capitalizedRole: string =
       role.charAt(0).toUpperCase() + role.slice(1);
 
-    const usersPosts: any = searchedUser.posts.length ? (
-      searchedUser.posts.map((post, idx) => {
-        return (
-          <div key={idx}>
-            <h4>Title: {post.title}</h4>
-            <h6>{post.description}</h6>
-          </div>
-        );
-      })
-    ) : (
-      <div>User has 0 posts.</div>
-    );
-
     userData = (
       <div>
         <h1>{username}</h1>
         <h3>Role: {capitalizedRole}</h3>
-        <h3>
-          {username} has {usersPosts.length} posts.
-        </h3>
-        {usersPosts}
+
+        <Link to={{ pathname: `/user/${id}/posts` }} className="">
+          {username}'s Posts
+        </Link>
       </div>
     );
   }
-
-  const id = parseInt(match.params.id);
 
   if (id !== 0 && !id) {
     return <Redirect to={{ pathname: '/404' }} />;
