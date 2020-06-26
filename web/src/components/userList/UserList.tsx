@@ -26,7 +26,7 @@ export const UserList: React.FC<Props> = ({ myRole }) => {
 
   if (error) {
     console.log(error);
-    return <div>You are not the admin — Unauthenticated.</div>;
+    return <div>You are a user — Unauthenticated.</div>;
   }
 
   if (!data) {
@@ -79,7 +79,7 @@ export const UserList: React.FC<Props> = ({ myRole }) => {
                   </span>
                   <div>
                     <Link
-                      to={{ pathname: `/user/${user.id}` }}
+                      to={{ pathname: `/user/${user.username}` }}
                       className="user-username"
                     >
                       {user.username}

@@ -5,6 +5,7 @@ import { usePostsQuery } from '../../generated/graphql';
 import './Posts.css';
 
 interface Props {
+  user: string;
   id: string;
 }
 
@@ -51,7 +52,7 @@ export const Posts = ({ match }: RouteComponentProps<Props>) => {
 
   return (
     <div className="Posts page">
-      <h1>User id: {match.params.id}'s Posts</h1>
+      <h1>User's Posts</h1>
       {postData}
     </div>
   );

@@ -3,18 +3,17 @@ import { RouteComponentProps, Redirect, Link } from 'react-router-dom';
 import { useGetUserQuery } from '../../generated/graphql';
 
 interface Props {
-  id: string;
+  user: string;
 }
 
-export const User = ({ match }: RouteComponentProps<Props>) => {
+export const UserInfo: React.FC<Props> = ({ user }) => {
   const { data, loading, error } = useGetUserQuery({
     variables: {
-      id: parseInt(match.params.id),
+      username: user,
     },
   });
 
   let userData: any = null;
-  const id = parseInt(match.params.id);
 
   if (loading) {
     userData = <div>Loading...</div>;
@@ -27,26 +26,28 @@ export const User = ({ match }: RouteComponentProps<Props>) => {
 
   if (data) {
     const searchedUser = data.getUser[0];
+    const searchedUserId = searchedUser.id;
     const username: string = searchedUser.username;
     const role: string = searchedUser.role;
     const capitalizedRole: string =
       role.charAt(0).toUpperCase() + role.slice(1);
-
     userData = (
       <div>
         <h1>{username}</h1>
         <h3>Role: {capitalizedRole}</h3>
-
-        <Link to={{ pathname: `/user/${id}/posts` }} className="">
+        <Link
+          to={{ pathname: `/user/${user}/${searchedUserId}/posts` }}
+          className=""
+        >
           {username}'s Posts
         </Link>
       </div>
     );
   }
 
-  if (id !== 0 && !id) {
-    return <Redirect to={{ pathname: '/404' }} />;
-  }
+  // if (id !== 0 && !id) {
+  //   return <Redirect to={{ pathname: '/404' }} />;
+  // }
 
-  return <div className="User page">{userData}</div>;
+  return <div className="UserInfo page">{userData}</div>;
 };

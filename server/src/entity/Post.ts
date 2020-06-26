@@ -4,6 +4,8 @@ import {
   BaseEntity,
   Column,
   ManyToOne,
+  CreateDateColumn,
+  UpdateDateColumn,
 } from 'typeorm';
 import { ObjectType, Field, Int } from 'type-graphql';
 import { User } from './User';
@@ -22,6 +24,14 @@ export class Post extends BaseEntity {
   @Field()
   @Column('text')
   description: string;
+
+  @Field()
+  @CreateDateColumn()
+  createdAt: string;
+
+  @Field()
+  @UpdateDateColumn({ type: 'timestamp' })
+  updatedAt: number;
 
   @Field()
   @Column('int', { nullable: true })

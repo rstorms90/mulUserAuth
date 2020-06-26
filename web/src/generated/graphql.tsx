@@ -28,7 +28,7 @@ export type QueryUsersArgs = {
 
 
 export type QueryGetUserArgs = {
-  id: Scalars['Float'];
+  username: Scalars['String'];
 };
 
 
@@ -50,6 +50,8 @@ export type Post = {
   id: Scalars['Int'];
   title: Scalars['String'];
   description: Scalars['String'];
+  createdAt: Scalars['String'];
+  updatedAt: Scalars['Float'];
   userId: Scalars['Float'];
   user: Array<User>;
 };
@@ -62,7 +64,6 @@ export type Mutation = {
   revokeRefreshTokensForUser: Scalars['Boolean'];
   removeUser: Scalars['Boolean'];
   addPost: Scalars['Boolean'];
-  deletePost: Scalars['Boolean'];
 };
 
 
@@ -93,11 +94,6 @@ export type MutationRemoveUserArgs = {
 export type MutationAddPostArgs = {
   description: Scalars['String'];
   title: Scalars['String'];
-};
-
-
-export type MutationDeletePostArgs = {
-  id: Scalars['Float'];
 };
 
 export type LoginResponse = {
@@ -180,7 +176,7 @@ export type RemoveUserMutation = (
 );
 
 export type GetUserQueryVariables = {
-  id: Scalars['Float'];
+  username: Scalars['String'];
 };
 
 
@@ -407,8 +403,8 @@ export type RemoveUserMutationHookResult = ReturnType<typeof useRemoveUserMutati
 export type RemoveUserMutationResult = ApolloReactCommon.MutationResult<RemoveUserMutation>;
 export type RemoveUserMutationOptions = ApolloReactCommon.BaseMutationOptions<RemoveUserMutation, RemoveUserMutationVariables>;
 export const GetUserDocument = gql`
-    query GetUser($id: Float!) {
-  getUser(id: $id) {
+    query GetUser($username: String!) {
+  getUser(username: $username) {
     id
     username
     role
@@ -428,7 +424,7 @@ export const GetUserDocument = gql`
  * @example
  * const { data, loading, error } = useGetUserQuery({
  *   variables: {
- *      id: // value for 'id'
+ *      username: // value for 'username'
  *   },
  * });
  */

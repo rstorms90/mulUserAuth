@@ -66,11 +66,12 @@ export class UserResolver {
   // Query for single user
   @Query(() => [User])
   @UseMiddleware(isAuth)
-  async getUser(@Arg('id') id: number) {
-    // Grab user by id
-    let user = await User.find({
+  async getUser(@Arg('username') username: string) {
+    let user: any;
+    // Grab user by username
+    user = await User.find({
       where: {
-        id,
+        username,
       },
     });
 

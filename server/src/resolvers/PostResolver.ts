@@ -16,13 +16,14 @@ export class PostResolver {
   // Query for all posts by user
   @Query(() => [Post])
   async posts(@Arg('userId') userId: number) {
-    // Grab all posts by userId
+    // Grab all posts by username
     let posts = await Post.find({
       relations: ['user'],
       where: {
-        user: {
-          id: userId,
-        },
+        userId,
+      },
+      order: {
+        createdAt: 'DESC',
       },
     });
 
@@ -56,26 +57,26 @@ export class PostResolver {
   // Delete id of post passed in as argument
 
   // Delete Post
-  @Mutation(() => Boolean)
-  @UseMiddleware(isAuth)
-  async deletePost(@Arg('id') id: number, @Ctx() context: MyContext) {
-    try {
-      const userId: number = Number(context.payload?.userId);
-      const posts: any = await this.posts(userId);
+  // @Mutation(() => Boolean)
+  // @UseMiddleware(isAuth)
+  // async deletePost(@Arg('id') id: number, @Ctx() context: MyContext) {
+  //   try {
+  //     const userId: number = Number(context.payload?.userId);
+  //     const posts: any = await this.posts(userId);
 
-      for (const post of posts) {
-        if (post.id === id) {
-          await Post.delete({
-            id,
-          });
-        }
-      }
-    } catch (err) {
-      console.log(err);
-      return false;
-    }
+  //     for (const post of posts) {
+  //       if (post.id === id) {
+  //         await Post.delete({
+  //           id,
+  //         });
+  //       }
+  //     }
+  //   } catch (err) {
+  //     console.log(err);
+  //     return false;
+  //   }
 
-    console.log(`Removed post ID: ${id}`);
-    return true;
-  }
+  //   console.log(`Removed post ID: ${id}`);
+  //   return true;
+  // }
 }

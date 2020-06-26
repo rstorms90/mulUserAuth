@@ -6,7 +6,7 @@ import { Register } from './pages/registerPage/Register';
 import { LoginPage } from './pages/loginPage/Login';
 import { Admin } from './pages/adminPage/Admin';
 import { Users } from './pages/usersPage/Users';
-import { User } from './pages/userPage/User';
+import { UserProfile } from './pages/userProfilePage/UserProfile';
 import { Posts } from './pages/postsPage/Posts';
 import { PageNotFound } from './pages/errorPages/PageNotFound';
 
@@ -24,10 +24,14 @@ export const Routes: React.FC = () => {
       <Switch>
         <Route exact path="/" component={Home} />
         <Route exact path="/about" component={About} />
-        <Route exact path="/user/:id" render={(props) => <User {...props} />} />
         <Route
           exact
-          path="/user/:id/posts"
+          path="/user/:user"
+          render={(props) => <UserProfile {...props} />}
+        />
+        <Route
+          exact
+          path="/user/:user/:id/posts"
           render={(props) => <Posts {...props} />}
         />
         <Route exact path="/register" component={Register} />

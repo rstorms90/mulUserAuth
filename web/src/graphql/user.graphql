@@ -1,5 +1,5 @@
-query GetUser($id: Float!) {
-  getUser(id: $id) {
+query GetUser($username: String!) {
+  getUser(username: $username) {
     id
     username
     role
