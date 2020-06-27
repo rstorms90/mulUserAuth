@@ -1,14 +1,16 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { TextField } from '@material-ui/core';
+import { Link, Redirect, useHistory } from 'react-router-dom';
 import { useUsersQuery, useRemoveUserMutation } from '../../generated/graphql';
 
-import './UserList.css';
+import './UsersList.css';
 
 interface Props {
   myRole: any;
 }
 
-export const UserList: React.FC<Props> = ({ myRole }) => {
+export const UsersList: React.FC<Props> = ({ myRole }) => {
+  const [username, setUsername] = useState('');
   const [skipUsers, setSkipUsers] = useState(0);
   const { data, loading, error, refetch } = useUsersQuery({
     fetchPolicy: 'network-only',
@@ -17,6 +19,8 @@ export const UserList: React.FC<Props> = ({ myRole }) => {
       take: 12,
     },
   });
+
+  const history = useHistory();
 
   const [removeUser] = useRemoveUserMutation();
 
@@ -66,6 +70,27 @@ export const UserList: React.FC<Props> = ({ myRole }) => {
 
   return (
     <div>
+      <h1>Search for user</h1>
+      <form
+        className=""
+        onSubmit={async (e) => {
+          e.preventDefault();
+          history.push(`/user/${username}`);
+        }}
+      >
+        <TextField
+          label="Search by username"
+          variant="filled"
+          value={username}
+          color="primary"
+          onChange={(e) => {
+            setUsername(e.target.value);
+          }}
+        />
+        <button className="commonBtn" type="submit">
+          Search
+        </button>
+      </form>
       <div className="page-sub-title">Site Users: Page {pageNumber}</div>
       {userButtons}
       <div className="site-users-list-container">
@@ -122,6 +147,6 @@ export const UserList: React.FC<Props> = ({ myRole }) => {
   );
 };
 
-UserList.defaultProps = {
+UsersList.defaultProps = {
   myRole: '',
 };

@@ -4,7 +4,7 @@ import { Home } from './pages/homePage/Home';
 import { About } from './pages/aboutPage/About';
 import { Register } from './pages/registerPage/Register';
 import { LoginPage } from './pages/loginPage/Login';
-import { Admin } from './pages/adminPage/Admin';
+import { CreatePost } from './pages/createPostPage/CreatePost';
 import { Users } from './pages/usersPage/Users';
 import { UserProfile } from './pages/userProfilePage/UserProfile';
 import { Posts } from './pages/postsPage/Posts';
@@ -36,7 +36,7 @@ export const Routes: React.FC = () => {
         />
         <Route exact path="/register" component={Register} />
         <Route exact path="/login" component={LoginPage} />
-        <Route exact path="/admin" component={Admin} />
+        <Route exact path="/createpost" component={CreatePost} />
         <Route exact path="/users" component={Users} />
         <Route exact path="/nouser" component={NoUser} />
         <Route exact path="/nopass" component={NoPass} />

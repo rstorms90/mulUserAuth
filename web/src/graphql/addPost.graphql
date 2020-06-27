@@ -1,0 +1,3 @@
+mutation AddPost($title: String!, $description: String!) {
+  addPost(title: $title, description: $description)
+}

@@ -1,0 +1,3 @@
+mutation EditPost($id: Float!, $title: String!, $description: String!) {
+  editPost(id: $id, title: $title, description: $description)
+}

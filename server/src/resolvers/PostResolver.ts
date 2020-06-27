@@ -57,26 +57,58 @@ export class PostResolver {
   // Delete id of post passed in as argument
 
   // Delete Post
-  // @Mutation(() => Boolean)
-  // @UseMiddleware(isAuth)
-  // async deletePost(@Arg('id') id: number, @Ctx() context: MyContext) {
-  //   try {
-  //     const userId: number = Number(context.payload?.userId);
-  //     const posts: any = await this.posts(userId);
+  @Mutation(() => Boolean)
+  @UseMiddleware(isAuth)
+  async deletePost(@Arg('id') id: number, @Ctx() context: MyContext) {
+    try {
+      const userId: number = Number(context.payload?.userId);
+      const posts: any = await this.posts(userId);
 
-  //     for (const post of posts) {
-  //       if (post.id === id) {
-  //         await Post.delete({
-  //           id,
-  //         });
-  //       }
-  //     }
-  //   } catch (err) {
-  //     console.log(err);
-  //     return false;
-  //   }
+      for (const post of posts) {
+        if (post.id === id) {
+          await Post.delete({
+            id,
+          });
+        }
+      }
+    } catch (err) {
+      console.log(err);
+      return false;
+    }
 
-  //   console.log(`Removed post ID: ${id}`);
-  //   return true;
-  // }
+    console.log(`Removed post ID: ${id}`);
+    return true;
+  }
+
+  // Edit Post
+  @Mutation(() => Boolean)
+  @UseMiddleware(isAuth)
+  async editPost(
+    @Arg('id') id: number,
+    @Arg('title') title: string,
+    @Arg('description') description: string,
+    @Ctx() context: MyContext
+  ) {
+    try {
+      const userId: number = Number(context.payload?.userId);
+      const posts: any = await this.posts(userId);
+
+      for (const post of posts) {
+        if (post.id === id && post.userId === userId) {
+          await Post.update(id, {
+            title,
+            description,
+          });
+        } else {
+          throw new Error('You are not the owner of this post.');
+        }
+      }
+    } catch (err) {
+      console.log(err);
+      return false;
+    }
+
+    console.log(`Edited post ID: ${id}`);
+    return true;
+  }
 }

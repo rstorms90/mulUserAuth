@@ -11,7 +11,7 @@ export const UserProfile = ({ match }: RouteComponentProps<Props>) => {
 
   return (
     <div className="UserProfile page">
-      <h1>UserProfile Page</h1>
+      <h1>{username}'s Profile</h1>
       <UserInfo user={match.params.user} />
     </div>
   );

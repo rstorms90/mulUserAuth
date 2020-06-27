@@ -1,5 +1,5 @@
 import React from 'react';
-import { RouteComponentProps, Redirect, Link } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 import { useGetUserQuery } from '../../generated/graphql';
 
 interface Props {
@@ -33,8 +33,10 @@ export const UserInfo: React.FC<Props> = ({ user }) => {
       role.charAt(0).toUpperCase() + role.slice(1);
     userData = (
       <div>
+        <p>Username:</p>
         <h1>{username}</h1>
-        <h3>Role: {capitalizedRole}</h3>
+        <p>Role:</p>
+        <h3>{capitalizedRole}</h3>
         <Link
           to={{ pathname: `/user/${user}/${searchedUserId}/posts` }}
           className=""
@@ -45,7 +47,7 @@ export const UserInfo: React.FC<Props> = ({ user }) => {
     );
   }
 
-  // if (id !== 0 && !id) {
+  // if (user !== '' && !user) {
   //   return <Redirect to={{ pathname: '/404' }} />;
   // }
 

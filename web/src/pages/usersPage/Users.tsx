@@ -1,6 +1,6 @@
 import React from 'react';
 import { useMeQuery } from '../../generated/graphql';
-import { UserList } from '../../components/userList/UserList';
+import { UsersList } from '../../components/usersList/UsersList';
 
 interface Props {}
 
@@ -18,7 +18,7 @@ export const Users: React.FC<Props> = () => {
   }
 
   if (data) {
-    usersData = <UserList myRole={data?.me?.role} />;
+    usersData = <UsersList myRole={data?.me?.role} />;
   }
 
   return (

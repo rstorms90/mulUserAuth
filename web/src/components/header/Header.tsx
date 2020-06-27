@@ -56,14 +56,14 @@ const Header: React.FC<Props> = () => {
           <Link to="/about">About</Link>
         </div>
         {user && (
-          <div className="nav-link">
-            <Link to="/users">Users</Link>
-          </div>
-        )}
-        {user && user.role === 'admin' && (
-          <div className="nav-link">
-            <Link to="/admin">Admin</Link>
-          </div>
+          <>
+            <div className="nav-link">
+              <Link to="/users">Users</Link>
+            </div>
+            <div className="nav-link">
+              <Link to="/createpost">Createpost</Link>
+            </div>
+          </>
         )}
 
         {!user && (
