@@ -12,9 +12,9 @@ export const UserProfile = ({ match }: RouteComponentProps<Props>) => {
 
   return (
     <div className="UserProfile page">
+      <button onClick={() => history.goBack()}>Back</button>
       <h1>{username}'s Profile</h1>
       <UserInfo user={match.params.user} />
-      <button onClick={() => history.goBack()}>Back</button>
     </div>
   );
 };

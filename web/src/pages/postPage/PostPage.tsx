@@ -47,9 +47,9 @@ export const PostPage = ({ match }: RouteComponentProps<Props>) => {
 
   return (
     <div className="page">
+      <button onClick={() => history.goBack()}>Back</button>
       <h1 className="page-title">{user}'s Post</h1>
       {postData}
-      <button onClick={() => history.goBack()}>Back</button>
     </div>
   );
 };

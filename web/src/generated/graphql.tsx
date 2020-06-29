@@ -48,6 +48,7 @@ export type User = {
   email: Scalars['String'];
   username: Scalars['String'];
   role: Scalars['String'];
+  avatar: Scalars['String'];
   posts: Array<Post>;
 };
 

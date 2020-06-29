@@ -32,6 +32,10 @@ export class User extends BaseEntity {
   @Column('text', { default: 'user' })
   role: string;
 
+  @Field()
+  @Column('text', { nullable: true })
+  avatar: string;
+
   @Column('text')
   password: string;
 
