@@ -251,7 +251,7 @@ export type GetUserQuery = (
   { __typename?: 'Query' }
   & { getUser: Array<(
     { __typename?: 'User' }
-    & Pick<User, 'id' | 'username' | 'role'>
+    & Pick<User, 'id' | 'username' | 'role' | 'avatar'>
   )> }
 );
 
@@ -604,6 +604,7 @@ export const GetUserDocument = gql`
     id
     username
     role
+    avatar
   }
 }
     `;

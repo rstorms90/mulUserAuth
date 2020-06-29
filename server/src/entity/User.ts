@@ -33,7 +33,9 @@ export class User extends BaseEntity {
   role: string;
 
   @Field()
-  @Column('text', { nullable: true })
+  @Column('varchar', {
+    default: 'https://img.icons8.com/fluent/48/000000/user-male-circle.png',
+  })
   avatar: string;
 
   @Column('text')

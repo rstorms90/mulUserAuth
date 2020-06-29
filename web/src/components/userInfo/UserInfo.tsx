@@ -28,11 +28,13 @@ export const UserInfo: React.FC<Props> = ({ user }) => {
     const searchedUser = data.getUser[0];
     const searchedUserId = searchedUser.id;
     const username: string = searchedUser.username;
+    const avatar: string = searchedUser.avatar;
     const role: string = searchedUser.role;
     const capitalizedRole: string =
       role.charAt(0).toUpperCase() + role.slice(1);
     userData = (
       <div>
+        <img src={avatar} alt={`${username}'s avatar.`} />
         <p>Username:</p>
         <h1>{username}</h1>
         <p>Role:</p>

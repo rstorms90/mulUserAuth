@@ -59,6 +59,7 @@ export class UserResolver {
   async users(@Args() { startIndex, endIndex }: GetUsersArgs) {
     // Grab all users
     let users = await User.find({ relations: ['posts'] });
+    console.log(users);
     // Paginate
     return users.slice(startIndex, endIndex);
   }
