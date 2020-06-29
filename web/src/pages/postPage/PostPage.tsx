@@ -6,10 +6,12 @@ import '../../theme.css';
 
 interface Props {
   id: string;
+  user: any;
 }
 
 export const PostPage = ({ match }: RouteComponentProps<Props>) => {
   const postId = parseInt(match.params.id);
+  const user = match.params.user;
 
   const { data, loading, error } = useGetPostQuery({
     variables: {
@@ -29,18 +31,23 @@ export const PostPage = ({ match }: RouteComponentProps<Props>) => {
   }
 
   if (data) {
-    const { title, description } = data.getPost[0];
+    console.log(data.getPost[0]);
+    const { title, description, createdAt } = data.getPost[0];
+    const extractDate = new Date(parseInt(createdAt));
+    const date = extractDate.toDateString();
+
     postData = (
       <div>
         <h2>{title}</h2>
         <h5>{description}</h5>
+        <h6>{date}</h6>
       </div>
     );
   }
 
   return (
     <div className="page">
-      <h1 className="page-title">PostPage</h1>
+      <h1 className="page-title">{user}'s Post</h1>
       {postData}
     </div>
   );

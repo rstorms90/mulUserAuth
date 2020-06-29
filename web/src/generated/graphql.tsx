@@ -201,7 +201,7 @@ export type GetPostQuery = (
   { __typename?: 'Query' }
   & { getPost: Array<(
     { __typename?: 'Post' }
-    & Pick<Post, 'id' | 'title' | 'description'>
+    & Pick<Post, 'id' | 'title' | 'description' | 'createdAt'>
   )> }
 );
 
@@ -469,6 +469,7 @@ export const GetPostDocument = gql`
     id
     title
     description
+    createdAt
   }
 }
     `;

@@ -3,5 +3,6 @@ query GetPost($id: Float!) {
     id
     title
     description
+    createdAt
   }
 }
