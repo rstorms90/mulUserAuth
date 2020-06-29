@@ -93,14 +93,15 @@ export class PostResolver {
       const userId: number = Number(context.payload?.userId);
       const posts: any = await this.posts(userId);
 
+      console.log(title);
+      console.log(description);
+
       for (const post of posts) {
-        if (post.id === id && post.userId === userId) {
+        if (post.id === id) {
           await Post.update(id, {
             title,
             description,
           });
-        } else {
-          throw new Error('You are not the owner of this post.');
         }
       }
     } catch (err) {
