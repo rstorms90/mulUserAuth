@@ -1,5 +1,5 @@
 import React from 'react';
-import { RouteComponentProps } from 'react-router-dom';
+import { RouteComponentProps, useHistory } from 'react-router-dom';
 import { useGetPostQuery } from '../../generated/graphql';
 
 import '../../theme.css';
@@ -10,6 +10,7 @@ interface Props {
 }
 
 export const PostPage = ({ match }: RouteComponentProps<Props>) => {
+  let history = useHistory();
   const postId = parseInt(match.params.id);
   const user = match.params.user;
 
@@ -31,7 +32,6 @@ export const PostPage = ({ match }: RouteComponentProps<Props>) => {
   }
 
   if (data) {
-    console.log(data.getPost[0]);
     const { title, description, createdAt } = data.getPost[0];
     const extractDate = new Date(parseInt(createdAt));
     const date = extractDate.toDateString();
@@ -49,6 +49,7 @@ export const PostPage = ({ match }: RouteComponentProps<Props>) => {
     <div className="page">
       <h1 className="page-title">{user}'s Post</h1>
       {postData}
+      <button onClick={() => history.goBack()}>Back</button>
     </div>
   );
 };

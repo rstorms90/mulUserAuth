@@ -1,7 +1,7 @@
 import React from 'react';
 import Post from '../../components/post/Post';
 
-import { RouteComponentProps } from 'react-router-dom';
+import { RouteComponentProps, useHistory } from 'react-router-dom';
 import { usePostsQuery } from '../../generated/graphql';
 
 import './Posts.css';
@@ -12,6 +12,7 @@ interface Props {
 }
 
 export const Posts = ({ match }: RouteComponentProps<Props>) => {
+  let history = useHistory();
   const { data, loading, error } = usePostsQuery({
     variables: {
       userId: parseInt(match.params.id),
@@ -49,6 +50,7 @@ export const Posts = ({ match }: RouteComponentProps<Props>) => {
 
   return (
     <div className="Posts page">
+      <button onClick={() => history.goBack()}>Back</button>
       <h1>{username}'s Posts</h1>
       {postData}
     </div>
