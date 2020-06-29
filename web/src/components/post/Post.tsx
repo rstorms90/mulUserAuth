@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Link, useLocation } from 'react-router-dom';
 import { FormGroup, TextField } from '@material-ui/core';
 import {
   useDeletePostMutation,
@@ -17,6 +18,8 @@ const Post: React.FC<Props> = ({ post }) => {
   const [description, setDescription] = useState(post.description);
   const [isEditing, setIsEditing] = useState(false);
 
+  let location = useLocation();
+
   const editCurrentPost = () => {
     setIsEditing(!isEditing);
   };
@@ -25,21 +28,21 @@ const Post: React.FC<Props> = ({ post }) => {
     post.length > 55 ? `${post.substring(0, 55)}...` : post;
   return (
     <li key={post.id}>
-      <div>
-        <h4>
-          <span className="post-title">Post Title:</span> {post.title}
-        </h4>
-        <h6>{shortenPostDescription(post.description)}</h6>
-        {/* <h6>Author: {user}</h6> */}
-      </div>
+      <Link to={{ pathname: `${location.pathname}/${post.id}` }}>
+        <div>
+          <h4>
+            <span className="post-title">Post Title:</span> {post.title}
+          </h4>
+          <h6>{shortenPostDescription(post.description)}</h6>
+        </div>
+      </Link>
+
       <div>
         {isEditing ? (
           <form
             className=""
             onSubmit={async (e) => {
               e.preventDefault();
-              console.log(post.title);
-              console.log(post.description);
               const response = await editPost({
                 variables: {
                   id: post.id,

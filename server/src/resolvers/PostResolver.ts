@@ -30,6 +30,25 @@ export class PostResolver {
     return posts;
   }
 
+  // Query for single post
+  @Query(() => [Post])
+  @UseMiddleware(isAuth)
+  async getPost(@Arg('id') id: number) {
+    let post: any;
+    // Grab post by id
+    post = await Post.find({
+      where: {
+        id,
+      },
+    });
+
+    if (!post.length) {
+      throw new Error('Post not found.');
+    } else {
+      return post;
+    }
+  }
+
   // Add Post
   @Mutation(() => Boolean)
   @UseMiddleware(isAuth)

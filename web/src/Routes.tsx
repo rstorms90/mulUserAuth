@@ -8,6 +8,7 @@ import { CreatePost } from './pages/createPostPage/CreatePost';
 import { Users } from './pages/usersPage/Users';
 import { UserProfile } from './pages/userProfilePage/UserProfile';
 import { Posts } from './pages/postsPage/Posts';
+import { PostPage } from './pages/postPage/PostPage';
 import { PageNotFound } from './pages/errorPages/PageNotFound';
 
 // Error pages
@@ -33,6 +34,11 @@ export const Routes: React.FC = () => {
           exact
           path="/user/:user/:id/posts"
           render={(props) => <Posts {...props} />}
+        />
+        <Route
+          exact
+          path="/user/:user/:id/posts/:id"
+          render={(props) => <PostPage {...props} />}
         />
         <Route exact path="/register" component={Register} />
         <Route exact path="/login" component={LoginPage} />
