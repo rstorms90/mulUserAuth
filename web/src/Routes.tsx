@@ -39,7 +39,6 @@ export const Routes: React.FC = () => {
           key={key}
           style={props}
         >
-          {console.log(props)}
           <Switch location={location}>
             <Route exact path="/" component={Home} />
             <Route exact path="/about" component={About} />
