@@ -27,6 +27,12 @@ const Header: React.FC<Props> = () => {
         <Link to={{ pathname: `/user/${user.username}` }} className="commonBtn">
           My Profile
         </Link>
+        <Link
+          to={{ pathname: `/user/${user.username}/${user.id}/posts` }}
+          className="commonBtn"
+        >
+          My posts
+        </Link>
       </div>
     );
   } else {
@@ -64,7 +70,7 @@ const Header: React.FC<Props> = () => {
               <Link to="/users">Users</Link>
             </div>
             <div className="nav-link">
-              <Link to="/createpost">Createpost</Link>
+              <Link to="/createpost">Create Post</Link>
             </div>
           </>
         )}

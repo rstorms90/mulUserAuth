@@ -32,6 +32,7 @@ const Post: React.FC<Props> = ({ post }) => {
 
   const shortenPostDescription = (post: any) =>
     post.length > 55 ? `${post.substring(0, 55)}...` : post;
+
   return (
     <li key={post.id}>
       <Link to={{ pathname: `${location.pathname}/${post.id}` }}>
