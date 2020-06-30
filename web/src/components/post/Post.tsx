@@ -4,6 +4,8 @@ import { FormGroup, TextField } from '@material-ui/core';
 import {
   useDeletePostMutation,
   useEditPostMutation,
+  PostsDocument,
+  useMeQuery,
 } from '../../generated/graphql';
 
 interface Props {
@@ -11,16 +13,20 @@ interface Props {
 }
 
 const Post: React.FC<Props> = ({ post }) => {
+  const { data } = useMeQuery();
   const [deletePost] = useDeletePostMutation();
   const [editPost] = useEditPostMutation();
 
-  const [title, setTitle] = useState(post.title);
-  const [description, setDescription] = useState(post.description);
+  const [title, setTitle] = useState('');
+  const [description, setDescription] = useState('');
   const [isEditing, setIsEditing] = useState(false);
 
   let location = useLocation();
+  let user = data?.me;
 
-  const editCurrentPost = () => {
+  const editCurrentPost = (post: any) => {
+    setTitle(post.title);
+    setDescription(post.description);
     setIsEditing(!isEditing);
   };
 
@@ -49,6 +55,9 @@ const Post: React.FC<Props> = ({ post }) => {
                   title: title,
                   description: description,
                 },
+                refetchQueries: [
+                  { query: PostsDocument, variables: { userId: user?.id } },
+                ],
               });
 
               if (response.data?.editPost === false) {
@@ -56,7 +65,7 @@ const Post: React.FC<Props> = ({ post }) => {
               } else {
                 console.log(`Edited Post`);
               }
-              editCurrentPost();
+              editCurrentPost(post);
             }}
           >
             <FormGroup>
@@ -84,7 +93,7 @@ const Post: React.FC<Props> = ({ post }) => {
             </button>
           </form>
         ) : (
-          <button className="primaryBtn" onClick={editCurrentPost}>
+          <button className="primaryBtn" onClick={() => editCurrentPost(post)}>
             Edit Post
           </button>
         )}
@@ -93,11 +102,13 @@ const Post: React.FC<Props> = ({ post }) => {
           className="secondaryBtn"
           onClick={async (e) => {
             e.preventDefault();
-            console.log(post.id);
             const response = await deletePost({
               variables: {
                 id: post.id,
               },
+              refetchQueries: [
+                { query: PostsDocument, variables: { userId: user?.id } },
+              ],
             });
 
             if (response) {

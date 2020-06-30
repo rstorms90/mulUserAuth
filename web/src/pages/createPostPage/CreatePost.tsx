@@ -1,6 +1,10 @@
 import React, { useState } from 'react';
 import { FormGroup, TextField } from '@material-ui/core';
-import { useMeQuery, useAddPostMutation } from '../../generated/graphql';
+import {
+  useMeQuery,
+  useAddPostMutation,
+  PostsDocument,
+} from '../../generated/graphql';
 import { useHistory } from 'react-router-dom';
 
 interface Props {}
@@ -15,6 +19,7 @@ export const CreatePost: React.FC<Props> = () => {
   const { data, loading } = useMeQuery();
 
   let userData: any = null;
+  let user = data?.me;
 
   if (loading) {
     userData = <div>Loading...</div>;
@@ -24,14 +29,14 @@ export const CreatePost: React.FC<Props> = () => {
     userData = <div>Error</div>;
   }
 
-  if (data && !data?.me) {
+  if (data && !user) {
     userData = <div>Unauthenticated — Create Account</div>;
   }
 
-  if (data && data?.me) {
+  if (data && user) {
     userData = (
       <div>
-        Current User: {data?.me?.username}
+        Current User: {user?.username}
         <h1>Create Post</h1>
         <form
           className=""
@@ -42,11 +47,14 @@ export const CreatePost: React.FC<Props> = () => {
                 title,
                 description,
               },
+              refetchQueries: [
+                { query: PostsDocument, variables: { userId: user?.id } },
+              ],
             });
 
             if (response && response.data) {
               console.log('success to add post');
-              history.push(`/user/${data?.me?.username}/${data?.me?.id}/posts`);
+              history.push(`/user/${user?.username}/${user?.id}/posts`);
             } else {
               alert('failure to post');
             }

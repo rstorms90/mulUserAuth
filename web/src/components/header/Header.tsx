@@ -24,6 +24,9 @@ const Header: React.FC<Props> = () => {
       <div className="loggedInInfo">
         Logged in as:
         <span className="loggedInUsername"> {user.username}</span>
+        <Link to={{ pathname: `/user/${user.username}` }} className="commonBtn">
+          My Profile
+        </Link>
       </div>
     );
   } else {

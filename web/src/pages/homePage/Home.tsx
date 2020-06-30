@@ -27,8 +27,7 @@ export const Home: React.FC<Props> = () => {
     userData = (
       <div>
         <h3>
-          Welcome <span className="current-user">{data.me.username}</span> to
-          this cool project!
+          Welcome <span className="current-user">{data.me.username}</span>
         </h3>
         <h4>Designed to mitigate police brutality.</h4>
       </div>
