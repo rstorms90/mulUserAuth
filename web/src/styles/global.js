@@ -23,7 +23,11 @@ ${({ theme }) => css`
   }
 
   .page-title {
-    color: ${theme.colors.pageTitle};
+    color: ${theme.colors.primaryHighlight};
+  }
+
+  .commonBtn:before {
+    background: ${theme.colors.primaryHighlight};
   }
 `}
 `;

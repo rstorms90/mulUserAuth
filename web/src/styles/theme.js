@@ -2,19 +2,19 @@ export default {
   lightTheme: {
     colors: {
       background: 'white',
-      headerBackground: 'gray',
-      pageTitle: 'steelblue',
+      primaryHighlight: 'steelblue',
       fontColor: 'black',
+      headerBackground: 'gray',
     },
-    transition: '0.3s',
+    transition: '2s',
   },
   darkTheme: {
     colors: {
       background: '#181818',
-      headerBackground: '#161616',
-      pageTitle: '#2fb3ff',
+      primaryHighlight: '#2fb3ff',
       fontColor: 'white',
+      headerBackground: '#161616',
     },
-    transition: '0.3s',
+    transition: '2s',
   },
 };
