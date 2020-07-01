@@ -1,4 +1,4 @@
-import React, { createContext, useState } from 'react';
+import React, { createContext, useState, useEffect } from 'react';
 import { GlobalStyles, theme } from '../styles';
 import { ThemeProvider } from 'styled-components';
 
@@ -6,7 +6,13 @@ export const AppContext = createContext();
 
 // Dark & Light themes
 const AppProvider = ({ children }) => {
-  const [themeMode, setThemeMode] = useState('darkTheme');
+  const [themeMode, setThemeMode] = useState(
+    localStorage.getItem('theme') || 'lightTheme'
+  );
+
+  useEffect(() => {
+    localStorage.setItem('theme', themeMode);
+  }, [themeMode]);
 
   const toggleTheme = () => {
     setThemeMode((prevState) => {
