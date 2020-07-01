@@ -35,15 +35,6 @@ const Post: React.FC<Props> = ({ post }) => {
 
   return (
     <li key={post.id}>
-      <Link to={{ pathname: `${location.pathname}/${post.id}` }}>
-        <div>
-          <h4>
-            <span className="post-title">Post Title:</span> {post.title}
-          </h4>
-          <h6>{shortenPostDescription(post.description)}</h6>
-        </div>
-      </Link>
-
       <div>
         {isEditing ? (
           <form
@@ -94,9 +85,22 @@ const Post: React.FC<Props> = ({ post }) => {
             </button>
           </form>
         ) : (
-          <button className="primaryBtn" onClick={() => editCurrentPost(post)}>
-            Edit Post
-          </button>
+          <>
+            <Link to={{ pathname: `${location.pathname}/${post.id}` }}>
+              <div>
+                <h4>
+                  <span className="post-title">Post Title:</span> {post.title}
+                </h4>
+                <h6>{shortenPostDescription(post.description)}</h6>
+              </div>
+            </Link>
+            <button
+              className="primaryBtn"
+              onClick={() => editCurrentPost(post)}
+            >
+              Edit Post
+            </button>
+          </>
         )}
 
         <button
