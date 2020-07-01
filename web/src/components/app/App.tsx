@@ -2,6 +2,9 @@ import React, { useState, useEffect } from 'react';
 import { Routes } from '../../Routes';
 import { setAccessToken } from '../../accessToken';
 
+import AppProvider from '../../context/AppProvider';
+import ThemeSwitcher from '../themeSwitcher/ThemeSwitcher';
+
 import './App.css';
 
 interface Props {}
@@ -26,5 +29,10 @@ export const App: React.FC<Props> = () => {
     return <div>Loading...</div>;
   }
 
-  return <Routes />;
+  return (
+    <AppProvider>
+      <ThemeSwitcher />
+      <Routes />
+    </AppProvider>
+  );
 };
