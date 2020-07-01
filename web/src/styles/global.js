@@ -8,7 +8,7 @@ ${({ theme }) => css`
     body {
       margin: 0;
       background: ${theme.colors.background};
-      color: #ffffff;
+      color: ${theme.colors.fontColor};
       font-family: 'Montserrat', sans-serif;
 
       #root {
@@ -16,14 +16,14 @@ ${({ theme }) => css`
         color: ${theme.colors.black};
       }
     }
+  }
 
-    .Header {
-      background: ${theme.colors.headerBackground};
-    }
+  .Header {
+    background: ${theme.colors.headerBackground};
+  }
 
-    .page-title {
-      color: ${theme.colors.pageTitle};
-    }
+  .page-title {
+    color: ${theme.colors.pageTitle};
   }
 `}
 `;

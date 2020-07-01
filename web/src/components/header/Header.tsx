@@ -5,6 +5,7 @@ import { setAccessToken } from '../../accessToken';
 
 import './Header.css';
 import '../../theme.css';
+import ThemeSwitcher from '../themeSwitcher/ThemeSwitcher';
 
 interface Props {}
 
@@ -57,6 +58,7 @@ const Header: React.FC<Props> = () => {
         )}
       </div>
       {body}
+      <ThemeSwitcher />
       <div className="nav-link-container">
         <div>
           <Link to="/">Home</Link>

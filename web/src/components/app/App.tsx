@@ -3,7 +3,6 @@ import { Routes } from '../../Routes';
 import { setAccessToken } from '../../accessToken';
 
 import AppProvider from '../../context/AppProvider';
-import ThemeSwitcher from '../themeSwitcher/ThemeSwitcher';
 
 import './App.css';
 
@@ -31,7 +30,6 @@ export const App: React.FC<Props> = () => {
 
   return (
     <AppProvider>
-      <ThemeSwitcher />
       <Routes />
     </AppProvider>
   );
