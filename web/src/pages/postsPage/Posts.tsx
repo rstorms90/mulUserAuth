@@ -35,7 +35,7 @@ export const Posts = ({ match }: RouteComponentProps<Props>) => {
 
   if (data) {
     const username = match.params.user;
-    const currentUser = username === myUsername;
+    const currentUser = myUsername === username;
     const posts: any = data.getPostsByUser;
 
     const postsData = posts.length ? (

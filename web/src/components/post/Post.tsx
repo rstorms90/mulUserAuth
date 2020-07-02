@@ -27,7 +27,6 @@ const Post: React.FC<Props> = ({ post }) => {
   let user = data?.me;
   const author = post.user.username;
   let body = null;
-
   const editCurrentPost = (post: any) => {
     setTitle(post.title);
     setDescription(post.description);
