@@ -6,3 +6,9 @@
 .current-user {
   color: #2fb3ff;
 }
+
+.welcome {
+  display: flex;
+  align-items: flex-end;
+  flex-direction: column;
+}

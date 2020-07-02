@@ -30,7 +30,7 @@ export const CreatePost: React.FC<Props> = () => {
   }
 
   if (data && !user) {
-    userData = <div>Unauthenticated — Create Account</div>;
+    userData = <div>Unauthenticated — Create an account</div>;
   }
 
   if (data && user) {
@@ -70,6 +70,9 @@ export const CreatePost: React.FC<Props> = () => {
                 setTitle(e.target.value);
               }}
               required
+              inputProps={{
+                minLength: 15,
+              }}
             />
             <TextField
               label="Post Description"
@@ -79,8 +82,10 @@ export const CreatePost: React.FC<Props> = () => {
               onChange={(e) => {
                 setDescription(e.target.value);
               }}
-              multiline
               required
+              inputProps={{
+                minLength: 15,
+              }}
             />
           </FormGroup>
           <button className="commonBtn" type="submit">
