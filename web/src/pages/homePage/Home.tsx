@@ -26,12 +26,9 @@ export const Home: React.FC<Props> = () => {
 
   if (data && data.me?.role) {
     userData = (
-      <div className="welcome">
-        <h3>
-          Welcome <span className="current-user">{data.me.username}</span>
-        </h3>
-        <h4>Designed to mitigate police brutality.</h4>
-      </div>
+      <h3>
+        Welcome <span className="current-user">{data.me.username}</span>
+      </h3>
     );
   }
 
@@ -39,6 +36,9 @@ export const Home: React.FC<Props> = () => {
     <div>
       <div className="Home page">
         <h1 className="page-title">HomePage</h1>
+        <div className="welcome">
+          <h4>Designed to mitigate police brutality.</h4>
+        </div>
         {userData}
         <AllPosts />
       </div>

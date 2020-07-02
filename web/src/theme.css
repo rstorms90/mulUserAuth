@@ -17,8 +17,7 @@
   transition: 0.3s all ease;
 }
 .post-list li:hover {
-  background: gray;
-  border: 1px solid #ffffff;
+  background: #303030;
 }
 .post-list h3 {
   margin-bottom: 0;

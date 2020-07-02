@@ -46,7 +46,6 @@ export class PostResolver {
 
   // Query for single post
   @Query(() => [Post])
-  @UseMiddleware(isAuth)
   async getPost(@Arg('id') id: number) {
     let post: any;
     // Grab post by id

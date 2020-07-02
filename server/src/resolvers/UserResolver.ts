@@ -65,7 +65,6 @@ export class UserResolver {
 
   // Query for single user
   @Query(() => [User])
-  @UseMiddleware(isAuth)
   async getUser(@Arg('username') username: string) {
     let user: any;
     // Grab user by username

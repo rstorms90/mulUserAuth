@@ -104,20 +104,20 @@ const Post: React.FC<Props> = ({ post }) => {
             </form>
           ) : (
             <>
-              {location.pathname === '/' && (
-                <Link to={{ pathname: `/user/${author}` }} className="link">
-                  <h3>
-                    <span className="post-title">Author:</span>
-                    {authorValidation ? <>Me</> : author}
-                  </h3>
-                </Link>
-              )}
               <Link to={{ pathname: path }} className="link">
                 <h4>
                   <span className="post-title">Post Title:</span> {post.title}
                 </h4>
                 <h6>{shortenPostDescription(post.description)}</h6>
               </Link>
+              {location.pathname === '/' && (
+                <Link to={{ pathname: `/user/${author}` }} className="link">
+                  <h5>
+                    <span className="post-title">Author:</span>
+                    {authorValidation ? <>Me</> : author}
+                  </h5>
+                </Link>
+              )}
               {authorValidation && (
                 <button
                   className="commonBtn"

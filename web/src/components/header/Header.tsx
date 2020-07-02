@@ -24,7 +24,7 @@ const Header: React.FC<Props> = () => {
 
   return (
     <header className="Header">
-      <Drawer currentUser={user} />
+      {user && <Drawer currentUser={user} />}
 
       <div className="nav-link-container">
         <div>
