@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Link, useHistory } from 'react-router-dom';
 import { Drawer, List, ListItem } from '@material-ui/core';
 import ThemeSwitcher from '../themeSwitcher/ThemeSwitcher';
-
+import MenuIcon from '@material-ui/icons/Menu';
 import { useLogoutMutation } from '../../generated/graphql';
 
 import { setAccessToken } from '../../accessToken';
@@ -35,9 +35,11 @@ const DrawerSideNav: React.FC<Props> = ({ currentUser }) => {
 
   return (
     <div className="Drawer">
-      <button onClick={toggleDrawer('right', !state.right)}>
-        Profile Sidebar
-      </button>
+      <MenuIcon
+        fontSize="large"
+        className="menuBtn"
+        onClick={toggleDrawer('right', !state.right)}
+      />
       <Drawer
         open={state.right}
         onClose={toggleDrawer('right', false)}

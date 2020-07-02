@@ -8,6 +8,8 @@ import {
   useMeQuery,
 } from '../../generated/graphql';
 
+// import '../../theme.css';
+
 interface Props {
   post: any;
 }
@@ -45,6 +47,8 @@ const Post: React.FC<Props> = ({ post }) => {
         ? `/user/${author}/${user?.id}/posts/${post.id}`
         : `${location.pathname}/${post.id}`;
 
+    const authorValidation = author === data.me?.username;
+
     body = (
       <li key={post.id}>
         <div>
@@ -70,7 +74,7 @@ const Post: React.FC<Props> = ({ post }) => {
                 if (response.data?.editPost === false) {
                   return <Redirect to="/404" />;
                 } else {
-                  console.log(`Edited Post`);
+                  console.log(`Edited Post ${post.id}`);
                 }
                 editCurrentPost(post);
               }}
@@ -95,59 +99,68 @@ const Post: React.FC<Props> = ({ post }) => {
                   }}
                 />
               </FormGroup>
-              <button className="primaryBtn" type="submit">
+              <button className="commonBtn" type="submit">
                 Edit Post
               </button>
             </form>
           ) : (
             <>
-              <Link to={{ pathname: path }}>
-                <div>
-                  <h3>Author: {author}</h3>
-                  <h4>
-                    <span className="post-title">Post Title:</span> {post.title}
-                  </h4>
-                  <h6>{shortenPostDescription(post.description)}</h6>
-                </div>
+              {location.pathname === '/' && (
+                <Link to={{ pathname: `/user/${author}` }} className="link">
+                  <h3>
+                    <span className="post-title">Author:</span>
+                    {authorValidation ? <>Me</> : author}
+                  </h3>
+                </Link>
+              )}
+              <Link to={{ pathname: path }} className="link">
+                <h4>
+                  <span className="post-title">Post Title:</span> {post.title}
+                </h4>
+                <h6>{shortenPostDescription(post.description)}</h6>
               </Link>
-              <button
-                className="primaryBtn"
-                onClick={() => editCurrentPost(post)}
-              >
-                Edit Post
-              </button>
+              {authorValidation && (
+                <button
+                  className="commonBtn"
+                  onClick={() => editCurrentPost(post)}
+                >
+                  Edit Post
+                </button>
+              )}
             </>
           )}
           {body}
-          <button
-            className="secondaryBtn"
-            onClick={async (e) => {
-              e.preventDefault();
-              const response = await deletePost({
-                variables: {
-                  id: post.id,
-                },
-                refetchQueries: [
-                  {
-                    query: GetPostsByUserDocument,
-                    variables: { userId: user?.id },
+          {authorValidation && (
+            <button
+              className="secondaryBtn"
+              onClick={async (e) => {
+                e.preventDefault();
+                const response = await deletePost({
+                  variables: {
+                    id: post.id,
                   },
-                ],
-              });
+                  refetchQueries: [
+                    {
+                      query: GetPostsByUserDocument,
+                      variables: { userId: user?.id },
+                    },
+                  ],
+                });
 
-              if (response.data?.deletePost === false) {
-                return <Redirect to="/404" />;
-              }
-            }}
-          >
-            Delete Post
-          </button>
+                if (response.data?.deletePost === false) {
+                  return <Redirect to="/404" />;
+                }
+              }}
+            >
+              Delete Post
+            </button>
+          )}
         </div>
       </li>
     );
   }
 
-  return <div>{body}</div>;
+  return <>{body}</>;
 };
 
 export default Post;

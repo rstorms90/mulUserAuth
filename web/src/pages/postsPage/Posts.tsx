@@ -19,22 +19,22 @@ export const Posts = ({ match }: RouteComponentProps<Props>) => {
     },
   });
 
-  let postData: any = null;
+  let usersPosts: any = null;
 
   if (loading) {
-    postData = <div>Loading...</div>;
+    usersPosts = <div>Loading...</div>;
   }
 
   if (error) {
     console.log(error);
-    postData = <div>Posts not found</div>;
+    usersPosts = <div>Posts not found</div>;
   }
 
   if (data) {
     const posts: any = data.getPostsByUser;
 
-    const usersPosts = posts.length ? (
-      <ul>
+    const postsData = posts.length ? (
+      <ul className="post-list">
         {posts.map((post: any, key: number) => {
           return <Post post={post} key={key} />;
         })}
@@ -43,7 +43,7 @@ export const Posts = ({ match }: RouteComponentProps<Props>) => {
       <div>User has 0 posts.</div>
     );
 
-    postData = <div>{usersPosts}</div>;
+    usersPosts = <>{postsData}</>;
   }
 
   const username = match.params.user;
@@ -52,7 +52,7 @@ export const Posts = ({ match }: RouteComponentProps<Props>) => {
     <div className="Posts page">
       <button onClick={() => history.goBack()}>Back</button>
       <h1>{username}'s Posts</h1>
-      {postData}
+      {usersPosts}
     </div>
   );
 };

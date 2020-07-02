@@ -21,19 +21,24 @@ const AllPosts: React.FC<Props> = () => {
     const posts: any = data.posts;
 
     const allPosts = posts.length ? (
-      <ul>
+      <ul className="post-list">
         {posts.map((post: any, key: number) => {
           return <Post post={post} key={key} />;
         })}
       </ul>
     ) : (
-      <div>User has 0 posts.</div>
+      <div>0 posts.</div>
     );
 
-    postsData = <div>{allPosts}</div>;
+    postsData = <>{allPosts}</>;
   }
 
-  return <div>{postsData}</div>;
+  return (
+    <div>
+      <h1>Latest Posts:</h1>
+      {postsData}
+    </div>
+  );
 };
 
 export default AllPosts;

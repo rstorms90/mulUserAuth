@@ -4,6 +4,7 @@ export default createGlobalStyle`
 ${({ theme }) => css`
   html {
     height: 100%;
+    box-sizing: border-box;
 
     body {
       margin: 0;
