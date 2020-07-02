@@ -9,13 +9,27 @@ import {
 import { Post } from '../entity/Post';
 import { isAuth } from '../isAuth';
 import { MyContext } from '../MyContext';
+import { AuthenticationError } from 'apollo-server-express';
 
 // Post Resolver
 @Resolver()
 export class PostResolver {
+  // Query for all posts
+  @Query(() => [Post])
+  async posts() {
+    // Grab all posts
+    let posts = await Post.find({
+      relations: ['user'],
+      order: {
+        createdAt: 'DESC',
+      },
+    });
+    return posts;
+  }
+
   // Query for all posts by user
   @Query(() => [Post])
-  async posts(@Arg('userId') userId: number) {
+  async getPostsByUser(@Arg('userId') userId: number) {
     // Grab all posts by username
     let posts = await Post.find({
       relations: ['user'],
@@ -58,6 +72,10 @@ export class PostResolver {
     @Ctx() context: MyContext
   ) {
     try {
+      if (!title.length || !description.length) {
+        throw new Error('You need a title and description');
+      }
+
       const userId: number = Number(context.payload?.userId);
       await Post.insert({
         title,
@@ -80,23 +98,23 @@ export class PostResolver {
   @UseMiddleware(isAuth)
   async deletePost(@Arg('id') id: number, @Ctx() context: MyContext) {
     try {
-      const userId: number = Number(context.payload?.userId);
-      const posts: any = await this.posts(userId);
+      const meId: number = Number(context.payload?.userId);
+      const post: any = await Post.find({ id });
 
-      for (const post of posts) {
-        if (post.id === id) {
-          await Post.delete({
-            id,
-          });
-        }
+      const postAuthorId = post[0].userId;
+
+      if (meId === postAuthorId) {
+        Post.delete({
+          id,
+        });
+        return true;
+      } else {
+        throw new AuthenticationError('Unauthenticated — Not your post.');
       }
     } catch (err) {
       console.log(err);
       return false;
     }
-
-    console.log(`Removed post ID: ${id}`);
-    return true;
   }
 
   // Edit Post
@@ -110,7 +128,7 @@ export class PostResolver {
   ) {
     try {
       const userId: number = Number(context.payload?.userId);
-      const posts: any = await this.posts(userId);
+      const posts: any = await this.getPostsByUser(userId);
 
       for (const post of posts) {
         if (post.id === id) {
@@ -118,6 +136,7 @@ export class PostResolver {
             title,
             description,
           });
+          return true;
         }
       }
     } catch (err) {
@@ -125,7 +144,6 @@ export class PostResolver {
       return false;
     }
 
-    console.log(`Edited post ID: ${id}`);
-    return true;
+    throw new AuthenticationError('Unauthenticated');
   }
 }

@@ -1,3 +1,3 @@
 import React from 'react';
 
-export const PageNotFound = () => <h1>Page Not Found</h1>;
+export const PageNotFound = () => <h1>Unauthenticated</h1>;

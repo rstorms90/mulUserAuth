@@ -1,4 +1,5 @@
 import React from 'react';
+import AllPosts from '../../components/allPosts/AllPosts';
 import Footer from '../../components/footer/Footer';
 import { useMeQuery } from '../../generated/graphql';
 
@@ -39,6 +40,7 @@ export const Home: React.FC<Props> = () => {
       <div className="Home page">
         <h1 className="page-title">HomePage</h1>
         {userData}
+        <AllPosts />
       </div>
       <Footer />
     </div>

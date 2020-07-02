@@ -37,10 +37,6 @@ export const Register: React.FC<RouteComponentProps> = ({ history }) => {
               },
             });
 
-            if (response.data?.register === false) {
-              alert('E-mail or username being used. Choose another.');
-            }
-
             const loginResponse = await login({
               variables: {
                 username,

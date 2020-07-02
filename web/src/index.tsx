@@ -100,6 +100,10 @@ const client = new ApolloClient({
               window.location.replace(`http://localhost:3000/nouser/`);
             }
           }
+
+          if (message.includes('Unauthenticated')) {
+            window.location.replace(`http://localhost:3000/404`);
+          }
         });
 
       if (networkError) console.log(`[Network error]: ${networkError}`);

@@ -3,9 +3,9 @@ import { FormGroup, TextField } from '@material-ui/core';
 import {
   useMeQuery,
   useAddPostMutation,
-  PostsDocument,
+  GetPostsByUserDocument,
 } from '../../generated/graphql';
-import { useHistory } from 'react-router-dom';
+import { useHistory, Redirect } from 'react-router-dom';
 
 interface Props {}
 
@@ -48,15 +48,15 @@ export const CreatePost: React.FC<Props> = () => {
                 description,
               },
               refetchQueries: [
-                { query: PostsDocument, variables: { userId: user?.id } },
+                {
+                  query: GetPostsByUserDocument,
+                  variables: { userId: user?.id },
+                },
               ],
             });
 
             if (response && response.data) {
-              console.log('success to add post');
               history.push(`/user/${user?.username}/${user?.id}/posts`);
-            } else {
-              alert('failure to post');
             }
           }}
         >
@@ -69,6 +69,7 @@ export const CreatePost: React.FC<Props> = () => {
               onChange={(e) => {
                 setTitle(e.target.value);
               }}
+              required
             />
             <TextField
               label="Post Description"
@@ -78,6 +79,8 @@ export const CreatePost: React.FC<Props> = () => {
               onChange={(e) => {
                 setDescription(e.target.value);
               }}
+              multiline
+              required
             />
           </FormGroup>
           <button className="commonBtn" type="submit">

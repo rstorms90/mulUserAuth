@@ -1,7 +1,10 @@
-query Posts($userId: Float!) {
-  posts(userId: $userId) {
+query Posts {
+  posts {
     id
     title
     description
+    user {
+      username
+    }
   }
 }

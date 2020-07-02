@@ -17,6 +17,7 @@ export type Query = {
   getUser: Array<User>;
   me?: Maybe<User>;
   posts: Array<Post>;
+  getPostsByUser: Array<Post>;
   getPost: Array<Post>;
   protectedRoute: Scalars['String'];
 };
@@ -33,7 +34,7 @@ export type QueryGetUserArgs = {
 };
 
 
-export type QueryPostsArgs = {
+export type QueryGetPostsByUserArgs = {
   userId: Scalars['Float'];
 };
 
@@ -60,7 +61,7 @@ export type Post = {
   createdAt: Scalars['String'];
   updatedAt: Scalars['Float'];
   userId: Scalars['Float'];
-  user: Array<User>;
+  user: User;
 };
 
 export type Mutation = {
@@ -156,6 +157,23 @@ export type EditPostMutation = (
   & Pick<Mutation, 'editPost'>
 );
 
+export type GetPostsByUserQueryVariables = {
+  userId: Scalars['Float'];
+};
+
+
+export type GetPostsByUserQuery = (
+  { __typename?: 'Query' }
+  & { getPostsByUser: Array<(
+    { __typename?: 'Post' }
+    & Pick<Post, 'id' | 'title' | 'description' | 'createdAt'>
+    & { user: (
+      { __typename?: 'User' }
+      & Pick<User, 'username'>
+    ) }
+  )> }
+);
+
 export type LoginMutationVariables = {
   username: Scalars['String'];
   password: Scalars['String'];
@@ -206,9 +224,7 @@ export type GetPostQuery = (
   )> }
 );
 
-export type PostsQueryVariables = {
-  userId: Scalars['Float'];
-};
+export type PostsQueryVariables = {};
 
 
 export type PostsQuery = (
@@ -216,6 +232,10 @@ export type PostsQuery = (
   & { posts: Array<(
     { __typename?: 'Post' }
     & Pick<Post, 'id' | 'title' | 'description'>
+    & { user: (
+      { __typename?: 'User' }
+      & Pick<User, 'username'>
+    ) }
   )> }
 );
 
@@ -363,6 +383,45 @@ export function useEditPostMutation(baseOptions?: ApolloReactHooks.MutationHookO
 export type EditPostMutationHookResult = ReturnType<typeof useEditPostMutation>;
 export type EditPostMutationResult = ApolloReactCommon.MutationResult<EditPostMutation>;
 export type EditPostMutationOptions = ApolloReactCommon.BaseMutationOptions<EditPostMutation, EditPostMutationVariables>;
+export const GetPostsByUserDocument = gql`
+    query GetPostsByUser($userId: Float!) {
+  getPostsByUser(userId: $userId) {
+    id
+    title
+    description
+    createdAt
+    user {
+      username
+    }
+  }
+}
+    `;
+
+/**
+ * __useGetPostsByUserQuery__
+ *
+ * To run a query within a React component, call `useGetPostsByUserQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetPostsByUserQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetPostsByUserQuery({
+ *   variables: {
+ *      userId: // value for 'userId'
+ *   },
+ * });
+ */
+export function useGetPostsByUserQuery(baseOptions?: ApolloReactHooks.QueryHookOptions<GetPostsByUserQuery, GetPostsByUserQueryVariables>) {
+        return ApolloReactHooks.useQuery<GetPostsByUserQuery, GetPostsByUserQueryVariables>(GetPostsByUserDocument, baseOptions);
+      }
+export function useGetPostsByUserLazyQuery(baseOptions?: ApolloReactHooks.LazyQueryHookOptions<GetPostsByUserQuery, GetPostsByUserQueryVariables>) {
+          return ApolloReactHooks.useLazyQuery<GetPostsByUserQuery, GetPostsByUserQueryVariables>(GetPostsByUserDocument, baseOptions);
+        }
+export type GetPostsByUserQueryHookResult = ReturnType<typeof useGetPostsByUserQuery>;
+export type GetPostsByUserLazyQueryHookResult = ReturnType<typeof useGetPostsByUserLazyQuery>;
+export type GetPostsByUserQueryResult = ApolloReactCommon.QueryResult<GetPostsByUserQuery, GetPostsByUserQueryVariables>;
 export const LoginDocument = gql`
     mutation Login($username: String!, $password: String!) {
   login(username: $username, password: $password) {
@@ -501,11 +560,14 @@ export type GetPostQueryHookResult = ReturnType<typeof useGetPostQuery>;
 export type GetPostLazyQueryHookResult = ReturnType<typeof useGetPostLazyQuery>;
 export type GetPostQueryResult = ApolloReactCommon.QueryResult<GetPostQuery, GetPostQueryVariables>;
 export const PostsDocument = gql`
-    query Posts($userId: Float!) {
-  posts(userId: $userId) {
+    query Posts {
+  posts {
     id
     title
     description
+    user {
+      username
+    }
   }
 }
     `;
@@ -522,7 +584,6 @@ export const PostsDocument = gql`
  * @example
  * const { data, loading, error } = usePostsQuery({
  *   variables: {
- *      userId: // value for 'userId'
  *   },
  * });
  */

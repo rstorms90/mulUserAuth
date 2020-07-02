@@ -30,7 +30,7 @@ export const UsersList: React.FC<Props> = ({ myRole }) => {
 
   if (error) {
     console.log(error);
-    return <div>You are a user — Unauthenticated.</div>;
+    return <div>You are not a user — Unauthenticated.</div>;
   }
 
   if (!data) {
