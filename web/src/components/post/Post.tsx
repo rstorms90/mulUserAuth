@@ -105,16 +105,18 @@ const Post: React.FC<Props> = ({ post }) => {
           ) : (
             <>
               <Link to={{ pathname: path }} className="link">
-                <h4>
-                  <span className="post-title">Post Title:</span> {post.title}
-                </h4>
-                <h6>{shortenPostDescription(post.description)}</h6>
+                <div className="post-link">
+                  <h4>{post.title}</h4>
+                  <h6>{shortenPostDescription(post.description)}</h6>
+                </div>
               </Link>
               {location.pathname === '/' && (
                 <Link to={{ pathname: `/user/${author}` }} className="link">
                   <h5>
                     <span className="post-title">Author:</span>
-                    {authorValidation ? <>Me</> : author}
+                    <span className="post-author">
+                      {authorValidation ? <>Me</> : author}
+                    </span>
                   </h5>
                 </Link>
               )}

@@ -12,6 +12,9 @@ interface Props {
 }
 
 const DrawerSideNav: React.FC<Props> = ({ currentUser }) => {
+  const [logout, { client }] = useLogoutMutation();
+  let history = useHistory();
+
   const [state, setState] = useState({
     right: false,
   });
@@ -30,23 +33,20 @@ const DrawerSideNav: React.FC<Props> = ({ currentUser }) => {
     });
   };
 
-  const [logout, { client }] = useLogoutMutation();
-  let history = useHistory();
-
   return (
-    <div className="Drawer">
+    <div>
       <MenuIcon
         fontSize="large"
         className="menuBtn"
         onClick={toggleDrawer('right', !state.right)}
       />
       <Drawer
+        className="Drawer"
         open={state.right}
         onClose={toggleDrawer('right', false)}
         anchor="right"
       >
         <div
-          className={'drawer'}
           role="presentation"
           onClick={toggleDrawer('right', false)}
           onKeyDown={toggleDrawer('right', false)}
@@ -89,7 +89,7 @@ const DrawerSideNav: React.FC<Props> = ({ currentUser }) => {
             <ListItem>
               <div className="logout-btn-container">
                 <button
-                  className="commonBtn"
+                  className="commonBtn logoutBtn"
                   onClick={async () => {
                     await logout();
                     history.push('/');

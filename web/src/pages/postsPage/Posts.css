@@ -1,3 +1,18 @@
 .post-title {
   color: #ffffff;
+  padding-right: 5px;
+}
+
+.post-link {
+  transition: all 0.2s;
+}
+.post-link:hover {
+  color: goldenrod;
+}
+
+.post-author {
+  transition: all 0.2s;
+}
+.post-author:hover {
+  color: goldenrod;
 }

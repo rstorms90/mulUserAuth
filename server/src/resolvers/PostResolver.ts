@@ -72,7 +72,7 @@ export class PostResolver {
   ) {
     try {
       if (!title.length || !description.length) {
-        throw new Error('You need a title and description');
+        throw new Error('You need a title and description.');
       }
 
       const userId: number = Number(context.payload?.userId);
@@ -126,23 +126,23 @@ export class PostResolver {
     @Ctx() context: MyContext
   ) {
     try {
-      const userId: number = Number(context.payload?.userId);
-      const posts: any = await this.getPostsByUser(userId);
+      const meId: number = Number(context.payload?.userId);
+      const post: any = await Post.find({ id });
 
-      for (const post of posts) {
-        if (post.id === id) {
-          await Post.update(id, {
-            title,
-            description,
-          });
-          return true;
-        }
+      const postAuthorId = post[0].userId;
+
+      if (meId === postAuthorId) {
+        await Post.update(id, {
+          title,
+          description,
+        });
+        return true;
+      } else {
+        throw new AuthenticationError('Unauthenticated');
       }
     } catch (err) {
       console.log(err);
       return false;
     }
-
-    throw new AuthenticationError('Unauthenticated');
   }
 }

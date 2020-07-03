@@ -20,7 +20,7 @@ ${({ theme }) => css`
   }
 
   .Header {
-    background: ${theme.colors.headerBackground};
+    background: ${theme.colors.darkShade};
   }
 
   .page-title {
