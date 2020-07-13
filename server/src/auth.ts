@@ -16,3 +16,15 @@ export const createRefreshToken = (user: User) => {
     }
   );
 };
+
+export const createEmailToken = (token: string, email: string) => {
+  console.log(
+    'from createEmailToken func>>',
+    sign({ token: token, email: email }, process.env.EMAIL_TOKEN_SECRET!, {
+      expiresIn: '1d',
+    })
+  );
+  return sign({ token: token, email: email }, process.env.EMAIL_TOKEN_SECRET!, {
+    expiresIn: '1d',
+  });
+};

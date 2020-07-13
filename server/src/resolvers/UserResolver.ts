@@ -20,6 +20,8 @@ import { isAuth } from '../isAuth';
 import { sendRefreshToken } from '../sendRefreshToken';
 import { getConnection } from 'typeorm';
 import { verify } from 'jsonwebtoken';
+import { sendEmail } from '../utils/sendEmail';
+import { createConfirmationUrl } from '../utils/createConfirmationUrl';
 
 @ObjectType()
 class LoginResponse {
@@ -110,17 +112,42 @@ export class UserResolver {
     const hashedPassword = await hash(password, 12);
 
     try {
-      await User.insert({
+      User.insert({
         username,
         email,
         password: hashedPassword,
       });
+
+      await sendEmail(email, createConfirmationUrl(email));
     } catch (err) {
       console.log(err);
       return false;
     }
 
     return true;
+  }
+
+  @Mutation(() => String)
+  async confirmUser(@Ctx() context: MyContext) {
+    const token = context.req.headers['token'];
+
+    if (!token) {
+      return 'Sorry, you must provide a token from confirmed e-mail.';
+    }
+
+    try {
+      const payload: any = verify(
+        token as string,
+        process.env.EMAIL_TOKEN_SECRET!
+      );
+
+      await User.update({ email: payload?.email }, { confirmed: true });
+    } catch (err) {
+      console.log(err);
+      return 'Sorry, not verified.';
+    }
+
+    return 'User updated and confirmed e-mail.';
   }
 
   // Login User
@@ -141,6 +168,10 @@ export class UserResolver {
     if (!valid) {
       throw new Error('User: Wrong password.');
     }
+
+    // if (!user.confirmed) {
+    //   throw new Error('User: Confirm your email.');
+    // }
 
     // Login successful
     sendRefreshToken(res, createRefreshToken(user));
