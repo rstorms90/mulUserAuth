@@ -144,7 +144,7 @@ export class UserResolver {
       await User.update({ email: payload?.email }, { confirmed: true });
     } catch (err) {
       console.log(err);
-      return 'Sorry, not verified.';
+      return 'Sorry, please verify e-mail.';
     }
 
     return 'User updated and confirmed e-mail.';
@@ -169,9 +169,9 @@ export class UserResolver {
       throw new Error('User: Wrong password.');
     }
 
-    // if (!user.confirmed) {
-    //   throw new Error('User: Confirm your email.');
-    // }
+    if (!user.confirmed) {
+      throw new Error('User: Confirm your email.');
+    }
 
     // Login successful
     sendRefreshToken(res, createRefreshToken(user));
@@ -207,12 +207,12 @@ export class UserResolver {
         throw new Error('Unauthenticated');
       }
 
-      if (role === 'admin') {
-        await User.delete({
-          id,
-        });
-        console.log(`Admin — Removed User ID:${id}`);
-      }
+      // if (role === 'admin') {
+      await User.delete({
+        id,
+      });
+      console.log(`Admin — Removed User ID:${id}`);
+      // }
     } catch (err) {
       console.log(err);
     }
