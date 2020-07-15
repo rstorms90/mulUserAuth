@@ -25,7 +25,5 @@ export async function sendEmail(email: string, url: string) {
     html: emailBody, // html body
   };
 
-  const info = transporter.sendMail(mailOptions);
-
-  console.log(info);
+  transporter.sendMail(mailOptions);
 }

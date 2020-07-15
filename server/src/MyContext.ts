@@ -5,6 +5,5 @@ export interface MyContext {
   res: Response;
   payload?: {
     userId: string;
-    userEmail: string;
   };
 }

@@ -23,10 +23,18 @@ const requestLink = new ApolloLink(
       Promise.resolve(operation)
         .then((operation) => {
           const accessToken = getAccessToken();
+          const emailToken = localStorage.getItem('emc');
           if (accessToken) {
             operation.setContext({
               headers: {
                 authorization: `bearer ${accessToken}`,
+              },
+            });
+          }
+          if (emailToken) {
+            operation.setContext({
+              headers: {
+                token: emailToken ? emailToken : '',
               },
             });
           }
@@ -98,6 +106,9 @@ const client = new ApolloClient({
             }
             if (clientErr.includes('User not found.')) {
               window.location.replace(`http://localhost:3000/nouser/`);
+            }
+            if (clientErr.includes('Confirm your email.')) {
+              window.location.replace(`http://localhost:3000/confirmemail/`);
             }
           }
 

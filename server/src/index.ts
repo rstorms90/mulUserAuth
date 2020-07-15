@@ -23,6 +23,7 @@ import { createAccessToken, createRefreshToken } from './auth';
     })
   );
   app.use('/refresh_token', cookieParser());
+  app.use('/user_confirmation', cookieParser());
   app.get('/', (_req, res) => res.send('hello'));
   app.post('/refresh_token', async (req, res) => {
     const token = req.cookies.jid;
@@ -53,6 +54,39 @@ import { createAccessToken, createRefreshToken } from './auth';
     sendRefreshToken(res, createRefreshToken(user));
 
     return res.send({ ok: true, accessToken: createAccessToken(user) });
+  });
+
+  app.post('/user_confirmation', async (req, res) => {
+    const token = req.cookies.emc;
+    if (!token) {
+      console.log('no token');
+      return res.send({ ok: false, emailConfirmationToken: '' });
+    }
+
+    let payload: any = null;
+    try {
+      payload = verify(token, process.env.EMAIL_TOKEN_SECRET!);
+    } catch (err) {
+      console.log(err);
+      return res.send({ ok: false, emailConfirmationToken: '' });
+    }
+
+    // Token is valid and
+    // we can send back an emailConfirmation token
+    const user = await User.findOne({ where: { email: payload.email } });
+
+    if (!user) {
+      return res.send({ ok: false, emailConfirmationToken: '' });
+    }
+
+    if (user.confirmed) {
+      return res.send({ ok: false, emailConfirmationToken: '' });
+    }
+
+    return res.send({
+      ok: true,
+      emailConfirmationToken: token,
+    });
   });
 
   await createConnection();

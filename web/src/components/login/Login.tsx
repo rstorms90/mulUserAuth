@@ -33,14 +33,14 @@ const Login: React.FC<Props> = () => {
               store.writeQuery<MeQuery>({
                 query: MeDocument,
                 data: {
-                  me: data.login.user,
+                  me: data.login?.user,
                 },
               });
             },
           });
 
           if (response && response.data) {
-            setAccessToken(response.data.login.accessToken);
+            setAccessToken(response.data?.login?.accessToken as any);
             history.push('/');
           }
         }}

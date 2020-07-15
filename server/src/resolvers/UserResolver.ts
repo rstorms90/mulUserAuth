@@ -15,13 +15,19 @@ import { Min, Max } from 'class-validator';
 import { hash, compare } from 'bcryptjs';
 import { User } from '../entity/User';
 import { MyContext } from '../MyContext';
-import { createRefreshToken, createAccessToken } from '../auth';
+import {
+  createRefreshToken,
+  createAccessToken,
+  createEmailToken,
+} from '../auth';
 import { isAuth } from '../isAuth';
 import { sendRefreshToken } from '../sendRefreshToken';
 import { getConnection } from 'typeorm';
 import { verify } from 'jsonwebtoken';
 import { sendEmail } from '../utils/sendEmail';
 import { createConfirmationUrl } from '../utils/createConfirmationUrl';
+import { v4 } from 'uuid';
+import { sendEmailConfirmationToken } from '../sendEmailConfirmationToken';
 
 @ObjectType()
 class LoginResponse {
@@ -29,6 +35,14 @@ class LoginResponse {
   accessToken: string;
   @Field(() => User)
   user: User;
+}
+
+@ObjectType()
+class RegisterResponse {
+  @Field()
+  emailToken: string;
+  @Field()
+  email: string;
 }
 
 // User query arguments for pagination
@@ -103,14 +117,16 @@ export class UserResolver {
   }
 
   // Register User
-  @Mutation(() => Boolean)
+  @Mutation(() => RegisterResponse, { nullable: true })
   async register(
     @Arg('username') username: string,
     @Arg('email') email: string,
-    @Arg('password') password: string
-  ) {
+    @Arg('password') password: string,
+    @Ctx() context: MyContext
+  ): Promise<RegisterResponse> {
     const hashedPassword = await hash(password, 12);
-
+    const token = v4(); // Unique key for e-mail confirmation url
+    const emailToken = createEmailToken(token, email);
     try {
       User.insert({
         username,
@@ -118,19 +134,23 @@ export class UserResolver {
         password: hashedPassword,
       });
 
-      await sendEmail(email, createConfirmationUrl(email));
+      sendEmailConfirmationToken(context.res, emailToken);
+      await sendEmail(email, createConfirmationUrl(token));
     } catch (err) {
       console.log(err);
-      return false;
+      throw new Error('Email not sent.');
     }
 
-    return true;
+    return {
+      emailToken,
+      email,
+    };
   }
 
   @Mutation(() => String)
   async confirmUser(@Ctx() context: MyContext) {
     const token = context.req.headers['token'];
-
+    console.log(context.req.headers);
     if (!token) {
       return 'Sorry, you must provide a token from confirmed e-mail.';
     }
@@ -141,13 +161,16 @@ export class UserResolver {
         process.env.EMAIL_TOKEN_SECRET!
       );
 
-      await User.update({ email: payload?.email }, { confirmed: true });
+      if (payload) {
+        await User.update({ email: payload?.email }, { confirmed: true });
+        return 'User updated and confirmed e-mail.';
+      }
     } catch (err) {
       console.log(err);
       return 'Sorry, please verify e-mail.';
     }
 
-    return 'User updated and confirmed e-mail.';
+    return 'Unable to confirm.';
   }
 
   // Login User
@@ -169,9 +192,9 @@ export class UserResolver {
       throw new Error('User: Wrong password.');
     }
 
-    if (!user.confirmed) {
-      throw new Error('User: Confirm your email.');
-    }
+    // if (!user.confirmed) {
+    //   throw new Error('User: Confirm your email.');
+    // }
 
     // Login successful
     sendRefreshToken(res, createRefreshToken(user));
@@ -207,12 +230,12 @@ export class UserResolver {
         throw new Error('Unauthenticated');
       }
 
-      // if (role === 'admin') {
-      await User.delete({
-        id,
-      });
-      console.log(`Admin — Removed User ID:${id}`);
-      // }
+      if (role === 'admin') {
+        await User.delete({
+          id,
+        });
+        console.log(`Admin — Removed User ID:${id}`);
+      }
     } catch (err) {
       console.log(err);
     }

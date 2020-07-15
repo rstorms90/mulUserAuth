@@ -66,7 +66,8 @@ export type Post = {
 
 export type Mutation = {
    __typename?: 'Mutation';
-  register: Scalars['Boolean'];
+  register: RegisterResponse;
+  confirmUser: Scalars['String'];
   login: LoginResponse;
   logout: Scalars['Boolean'];
   revokeRefreshTokensForUser: Scalars['Boolean'];
@@ -118,6 +119,12 @@ export type MutationEditPostArgs = {
   id: Scalars['Float'];
 };
 
+export type RegisterResponse = {
+   __typename?: 'RegisterResponse';
+  emailToken: Scalars['String'];
+  email: Scalars['String'];
+};
+
 export type LoginResponse = {
    __typename?: 'LoginResponse';
   accessToken: Scalars['String'];
@@ -133,6 +140,14 @@ export type AddPostMutationVariables = {
 export type AddPostMutation = (
   { __typename?: 'Mutation' }
   & Pick<Mutation, 'addPost'>
+);
+
+export type ConfirmUserMutationVariables = {};
+
+
+export type ConfirmUserMutation = (
+  { __typename?: 'Mutation' }
+  & Pick<Mutation, 'confirmUser'>
 );
 
 export type DeletePostMutationVariables = {
@@ -248,7 +263,10 @@ export type RegisterMutationVariables = {
 
 export type RegisterMutation = (
   { __typename?: 'Mutation' }
-  & Pick<Mutation, 'register'>
+  & { register: (
+    { __typename?: 'RegisterResponse' }
+    & Pick<RegisterResponse, 'emailToken' | 'email'>
+  ) }
 );
 
 export type RemoveUserMutationVariables = {
@@ -321,6 +339,35 @@ export function useAddPostMutation(baseOptions?: ApolloReactHooks.MutationHookOp
 export type AddPostMutationHookResult = ReturnType<typeof useAddPostMutation>;
 export type AddPostMutationResult = ApolloReactCommon.MutationResult<AddPostMutation>;
 export type AddPostMutationOptions = ApolloReactCommon.BaseMutationOptions<AddPostMutation, AddPostMutationVariables>;
+export const ConfirmUserDocument = gql`
+    mutation confirmUser {
+  confirmUser
+}
+    `;
+export type ConfirmUserMutationFn = ApolloReactCommon.MutationFunction<ConfirmUserMutation, ConfirmUserMutationVariables>;
+
+/**
+ * __useConfirmUserMutation__
+ *
+ * To run a mutation, you first call `useConfirmUserMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useConfirmUserMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [confirmUserMutation, { data, loading, error }] = useConfirmUserMutation({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useConfirmUserMutation(baseOptions?: ApolloReactHooks.MutationHookOptions<ConfirmUserMutation, ConfirmUserMutationVariables>) {
+        return ApolloReactHooks.useMutation<ConfirmUserMutation, ConfirmUserMutationVariables>(ConfirmUserDocument, baseOptions);
+      }
+export type ConfirmUserMutationHookResult = ReturnType<typeof useConfirmUserMutation>;
+export type ConfirmUserMutationResult = ApolloReactCommon.MutationResult<ConfirmUserMutation>;
+export type ConfirmUserMutationOptions = ApolloReactCommon.BaseMutationOptions<ConfirmUserMutation, ConfirmUserMutationVariables>;
 export const DeletePostDocument = gql`
     mutation DeletePost($id: Float!) {
   deletePost(id: $id)
@@ -598,7 +645,10 @@ export type PostsLazyQueryHookResult = ReturnType<typeof usePostsLazyQuery>;
 export type PostsQueryResult = ApolloReactCommon.QueryResult<PostsQuery, PostsQueryVariables>;
 export const RegisterDocument = gql`
     mutation Register($username: String!, $email: String!, $password: String!) {
-  register(username: $username, email: $email, password: $password)
+  register(username: $username, email: $email, password: $password) {
+    emailToken
+    email
+  }
 }
     `;
 export type RegisterMutationFn = ApolloReactCommon.MutationFunction<RegisterMutation, RegisterMutationVariables>;
