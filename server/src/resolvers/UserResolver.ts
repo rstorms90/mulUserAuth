@@ -150,7 +150,6 @@ export class UserResolver {
   @Mutation(() => String)
   async confirmUser(@Ctx() context: MyContext) {
     const token = context.req.headers['token'];
-    console.log(context.req.headers);
     if (!token) {
       return 'Sorry, you must provide a token from confirmed e-mail.';
     }
