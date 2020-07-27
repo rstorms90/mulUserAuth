@@ -6,9 +6,7 @@ import AppProvider from '../../context/AppProvider';
 
 import './App.css';
 
-interface Props {}
-
-export const App: React.FC<Props> = () => {
+export const App: React.FC = () => {
   const [loading, setLoading] = useState(true);
 
   // Retrieve refresh token

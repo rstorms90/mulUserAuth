@@ -5,9 +5,7 @@ import { FormGroup, TextField } from '@material-ui/core';
 
 import { useHistory } from 'react-router-dom';
 
-interface Props {}
-
-const Login: React.FC<Props> = () => {
+const Login: React.FC = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [login] = useLoginMutation();

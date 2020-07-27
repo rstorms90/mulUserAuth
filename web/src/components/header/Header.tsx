@@ -7,9 +7,7 @@ import Drawer from '../drawer/Drawer';
 import './Header.css';
 import '../../theme.css';
 
-interface Props {}
-
-const Header: React.FC<Props> = () => {
+const Header: React.FC = () => {
   const { data, loading } = useMeQuery();
 
   let body: any = null;

@@ -2,9 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { useMeQuery } from '../../generated/graphql';
 
-interface Props {}
-
-const Footer: React.FC<Props> = () => {
+const Footer: React.FC = () => {
   const { data, loading } = useMeQuery();
 
   let userData: any = null;

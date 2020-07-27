@@ -2,9 +2,7 @@ import React from 'react';
 import { usePostsQuery } from '../../generated/graphql';
 import Post from '../post/Post';
 
-interface Props {}
-
-const AllPosts: React.FC<Props> = () => {
+const AllPosts: React.FC = () => {
   const { data, loading, error } = usePostsQuery();
 
   let postsData: any = null;
