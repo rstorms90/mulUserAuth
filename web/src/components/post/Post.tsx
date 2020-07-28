@@ -8,8 +8,6 @@ import {
   useMeQuery,
 } from '../../generated/graphql';
 
-// import '../../theme.css';
-
 interface Props {
   post: any;
 }
@@ -27,15 +25,16 @@ const Post: React.FC<Props> = ({ post }) => {
   let user = data?.me;
   const author = post.user.username;
   let body = null;
+
+  if (error && error.data?.deletePost === false) {
+    return <Redirect to="/404" />;
+  }
+
   const editCurrentPost = (post: any) => {
     setTitle(post.title);
     setDescription(post.description);
     setIsEditing(!isEditing);
   };
-
-  if (error && error.data?.deletePost === false) {
-    return <Redirect to="/404" />;
-  }
 
   const shortenPostDescription = (post: any) =>
     post.length > 55 ? `${post.substring(0, 55)}...` : post;
@@ -43,7 +42,7 @@ const Post: React.FC<Props> = ({ post }) => {
   if (data) {
     const path =
       location.pathname === '/'
-        ? `/user/${author}/${user?.id}/posts/${post.id}`
+        ? `/user/${author}/${post.user.id}/posts/${post.id}`
         : `${location.pathname}/${post.id}`;
 
     const authorValidation = author === data.me?.username;
@@ -65,7 +64,7 @@ const Post: React.FC<Props> = ({ post }) => {
                   refetchQueries: [
                     {
                       query: GetPostsByUserDocument,
-                      variables: { userId: user?.id },
+                      variables: { username: user?.username },
                     },
                   ],
                 });

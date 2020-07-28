@@ -66,7 +66,7 @@ export type Post = {
 
 export type Mutation = {
    __typename?: 'Mutation';
-  register: RegisterResponse;
+  register?: Maybe<RegisterResponse>;
   confirmUser: Scalars['String'];
   login: LoginResponse;
   logout: Scalars['Boolean'];
@@ -249,7 +249,7 @@ export type PostsQuery = (
     & Pick<Post, 'id' | 'title' | 'description'>
     & { user: (
       { __typename?: 'User' }
-      & Pick<User, 'username'>
+      & Pick<User, 'id' | 'username'>
     ) }
   )> }
 );
@@ -263,10 +263,10 @@ export type RegisterMutationVariables = {
 
 export type RegisterMutation = (
   { __typename?: 'Mutation' }
-  & { register: (
+  & { register?: Maybe<(
     { __typename?: 'RegisterResponse' }
     & Pick<RegisterResponse, 'emailToken' | 'email'>
-  ) }
+  )> }
 );
 
 export type RemoveUserMutationVariables = {
@@ -613,6 +613,7 @@ export const PostsDocument = gql`
     title
     description
     user {
+      id
       username
     }
   }

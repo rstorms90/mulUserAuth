@@ -30,7 +30,7 @@ export class PostResolver {
   // Query for all posts by user
   @Query(() => [Post])
   async getPostsByUser(@Arg('userId') userId: number) {
-    // Grab all posts by username
+    // Grab all posts by userId
     let posts = await Post.find({
       relations: ['user'],
       where: {

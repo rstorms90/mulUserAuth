@@ -4,6 +4,7 @@ query Posts {
     title
     description
     user {
+      id
       username
     }
   }

@@ -31,9 +31,9 @@ export const Register: React.FC<RouteComponentProps> = ({ history }) => {
             });
 
             if (response && response.data) {
-              const { emailToken } = response.data?.register;
-              localStorage.setItem('emc', emailToken);
-              history.push('/confirmEmail');
+              // const { emailToken } = response.data?.register;
+              // localStorage.setItem('emc', emailToken);
+              // history.push('/confirmEmail');
             }
           } else {
             alert('Choose a valid e-mail.');

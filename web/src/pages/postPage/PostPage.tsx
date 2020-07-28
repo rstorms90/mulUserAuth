@@ -1,5 +1,5 @@
 import React from 'react';
-import { RouteComponentProps, useHistory } from 'react-router-dom';
+import { RouteComponentProps, useHistory, Link } from 'react-router-dom';
 import { useGetPostQuery, useMeQuery } from '../../generated/graphql';
 
 import '../../theme.css';
@@ -44,7 +44,12 @@ export const PostPage = ({ match }: RouteComponentProps<Props>) => {
       <div>
         <h2>{title}</h2>
         <h5>{description}</h5>
-        <h5>Author: {currentUser ? 'Me' : user}</h5>
+        <Link to={{ pathname: `/user/${user}` }} className="link">
+          <h5>
+            <span className="post-title">Author:</span>
+            <span className="post-author">{currentUser ? 'Me' : user}</span>
+          </h5>
+        </Link>
         <h6>{date}</h6>
       </div>
     );
