@@ -4,8 +4,8 @@ import { FormGroup, TextField } from '@material-ui/core';
 import {
   useDeletePostMutation,
   useEditPostMutation,
-  GetPostsByUserDocument,
   useMeQuery,
+  PostsDocument,
 } from '../../generated/graphql';
 
 interface Props {
@@ -62,10 +62,7 @@ const Post: React.FC<Props> = ({ post }) => {
                     description: description,
                   },
                   refetchQueries: [
-                    {
-                      query: GetPostsByUserDocument,
-                      variables: { username: user?.username },
-                    },
+                    { query: PostsDocument, variables: { userId: user?.id } },
                   ],
                 });
 
@@ -141,7 +138,7 @@ const Post: React.FC<Props> = ({ post }) => {
                   },
                   refetchQueries: [
                     {
-                      query: GetPostsByUserDocument,
+                      query: PostsDocument,
                       variables: { userId: user?.id },
                     },
                   ],

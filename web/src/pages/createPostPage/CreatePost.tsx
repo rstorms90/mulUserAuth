@@ -3,7 +3,7 @@ import { FormGroup, TextField } from '@material-ui/core';
 import {
   useMeQuery,
   useAddPostMutation,
-  GetPostsByUserDocument,
+  PostsDocument,
 } from '../../generated/graphql';
 import { useHistory, Redirect } from 'react-router-dom';
 
@@ -49,14 +49,14 @@ export const CreatePost: React.FC<Props> = () => {
               },
               refetchQueries: [
                 {
-                  query: GetPostsByUserDocument,
+                  query: PostsDocument,
                   variables: { username: user?.username },
                 },
               ],
             });
 
             if (response && response.data) {
-              history.push(`/user/${user?.id}/posts`);
+              history.push(`/user/${user?.username}/${user?.id}/posts`);
             }
           }}
         >
