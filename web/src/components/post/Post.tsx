@@ -6,6 +6,7 @@ import {
   useEditPostMutation,
   GetPostsByUserDocument,
   useMeQuery,
+  GetPostsByUserQuery,
 } from '../../generated/graphql';
 
 interface Props {
@@ -64,7 +65,7 @@ const Post: React.FC<Props> = ({ post }) => {
                   refetchQueries: [
                     {
                       query: GetPostsByUserDocument,
-                      variables: { username: user?.username },
+                      variables: { userId: user?.id },
                     },
                   ],
                 });
@@ -149,6 +150,8 @@ const Post: React.FC<Props> = ({ post }) => {
 
                 if (response.data?.deletePost === false) {
                   return <Redirect to="/404" />;
+                } else {
+                  console.log(`Deleted Post ${post.id}`);
                 }
               }}
             >

@@ -50,13 +50,14 @@ export const CreatePost: React.FC<Props> = () => {
               refetchQueries: [
                 {
                   query: GetPostsByUserDocument,
-                  variables: { username: user?.username },
+                  variables: { userId: user?.id },
                 },
               ],
             });
 
             if (response && response.data) {
-              history.push(`/user/${user?.id}/posts`);
+              console.log(response);
+              history.push(`/user/${user?.username}/${user?.id}/posts`);
             }
           }}
         >
