@@ -20,7 +20,7 @@ export const Posts = ({ match }: RouteComponentProps<Props>) => {
     variables: {
       userId: parseInt(match.params.id),
     },
-    fetchPolicy: 'no-cache',
+    fetchPolicy: 'network-only',
   });
 
   let usersPosts: any = null;

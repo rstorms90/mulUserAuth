@@ -3,9 +3,9 @@ import { FormGroup, TextField } from '@material-ui/core';
 import {
   useMeQuery,
   useAddPostMutation,
-  PostsDocument,
+  GetPostsByUserDocument,
 } from '../../generated/graphql';
-import { useHistory, Redirect } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 
 interface Props {}
 
@@ -49,8 +49,8 @@ export const CreatePost: React.FC<Props> = () => {
               },
               refetchQueries: [
                 {
-                  query: PostsDocument,
-                  variables: { username: user?.username },
+                  query: GetPostsByUserDocument,
+                  variables: { userId: user?.id },
                 },
               ],
             });

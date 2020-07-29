@@ -3,7 +3,9 @@ import { usePostsQuery } from '../../generated/graphql';
 import Post from '../post/Post';
 
 const AllPosts: React.FC = () => {
-  const { data, loading, error } = usePostsQuery();
+  const { data, loading, error } = usePostsQuery({
+    pollInterval: 100,
+  });
 
   let postsData: any = null;
 

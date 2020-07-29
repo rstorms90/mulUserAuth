@@ -184,7 +184,7 @@ export type GetPostsByUserQuery = (
     & Pick<Post, 'id' | 'title' | 'description' | 'createdAt'>
     & { user: (
       { __typename?: 'User' }
-      & Pick<User, 'username'>
+      & Pick<User, 'id' | 'username'>
     ) }
   )> }
 );
@@ -438,6 +438,7 @@ export const GetPostsByUserDocument = gql`
     description
     createdAt
     user {
+      id
       username
     }
   }

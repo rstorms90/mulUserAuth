@@ -5,7 +5,7 @@ import {
   useDeletePostMutation,
   useEditPostMutation,
   useMeQuery,
-  PostsDocument,
+  GetPostsByUserDocument,
 } from '../../generated/graphql';
 
 interface Props {
@@ -62,7 +62,10 @@ const Post: React.FC<Props> = ({ post }) => {
                     description: description,
                   },
                   refetchQueries: [
-                    { query: PostsDocument, variables: { userId: user?.id } },
+                    {
+                      query: GetPostsByUserDocument,
+                      variables: { userId: user?.id },
+                    },
                   ],
                 });
 
@@ -116,9 +119,9 @@ const Post: React.FC<Props> = ({ post }) => {
                   </h5>
                 </Link>
               )}
-              {authorValidation && (
+              {authorValidation && location.pathname !== '/' && (
                 <button
-                  className="commonBtn"
+                  className="commonBtn editBtn"
                   onClick={() => editCurrentPost(post)}
                 >
                   Edit Post
@@ -126,10 +129,10 @@ const Post: React.FC<Props> = ({ post }) => {
               )}
             </>
           )}
-          {body}
-          {authorValidation && (
+
+          {authorValidation && location.pathname !== '/' && (
             <button
-              className="secondaryBtn"
+              className="secondaryBtn delBtn"
               onClick={async (e) => {
                 e.preventDefault();
                 const response = await deletePost({
@@ -138,7 +141,7 @@ const Post: React.FC<Props> = ({ post }) => {
                   },
                   refetchQueries: [
                     {
-                      query: PostsDocument,
+                      query: GetPostsByUserDocument,
                       variables: { userId: user?.id },
                     },
                   ],

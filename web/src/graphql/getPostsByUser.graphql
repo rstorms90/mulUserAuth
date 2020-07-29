@@ -5,6 +5,7 @@ query GetPostsByUser($userId: Float!) {
     description
     createdAt
     user {
+      id
       username
     }
   }
