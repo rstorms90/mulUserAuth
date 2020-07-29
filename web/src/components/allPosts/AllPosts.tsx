@@ -17,6 +17,10 @@ const AllPosts: React.FC = () => {
     postsData = null;
   }
 
+  if (error) {
+    postsData = null;
+  }
+
   if (data) {
     const posts: any = data.posts;
 

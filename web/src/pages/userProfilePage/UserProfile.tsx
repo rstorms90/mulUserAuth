@@ -12,9 +12,10 @@ export const UserProfile = ({ match }: RouteComponentProps<Props>) => {
   const username = match.params.user;
   let history = useHistory();
 
+  let myProfile = data?.me?.username === username;
   let currentUser = null;
 
-  if (data?.me?.username === username) {
+  if (myProfile) {
     currentUser = <span>My</span>;
   } else {
     currentUser = <div>{username}'s</div>;
@@ -24,7 +25,7 @@ export const UserProfile = ({ match }: RouteComponentProps<Props>) => {
     <div className="UserProfile page">
       <button onClick={() => history.goBack()}>Back</button>
       <h1>{currentUser} Profile</h1>
-      <UserInfo user={match.params.user} />
+      <UserInfo user={match.params.user} myProfile={myProfile} />
     </div>
   );
 };

@@ -1,0 +1,18 @@
+.username-container,
+.role-container {
+  display: flex;
+  align-items: center;
+  cursor: default;
+}
+.username-title,
+.role-title {
+  padding: 0 10px 0 0;
+}
+.user-info {
+  color: #30b3fd;
+}
+
+.posts-link {
+  text-decoration: none;
+  color: #30b3fd;
+}
