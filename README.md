@@ -2,11 +2,10 @@
 
 ## What is it?
 
-Current project in alpha (not hosted) with custom user authentication and administrators. Looking forward, I intend to have a series of collected work per user, stored in another table of the database. Ability to organize in different lists, save, edit, and delete each collected piece of work.
+Current project in alpha (not hosted) with custom user authentication and administrators. The iteration of this development is nearing an end where it is a multi-user blog and soon enough will build for video integration.
 
 ### Currently
 
-- hashed & salted passwords
 - user authentication and authorization
 - admins able to delete users
 - protected routes

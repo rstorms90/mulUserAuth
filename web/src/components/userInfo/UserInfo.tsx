@@ -29,7 +29,7 @@ export const UserInfo: React.FC<Props> = ({ user, myProfile }) => {
 
   if (data) {
     const searchedUser = data.getUser[0];
-    const searchedUserId = searchedUser.id;
+    const searchedUserId: number = searchedUser.id;
     const username: string = searchedUser.username;
     const avatar: string = searchedUser.avatar;
     const role: string = searchedUser.role;
