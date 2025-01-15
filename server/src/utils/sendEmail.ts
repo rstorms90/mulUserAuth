@@ -19,9 +19,9 @@ export async function sendEmail(email: string, url: string) {
   `;
 
   const mailOptions = {
-    from: `Mitigate Police Brutality ${process.env.TRANSPORTER_EMAIL}`, // sender address
+    from: `__ ${process.env.TRANSPORTER_EMAIL}`, // sender address
     to: email, // list of receivers
-    subject: 'Welcome to Mitigate Police Brutality', // Subject line
+    subject: 'Welcome to __', // Subject line
     html: emailBody, // html body
   };
 
